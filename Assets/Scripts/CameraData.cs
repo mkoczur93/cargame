@@ -1,37 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "Data", menuName = "Data/CameraData", order = 1)]
-public class CameraData : ScriptableObject
+namespace Camera
 {
-
-    [SerializeField]
-    private Vector3 offset;
-    [SerializeField]
-    private float speed = 1f;
-
-   public Vector3 Offset
+    [CreateAssetMenu(fileName = "Data", menuName = "Data/CameraData", order = 1)]
+    public class CameraData : ScriptableObject
     {
-        get
+
+        
+        [SerializeField]
+        private float speed = 1f;
+
+        
+        public float Speed
         {
-            return offset;
-        }
-        set
-        {
-            offset = value;
+
+            get
+            {
+                return speed;
+            }
         }
 
 
     }
-    public float Speed
-    {
-
-        get
-        {
-            return speed;
-        }
-    }
-
-    
 }

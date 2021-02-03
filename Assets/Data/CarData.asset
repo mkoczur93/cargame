@@ -18,4 +18,4 @@ MonoBehaviour:
   direction: 0
   speed: {x: -0, y: 0}
   brakingSpeed: 1
-  minValue: 0
+  basicDrag: 0.2
