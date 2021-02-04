@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿namespace Car
+{
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Car
-{
+
     [CreateAssetMenu(fileName = "Data", menuName = "Data/CarData", order = 1)]
     public class CarData : ScriptableObject
     {

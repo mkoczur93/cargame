@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Car;
-
-namespace Player
+﻿namespace Player
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using Car;
+
+
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
     {
@@ -16,9 +17,9 @@ namespace Player
 
         [SerializeField]
         private CarData carData = null;
-        private Rigidbody2D rb = null;        
+        private Rigidbody2D rb = null;
         private Vector2 speed = Vector2.zero;
-        private bool currentSpeed = false;
+        private bool isMotion = false;
 
 
         private void Start()
@@ -31,13 +32,13 @@ namespace Player
         private void FixedUpdate()
         {
             PlayerMovement();
-            
+
         }
         private void Update()
         {
             //Debug.Log(currentSpeed);
             CheckCurrentSpeed();
-            
+
         }
 
         public void PlayerMovement()
@@ -46,15 +47,18 @@ namespace Player
             {
                 rb.drag = carData.BrakingSpeed;
             }
-            if(Input.GetKeyUp(KeyCode.Space) && rb.drag != carData.BasicDrag)
+            if (Input.GetKeyUp(KeyCode.Space))
             {
-                rb.drag = carData.BasicDrag;
+                if (rb.drag != carData.BasicDrag)
+                {
+                    rb.drag = carData.BasicDrag;
+                }
             }
-           
+
 
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
             {
-                
+
                 //Debug.Log(rb.drag);               
                 speed = transform.up * (Input.GetAxis("Vertical") * carData.Acceleration);
                 rb.AddForce(speed);
@@ -63,7 +67,7 @@ namespace Player
                 rb.AddForce(rb.GetRelativeVector(relativeForce));
             }
 
-            
+
 
 
             if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
@@ -96,22 +100,22 @@ namespace Player
 
 
         }
-      
+
 
         public void CheckCurrentSpeed()
         {
             if (rb.velocity != Vector2.zero)
-                currentSpeed = true;
+                isMotion = true;
             else
-                currentSpeed = false;
+                isMotion = false;
         }
 
-       
-        public bool CurrentSpeed
+
+        public bool IsMotion
         {
             get
             {
-                return currentSpeed;
+                return isMotion;
             }
         }
 

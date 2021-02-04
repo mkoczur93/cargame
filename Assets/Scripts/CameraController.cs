@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Camera;
-using Player;
-
-namespace Camera
+﻿namespace Camera
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using Camera;
+    using Player;
+
+
     public class CameraController : MonoBehaviour
     {
 
@@ -19,14 +20,14 @@ namespace Camera
 
         void Start()
         {
-            playerController = player.GetComponent<PlayerMovementController>();      
+            playerController = player.GetComponent<PlayerMovementController>();
             offset = transform.position - player.transform.position;
         }
 
 
         void Update()
         {
-            
+
             MovingCamera();
 
 
@@ -35,7 +36,7 @@ namespace Camera
         public void MovingCamera()
         {
 
-            if (playerController != null && playerController.CurrentSpeed == true)
+            if (playerController != null && playerController.IsMotion == true)
             {
 
                 float interpolation = cam.Speed * Time.deltaTime;

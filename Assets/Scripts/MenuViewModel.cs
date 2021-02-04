@@ -1,68 +1,42 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityWeld.Binding;
-using System.ComponentModel;
-using UnityEngine.SceneManagement;
+﻿namespace MainProject.UI
+{
+
+    using System.Collections;
+    using UnityEngine;
+    using UnityWeld.Binding;
+    using System.ComponentModel;
+    using UnityEngine.SceneManagement;
 
 
     [Binding]
-public class MenuViewModel : MonoBehaviour, INotifyPropertyChanged
+    public class MenuViewModel : ViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+
         [SerializeField]
-        private CanvasGroup mainMenu = null;
-        private bool paused = false;
+        private CanvasGroup mainMenu = null;        
         private string nameScene = string.Empty;
         // Start is called before the first frame update
         void Start()
         {
             mainMenu = mainMenu.GetComponent<CanvasGroup>();
-        if (mainMenu != null)
-        {
-            mainMenu.alpha = 0;
-            mainMenu.interactable = false;
-            mainMenu.blocksRaycasts = false;
+            SetupCanvasGroup(0, false, false);
+            nameScene = SceneManager.GetActiveScene().name;
+
         }
-        nameScene = SceneManager.GetActiveScene().name;
-            
-    }
 
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-            if (paused == false)
-            {
-                Time.timeScale = 0f;
-                paused = true;
-            }
-            else
-            {
-                Time.timeScale = 1f;
-                paused = false;
-            }
-                if (mainMenu.alpha == 1f)
-                    mainMenu.alpha = 0f;
-                else
-                    mainMenu.alpha = 1f;
-                mainMenu.interactable = !mainMenu.interactable;
-                mainMenu.blocksRaycasts = !mainMenu.blocksRaycasts;
-                Cursor.visible = mainMenu.enabled;
-                
-            }
+            //GamePaused();
         }
         [Binding]
         public void buttonResume()
         {
-            
-            mainMenu.alpha = 0f;
-            mainMenu.interactable = false;
-            mainMenu.blocksRaycasts = false;
-            Cursor.visible = mainMenu.enabled;
-            Time.timeScale = 1f;
-            paused = false;
-            
+
+            ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);            
+            id.hidePanel();
+            PanelManager.Paused = false;
+
 
         }
 
@@ -71,7 +45,20 @@ public class MenuViewModel : MonoBehaviour, INotifyPropertyChanged
         {
             SceneManager.LoadScene(nameScene);
 
-         }
+        }
+
+        private void SetupCanvasGroup(int alpha, bool interactable, bool blocksRaycasts)
+        {
+            if (mainMenu != null)
+            {
+                mainMenu.alpha = 0;
+                mainMenu.interactable = false;
+                mainMenu.blocksRaycasts = false;
+            }
+        }
+
+       
+
 
     }
-
+}

@@ -1,21 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Car;
-using Player;
-
-
-namespace RacingMap
+﻿namespace RacingMap
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using Car;
+    using Player;
+    using System;
+
+
+
     public class RacingMapControler : MonoBehaviour
 
     {
 
         [SerializeField]
-        private Car.CarData carData = null;        
+        private Car.CarData carData = null;
         [SerializeField]
-        private const float slowingDown = 2f;
-        private string Player = ObjectTag.ObjectTag.Player;
+        private const float slowingDown = 2f;        
+        private string Player = ObjectTagData.ObjectTagData.Player;
 
 
         void OnTriggerEnter2D(Collider2D col)
@@ -29,7 +31,7 @@ namespace RacingMap
                     //Debug.Log(Player);                
                     player.drag = slowingDown;
                 }
-               
+
 
             }
         }
