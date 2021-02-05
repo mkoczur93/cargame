@@ -5,21 +5,12 @@
     using UnityWeld.Binding;
     using System.ComponentModel;
     using UnityEngine.SceneManagement;
+    using System.Linq;
 
-
-    public class InputManager : ViewModelInputManager
+    public class InputManager : MonoBehaviour
     {
 
-        private bool hiddenAllMenuPanel;
-        private bool paused;
 
-        
-
-        void Start()
-        {
-            hiddenAllMenuPanel = InputManagerController.Instance.HiddenAllMenuPanel;
-            paused = InputManagerController.Instance.Paused;
-        }
         void Update()
         {
             GamePaused();
@@ -28,27 +19,41 @@
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (hiddenAllMenuPanel)
-                {
-                    if (paused == false)
-                    {
-                        Time.timeScale = 0f;
-                        paused = true;
-                        ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
-                        id.showPanel();
 
-                    }
-                    else
-                    {
-                        Time.timeScale = 1f;
-                        paused = false;
-                        ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
-                        id.hidePanel();
-                    }
+                
+                var isMainMenuOpened = ViewModelController.Instance.IsModelOpened(PanelUI.MainPanel);
+                
+                if (isMainMenuOpened == false && Time.timeScale == 0)
+                {
+                    return;
                 }
+                
+                    setPause();
+                
+            }
+
+        }
+        private void setPause()
+        {
+            var currentTime = Time.timeScale;
+            if (currentTime == 0)
+            {
+                Time.timeScale = 1f;
+                ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
+                id.hidePanel();
+                
 
             }
-        }
+            else
+            {
+                Time.timeScale = 0f;
+                ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
+                id.showPanel();
+            }
 
+        }
     }
+
 }
+
+

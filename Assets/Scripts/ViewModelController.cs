@@ -10,7 +10,14 @@
     {
         private Dictionary<PanelUI, ViewModel> RegisterListViewModel = new Dictionary<PanelUI, ViewModel>();
         private static ViewModelController instance = null;
+        private static bool hiddenAllMenuPanel = true;
 
+        public bool HiddenAllMenuPanel
+        {
+            get => hiddenAllMenuPanel;
+            set => hiddenAllMenuPanel = value;
+
+        }
         public void RegisterViewModel(ViewModel model)
         {
             RegisterListViewModel.Add(model.Id, model);
@@ -38,6 +45,24 @@
 
             }
             return null;
+        }
+
+        public List<ViewModel> GetOpenedPanels()
+        {
+            var models = new List<ViewModel>();
+            foreach (var item in RegisterListViewModel.Values)
+            {
+                if (item.canvas.alpha == 1)
+                {
+                    models.Add(item);
+                }
+            }
+            return models;
+        }
+        public bool IsModelOpened(PanelUI id)
+        {
+            var panel = getViewModel(id);
+            return panel.canvas.alpha == 1;
         }
 
     }

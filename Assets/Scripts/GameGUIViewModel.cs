@@ -6,13 +6,23 @@
     using System;
     using MainProject.UI;
 
+
     [Binding]
     public class GameGUIViewModel : ViewModel, INotifyPropertyChanged
     {
 
-        private int fps = 0;
-        private float frame = 0f;
-        int counter = 0;
+        private int counterFps = 0;
+        private static GameGUIViewModel instance = null;
+        public static GameGUIViewModel Instance
+        {
+            get => instance;
+        }
+
+        void Awake()
+        {
+            instance = this;
+
+        }
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -20,50 +30,29 @@
         }
 
         // Update is called once per frame
-        void Update()
-        {
-
-            if (InputManagerController.Instance.Paused != true)
-            {
-                frame = frame + 1f / Time.deltaTime;
-                
-                if (frame > 0)
-                {
-                    counter++;
-                    if (counter > 10)
-                    {
-                        frame = frame / counter;
-
-                        Fps = (int)frame;
-
-                        frame = 0;
-                        counter = 0;
 
 
-                    }
-                }
-            }
-        }
+
 
 
         [Binding]
-        public int Fps
+        public int CounterFps
         {
             get
             {
-                return fps;
+                return counterFps;
             }
             set
             {
-                if (fps == value)
+                if (counterFps == value)
                 {
                     return;
                 }
 
 
-                fps = value;
+                counterFps = value;
 
-                OnPropertyChanged(nameof(Fps));
+                OnPropertyChanged(nameof(CounterFps));
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -74,6 +63,9 @@
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+
+
 
 
 

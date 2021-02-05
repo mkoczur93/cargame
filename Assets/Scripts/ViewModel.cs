@@ -9,6 +9,11 @@
         [SerializeField]
         private PanelUI id = 0;
         CanvasGroup Canvas = null;
+
+        public CanvasGroup canvas
+        {
+            get => Canvas;
+        }
         public PanelUI Id
         {
             get => id;
@@ -46,5 +51,17 @@
                 
             }
         }
+
+        public void SetupCanvasGroup(int alpha, bool interactable, bool blocksRaycasts)
+        {
+            if (Canvas != null)
+            {
+                Canvas.alpha = alpha;
+                Canvas.interactable = interactable;
+                Canvas.blocksRaycasts = blocksRaycasts;
+            }
+        }
+
+
     }
 }

@@ -20,13 +20,15 @@
         private Rigidbody2D rb = null;
         private Vector2 speed = Vector2.zero;
         private bool isMotion = false;
-
+        public delegate void currentSpeed();
 
         private void Start()
         {
             speed = carData.Speed;
             this.rb = GetComponent<Rigidbody2D>();
-            rb.drag = carData.BasicDrag;
+            rb.drag = carData.BasicDrag;            
+            currentSpeed cs = new currentSpeed(CheckCurrentSpeed);
+            
         }
 
         private void FixedUpdate()
@@ -38,6 +40,7 @@
         {
             //Debug.Log(currentSpeed);
             CheckCurrentSpeed();
+            
 
         }
 
@@ -102,7 +105,7 @@
         }
 
 
-        public void CheckCurrentSpeed()
+         public void CheckCurrentSpeed()
         {
             if (rb.velocity != Vector2.zero)
                 isMotion = true;
