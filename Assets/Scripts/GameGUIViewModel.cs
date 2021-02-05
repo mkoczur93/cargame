@@ -7,32 +7,36 @@
     using MainProject.UI;
 
     [Binding]
-    public class GameGUIViewModel : MonoBehaviour, INotifyPropertyChanged
+    public class GameGUIViewModel : ViewModel, INotifyPropertyChanged
     {
 
         private string fps = string.Empty;
         private float frame = 0f;
         int counter = 0;
         // Start is called before the first frame update
-        void Start()
+        protected override void Start()
         {
-
+            base.Start();
         }
 
         // Update is called once per frame
         void Update()
         {
 
-            if (UI.PanelManager.Paused != true)
+            if (UI.InputManager.Paused != true)
             {
                 frame = frame + 1f / Time.deltaTime;
                 counter++;
                 if (counter > 10)
                 {
                     frame = frame / counter;
-                    Fps = "FPS:" + Mathf.RoundToInt(frame).ToString();
+                    if (frame > 0)
+                    {
+                        Fps = "FPS:" + Mathf.RoundToInt(frame).ToString();
+                    }
                     frame = 0;
                     counter = 0;
+                    
 
                 }
             }
@@ -67,10 +71,7 @@
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        public void SetFPS()
-        {
-
-        }
+       
 
 
     }

@@ -1,44 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ViewModel : MonoBehaviour
+﻿namespace MainProject.UI
 {
-    [SerializeField]
-    private PanelUI id;
-    public PanelUI Id
-    {
-        get => id;
-    }
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
 
-    public void Start()
+    public class ViewModel : MonoBehaviour
     {
-        ViewModelController.Instance.RegisterViewModel(this);
-    }
-    public void showPanel()
-    {
-        CanvasGroup Canvas = GetComponent<CanvasGroup>();
-        if (Canvas != null)
+        [SerializeField]
+        private PanelUI id = 0;
+        public PanelUI Id
         {
-            Canvas.alpha = 1;
-            Canvas.interactable = true;
-            Canvas.blocksRaycasts = true;
-            Cursor.visible = !Canvas.enabled;
-            Time.timeScale = 0f;
+            get => id;
         }
-    }
 
-    public void hidePanel()
-    {
-
-        CanvasGroup Canvas = GetComponent<CanvasGroup>();
-        if (Canvas != null)
+        protected virtual void Start()
         {
-            Canvas.alpha = 0f;
-            Canvas.interactable = false;
-            Canvas.blocksRaycasts = false;
-            Cursor.visible = Canvas.enabled;
-            Time.timeScale = 1f;
+            //Debug.Log(this);
+            ViewModelController.Instance.RegisterViewModel(this);
+        }
+        public void showPanel()
+        {
+            CanvasGroup Canvas = GetComponent<CanvasGroup>();
+            if (Canvas != null)
+            {
+                Canvas.alpha = 1;
+                Canvas.interactable = true;
+                Canvas.blocksRaycasts = true;
+                
+
+            }
+        }
+
+        public void hidePanel()
+        {
+
+            CanvasGroup Canvas = GetComponent<CanvasGroup>();
+            if (Canvas != null)
+            {
+                Canvas.alpha = 0f;
+                Canvas.interactable = false;
+                Canvas.blocksRaycasts = false;
+                
+                
+            }
         }
     }
 }
