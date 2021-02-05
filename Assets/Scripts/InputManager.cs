@@ -7,12 +7,19 @@
     using UnityEngine.SceneManagement;
 
 
-    public class InputManager : MonoBehaviour
+    public class InputManager : ViewModelInputManager
     {
-        private static bool paused = false;
-        private static bool hiddenAllMenuPanel = true;
-        public static bool Paused { get => paused; set => paused = value; }
-        public static bool HiddenAllMenuPanel { get => hiddenAllMenuPanel; set => hiddenAllMenuPanel = value; }
+
+        private bool hiddenAllMenuPanel;
+        private bool paused;
+
+        
+
+        void Start()
+        {
+            hiddenAllMenuPanel = InputManagerController.Instance.HiddenAllMenuPanel;
+            paused = InputManagerController.Instance.Paused;
+        }
         void Update()
         {
             GamePaused();

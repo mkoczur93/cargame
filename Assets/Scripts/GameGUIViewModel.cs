@@ -10,7 +10,7 @@
     public class GameGUIViewModel : ViewModel, INotifyPropertyChanged
     {
 
-        private string fps = string.Empty;
+        private int fps = 0;
         private float frame = 0f;
         int counter = 0;
         // Start is called before the first frame update
@@ -23,28 +23,31 @@
         void Update()
         {
 
-            if (UI.InputManager.Paused != true)
+            if (InputManagerController.Instance.Paused != true)
             {
                 frame = frame + 1f / Time.deltaTime;
-                counter++;
-                if (counter > 10)
+                
+                if (frame > 0)
                 {
-                    frame = frame / counter;
-                    if (frame > 0)
+                    counter++;
+                    if (counter > 10)
                     {
-                        Fps = "FPS:" + Mathf.RoundToInt(frame).ToString();
-                    }
-                    frame = 0;
-                    counter = 0;
-                    
+                        frame = frame / counter;
 
+                        Fps = (int)frame;
+
+                        frame = 0;
+                        counter = 0;
+
+
+                    }
                 }
             }
         }
 
 
         [Binding]
-        public string Fps
+        public int Fps
         {
             get
             {
@@ -71,7 +74,7 @@
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-       
+
 
 
     }

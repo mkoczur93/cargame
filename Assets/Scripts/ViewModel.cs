@@ -8,6 +8,7 @@
     {
         [SerializeField]
         private PanelUI id = 0;
+        CanvasGroup Canvas = null;
         public PanelUI Id
         {
             get => id;
@@ -17,10 +18,11 @@
         {
             //Debug.Log(this);
             ViewModelController.Instance.RegisterViewModel(this);
+            Canvas = GetComponent<CanvasGroup>();
         }
         public void showPanel()
         {
-            CanvasGroup Canvas = GetComponent<CanvasGroup>();
+            
             if (Canvas != null)
             {
                 Canvas.alpha = 1;
@@ -34,7 +36,7 @@
         public void hidePanel()
         {
 
-            CanvasGroup Canvas = GetComponent<CanvasGroup>();
+            
             if (Canvas != null)
             {
                 Canvas.alpha = 0f;

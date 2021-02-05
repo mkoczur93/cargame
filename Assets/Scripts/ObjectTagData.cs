@@ -8,7 +8,7 @@
     public class ObjectTagData : ScriptableObject
     {
         [SerializeField]
-        private static string player = "Player";
+        private const string player = "Player";
 
         public static string Player
         {

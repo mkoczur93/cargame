@@ -15,6 +15,7 @@
         [SerializeField]
         private CanvasGroup mainMenu = null;        
         private string nameScene = string.Empty;
+
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -22,21 +23,19 @@
             mainMenu = mainMenu.GetComponent<CanvasGroup>();
             SetupCanvasGroup(0, false, false);
             nameScene = SceneManager.GetActiveScene().name;
+ 
 
         }
 
-
-        void Update()
-        {
-            //GamePaused();
-        }
         [Binding]
         public void buttonResume()
         {
 
             ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);            
             id.hidePanel();
-            InputManager.Paused = false;
+
+            InputManagerController.Instance.Paused = false;
+            InputManagerController.Instance.HiddenAllMenuPanel = true;             
             EventSystem.current.SetSelectedGameObject(null);
             Time.timeScale = 1f;
             Cursor.visible = !Cursor.visible;
@@ -51,7 +50,7 @@
             hidePanel();
             ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.ConfirmNewGamePanel);
             id.showPanel();
-            InputManager.HiddenAllMenuPanel = false;
+            InputManagerController.Instance.HiddenAllMenuPanel = false;
             EventSystem.current.SetSelectedGameObject(null);
 
 
@@ -64,7 +63,7 @@
             hidePanel();
             ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.ConfirmQuitGamePanel);
             id.showPanel();
-            InputManager.HiddenAllMenuPanel = false;
+            InputManagerController.Instance.HiddenAllMenuPanel = false;
             EventSystem.current.SetSelectedGameObject(null);
 
 
@@ -74,12 +73,12 @@
         [Binding]
         public void confirmNewGameBtnYes()
         {
-            InputManager.Paused = false;
+            InputManagerController.Instance.Paused = false;
             EventSystem.current.SetSelectedGameObject(null);
             SceneManager.LoadScene(nameScene);
             Time.timeScale = 1f;    
             Cursor.visible = !Cursor.visible;
-            InputManager.HiddenAllMenuPanel = true;
+            InputManagerController.Instance.HiddenAllMenuPanel = true;
         }
         [Binding]
         public void confirmNewGameBtnNo()
@@ -87,7 +86,7 @@
             hidePanel();
             ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
             id.showPanel();
-            InputManager.HiddenAllMenuPanel = true;
+            InputManagerController.Instance.HiddenAllMenuPanel = true;
             EventSystem.current.SetSelectedGameObject(null);
         }
 
@@ -103,7 +102,7 @@
             hidePanel();
             ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
             id.showPanel();
-            InputManager.HiddenAllMenuPanel = true;
+            InputManagerController.Instance.HiddenAllMenuPanel = true;
             EventSystem.current.SetSelectedGameObject(null);
         }
 
@@ -111,9 +110,9 @@
         {
             if (mainMenu != null)
             {
-                mainMenu.alpha = 0;
-                mainMenu.interactable = false;
-                mainMenu.blocksRaycasts = false;
+                mainMenu.alpha = alpha;
+                mainMenu.interactable = interactable;
+                mainMenu.blocksRaycasts = blocksRaycasts;
             }
         }
 
