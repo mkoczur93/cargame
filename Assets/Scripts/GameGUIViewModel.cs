@@ -12,6 +12,7 @@
     {
 
         private int counterFps = 0;
+        private int counterLaps = 1;
         private static GameGUIViewModel instance = null;
         public static GameGUIViewModel Instance
         {
@@ -55,6 +56,28 @@
                 OnPropertyChanged(nameof(CounterFps));
             }
         }
+
+        [Binding]
+        public int CounterLaps
+        {
+            get
+            {
+                return counterLaps;
+            }
+            set
+            {
+                if (counterLaps == value)
+                {
+                    return;
+                }
+
+
+                counterLaps = value;
+
+                OnPropertyChanged(nameof(CounterLaps));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
