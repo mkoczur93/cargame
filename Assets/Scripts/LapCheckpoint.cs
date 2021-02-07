@@ -7,7 +7,7 @@
     using System;
     
 
-    public class CheckPointLaps : MonoBehaviour
+    public class LapCheckpoint : MonoBehaviour
     {
         private string Player = ObjectTagData.ObjectTagData.Player;
         void OnTriggerEnter2D(Collider2D col)

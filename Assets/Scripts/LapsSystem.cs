@@ -10,9 +10,9 @@
     {
         private int idTrigger = 0;
         private bool triggerPassed = false;
-        
 
-        CheckPointLaps[] array = null;
+
+        LapCheckpoint[] array = null;
         private List<LapsSystem> checkpoints = null;
         private static LapsSystem instance = null;
         private List<int> failedTriggers = null;
@@ -30,7 +30,7 @@
         void Start()
         {
             checkpoints = new List<LapsSystem>();
-            array = GetComponentsInChildren<CheckPointLaps>();
+            array = GetComponentsInChildren<LapCheckpoint>();
             failedTriggers = new List<int>();
             Player = ObjectTagData.ObjectTagData.Player;
             
@@ -76,7 +76,8 @@
                                         
                                     }
 
-                                    failedTriggers.Add(checkpoint.idTrigger);                                    
+                                    failedTriggers.Add(checkpoint.idTrigger);
+                                    Debug.Log("FT: " + failedTriggers.Count);
 
                                     return;
                                 }
@@ -85,7 +86,8 @@
 
                             else if (failedTriggers[failedTriggers.Count - 1] == checkpoint.idTrigger)
                             {
-                                failedTriggers.RemoveAt(failedTriggers.Count - 1);     
+                                failedTriggers.RemoveAt(failedTriggers.Count - 1);
+                                Debug.Log("FT: " + failedTriggers.Count);
                                 return;
                             }
 
@@ -93,6 +95,7 @@
                             {
 
                                 failedTriggers.Add(checkpoint.idTrigger);
+                                Debug.Log("FT: " + failedTriggers.Count);
                                 return;
 
                             }
@@ -116,12 +119,14 @@
 
                             if (failedTriggers[failedTriggers.Count - 1] == checkpoint.idTrigger)
                             {
-                                failedTriggers.RemoveAt(failedTriggers.Count - 1);                                
+                                failedTriggers.RemoveAt(failedTriggers.Count - 1);
+                                Debug.Log("FT: " + failedTriggers.Count);
                             }
 
                             else
                             {
-                                failedTriggers.Add(checkpoint.idTrigger);                                
+                                failedTriggers.Add(checkpoint.idTrigger);
+                                Debug.Log("FT: " + failedTriggers.Count);
                             }
 
                         }
@@ -152,12 +157,21 @@
                 foreach (var checkpoint in checkpoints)
                 {
                     if (checkpoint.triggerPassed == false)
+                    {
+                        foreach (var checkpoints in checkpoints)
+                        {
+                            checkpoints.triggerPassed = false;
+                            Debug.Log(checkpoints.triggerPassed + " " + checkpoints.idTrigger);
+
+                        }
                         return;
+                    }
 
                 }
                 foreach (var checkpoint in checkpoints)
                 {
-                    checkpoint.triggerPassed = false;                  
+                    checkpoint.triggerPassed = false;
+                    Debug.Log(checkpoint.triggerPassed + " " + checkpoint.idTrigger);
 
                 }
                                 
