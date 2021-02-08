@@ -34,7 +34,7 @@
             }
             return times;
         }
-        public List<string> GetLapsAllTimes()
+        public List<string> GetAllLapTimes()
         {
             var models = new List<string>();
             foreach (var laptime in lapTimes)
