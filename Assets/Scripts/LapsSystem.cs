@@ -11,7 +11,7 @@
     {
        
         LapCheckpoint[] baseCheckpoints = null;
-        private List<LapCheckpoint> checkpoints = null;
+        private List<Checkpoint> checkpoints = null;
         private static LapsSystem instance = null;
         private List<int> failedTriggers = null;
         //private string Player = null;
@@ -30,7 +30,7 @@
 
         void Start()
         {
-            checkpoints = new List<LapCheckpoint>();
+            checkpoints = new List<Checkpoint>();
             baseCheckpoints = GetComponentsInChildren<LapCheckpoint>();
             failedTriggers = new List<int>();
             Player = ObjectTagData.ObjectTagData.Player;
@@ -38,7 +38,7 @@
 
             for (int i = 0; i < baseCheckpoints.Length; i++)
             {
-                checkpoints.Add(new LapCheckpoint(baseCheckpoints[i].GetInstanceID(), false));
+                checkpoints.Add(new Checkpoint(baseCheckpoints[i].GetInstanceID(), false));
 
             }
 
@@ -166,23 +166,26 @@
                         foreach (var checkpoints in checkpoints)
                         {
                             checkpoints.TriggerPassed = false;
-                            Debug.Log(checkpoints.TriggerPassed + " " + checkpoints.IdTrigger);
+                           // Debug.Log(checkpoints.TriggerPassed + " " + checkpoints.IdTrigger);
 
                         }
                         return;
                     }
 
                 }
-
+                    
                 foreach (var checkpoint in checkpoints)
                 {
                     checkpoint.TriggerPassed = false;
-                    Debug.Log(checkpoint.TriggerPassed + " " + checkpoint.IdTrigger);
+                    //Debug.Log(checkpoint.TriggerPassed + " " + checkpoint.IdTrigger);
 
                 }
 
                 //GameGUIViewModel.Instance.CounterLaps += 1;
                 OnCheckPointReached?.Invoke();
+                LapTimeSystem.Instance.AddLapTime();
+                LapTimeSystem.Instance.CurrentTime = 0;
+
 
 
             }

@@ -13,20 +13,22 @@
 
         private int counterFps = 0;
         private int counterLaps = 1;
+        private string min = string.Empty;
+        private string sec = string.Empty;
+        private string msec = string.Empty;
+        [SerializeField]
+        private int maxLaps = 0;
 
         
        
 
-        void Awake()
-        {
-            
-
-        }
+ 
         // Start is called before the first frame update
         protected override void Start()
         {
             LapsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterLap);
             FpsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterFps);
+            FpsSystem.Instance.SubscribeOnCheckPointReached(IncrementWatch);
             base.Start();
         }
 
@@ -35,11 +37,17 @@
 
         public void IncrementCounterLap() { CounterLaps++; }
         public void IncrementCounterFps() { CounterFps = FpsSystem.Instance.Fps; }
+        public void IncrementWatch() 
+        {   Min = LapTimeSystem.Instance.Min.ToString("00");
+            Sec = LapTimeSystem.Instance.Sec.ToString("00");
+            Msec = LapTimeSystem.Instance.Msec.ToString("00"); 
+        }
 
         private void OnDestroy()
         {
             LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterLap);
             LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterFps);
+            LapTimeSystem.Instance.UnSubscribeOnCheckPointReached(IncrementWatch);
         }
 
 
@@ -56,6 +64,7 @@
                 {
                     return;
                 }
+               
 
 
                 counterFps = value;
@@ -73,15 +82,112 @@
             }
             set
             {
+                
                 if (counterLaps == value)
+                {
+                    return;
+                }
+               
+
+
+                counterLaps = value;
+
+                if (maxLaps < counterLaps)
+                {
+                    Time.timeScale = 0f;
+                    ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.EndOfTheGamePanel);
+                    id.showPanel();
+                    return;
+                }
+
+                OnPropertyChanged(nameof(CounterLaps));
+            }
+        }
+
+
+
+        [Binding]
+        public int MaxLaps
+        {
+            get
+            {
+                return maxLaps;
+            }
+            set
+            {
+                if (maxLaps == value)
+                {
+                    return;
+                }
+                
+
+                maxLaps = value;
+
+                OnPropertyChanged(nameof(MaxLaps));
+            }
+        }
+        [Binding]
+        public string Msec
+        {
+            get
+            {
+                return msec;
+            }
+            set
+            {
+                if (msec == value)
                 {
                     return;
                 }
 
 
-                counterLaps = value;
+                msec = value;
 
-                OnPropertyChanged(nameof(CounterLaps));
+                OnPropertyChanged(nameof(Msec));
+            }
+        }
+
+
+
+        [Binding]
+        public string Sec
+        {
+            get
+            {
+                return sec;
+            }
+            set
+            {
+                if (sec == value)
+                {
+                    return;
+                }
+
+
+                sec = value;
+
+                OnPropertyChanged(nameof(Sec));
+            }
+        }
+
+        [Binding]
+        public string Min
+        {
+            get
+            {
+                return min;
+            }
+            set
+            {
+                if (min == value)
+                {
+                    return;
+                }
+
+
+                min = value;
+
+                OnPropertyChanged(nameof(Min));
             }
         }
 

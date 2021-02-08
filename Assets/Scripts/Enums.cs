@@ -6,6 +6,7 @@
         ConfirmNewGamePanel = 2,
         ConfirmQuitGamePanel = 3,
         GameGUIPanel = 4,
+        EndOfTheGamePanel = 5,
         
 
 
