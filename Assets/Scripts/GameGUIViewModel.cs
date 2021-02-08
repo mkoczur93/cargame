@@ -5,7 +5,7 @@
     using UnityWeld.Binding;
     using System;
     using MainProject.UI;
-
+    using RacingMap;
 
     [Binding]
     public class GameGUIViewModel : ViewModel, INotifyPropertyChanged
@@ -13,27 +13,34 @@
 
         private int counterFps = 0;
         private int counterLaps = 1;
-        private static GameGUIViewModel instance = null;
-        public static GameGUIViewModel Instance
-        {
-            get => instance;
-        }
+
+        
+       
 
         void Awake()
         {
-            instance = this;
+            
 
         }
         // Start is called before the first frame update
         protected override void Start()
         {
+            LapsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterLap);
+            FpsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterFps);
             base.Start();
         }
 
         // Update is called once per frame
 
 
+        public void IncrementCounterLap() { CounterLaps++; }
+        public void IncrementCounterFps() { CounterFps = FpsSystem.Instance.Fps; }
 
+        private void OnDestroy()
+        {
+            LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterLap);
+            LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterFps);
+        }
 
 
         [Binding]

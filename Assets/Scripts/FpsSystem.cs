@@ -10,12 +10,33 @@
         private int fps = 0;
         private float frame = 0f;
         int counter = 0;
+        private Action OnCheckPointReached = null;
+        private static FpsSystem instance = null;
+
+        public static FpsSystem Instance { get => instance; set => instance = value; }
+        public int Fps { get => fps; }
+
+        private void Awake()
+        {
+            instance = this;
+
+        }
 
         void Update()
         {
             FpsCounter();
             
         }
+
+        public void SubscribeOnCheckPointReached(Action action)
+        {
+            OnCheckPointReached += action;
+        }
+        public void UnSubscribeOnCheckPointReached(Action action)
+        {
+            OnCheckPointReached -= action;
+        }
+
         public void FpsCounter()
         {
             if (Time.timeScale == 1f)
@@ -32,8 +53,7 @@
                         fps = (int)frame;
                         frame = 0;
                         counter = 0;
-                        GameGUIViewModel.Instance.CounterFps = fps;
-
+                        OnCheckPointReached?.Invoke();
                         //counterFps.CounterFps = fps;
 
 
