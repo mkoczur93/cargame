@@ -180,11 +180,14 @@
                     //Debug.Log(checkpoint.TriggerPassed + " " + checkpoint.IdTrigger);
 
                 }
-
+                
+                LapTimeSystem.Instance.AddLapTime();
+                
                 //GameGUIViewModel.Instance.CounterLaps += 1;
                 OnCheckPointReached?.Invoke();
-               // LapTimeSystem.Instance.AddLapTime();
-                LapTimeSystem.Instance.CurrentTime = 0;
+                
+                
+                
 
 
 

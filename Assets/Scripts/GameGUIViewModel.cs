@@ -16,11 +16,13 @@
         [SerializeField]
         private int maxLaps = 0;
         private string lapTime = string.Empty;
-
+        private GameObject obj = null;
         
-       
 
- 
+
+
+
+
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -85,15 +87,19 @@
 
 
                 counterLaps = value;
+                
 
                 if (maxLaps < counterLaps)
                 {
                     Time.timeScale = 0f;
                     ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.EndOfTheGamePanel);
                     id.showPanel();
+                    
                     return;
                 }
-
+                LapTimeSystem.Instance.CurrentTime = 0;
+                
+                
                 OnPropertyChanged(nameof(CounterLaps));
             }
         }
@@ -154,8 +160,7 @@
         }
 
 
-
-
+       
 
 
     }

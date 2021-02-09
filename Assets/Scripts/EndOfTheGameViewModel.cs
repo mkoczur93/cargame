@@ -15,7 +15,7 @@
     {
         private string nameScene = string.Empty;
         private string lapStatistics = string.Empty;
-        private List<string> lap = null;
+        
 
         
         [Binding]

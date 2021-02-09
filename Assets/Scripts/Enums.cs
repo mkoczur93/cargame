@@ -7,7 +7,8 @@
         ConfirmQuitGamePanel = 3,
         GameGUIPanel = 4,
         EndOfTheGamePanel = 5,
-        
+        LapResultsPanel = 6,
+
 
 
 

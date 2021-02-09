@@ -17,19 +17,26 @@
         private static LapTimeSystem instance = null;
         public static LapTimeSystem Instance { get => instance; set => instance = value; }
         public float CurrentTime { get => currentTime; set => currentTime = value; }
-       
-        //public void AddLapTime()
-       // {
-        //    lapTimes.Add(min.ToString("00") + " : " + sec.ToString("00") + " : " + msec.ToString("00"));
-      //  }
+
+         public void AddLapTime()
+         {
+            lapTimes.Add(String.Format(@"{0:mm\:ss\:ff}", timeSpan));
+          }
         public string getAllLapTimes()
         {
-            string times = null;
+            string times = string.Empty;
             foreach (var item in lapTimes)
             {
                 times = times + " " + item + "\n";
             }
             return times;
+        }
+
+        public string LastLapTime()
+        {
+            
+            var numbers = lapTimes.Count - 1;            
+            return lapTimes[numbers];
         }
         public List<string> GetAllLapTimes()
         {
