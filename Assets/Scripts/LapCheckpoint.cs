@@ -5,20 +5,16 @@
     using System.Collections.Generic;
     using UnityEngine;    
     using System;
+    using ObjectTagData;
     
 
     public class LapCheckpoint : MonoBehaviour
     {
-        private string Player = null;
-       
-        private void Start()
-        {
-            Player = ObjectTagData.ObjectTagData.Player;
-        }
+    
 
         void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.CompareTag(Player))
+            if (col.CompareTag(ObjectTagData.Player))
             {
                 //Debug.Log(this.GetInstanceID());
                 

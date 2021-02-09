@@ -1,5 +1,6 @@
 ﻿namespace MainProject.UI
 {
+    using RacingMap;
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -8,27 +9,23 @@
     public class LapTimeSystem : MonoBehaviour
     {
 
+        private TimeSpan timeSpan = new TimeSpan();
         private float currentTime = 0f;
-        private float msec = 0f;
-        private float sec = 0f;
-        private float min = 0f;
-        private Action OnCheckPointReached = null;
         private List<string> lapTimes = null;
         // Start is called before the first frame update
 
         private static LapTimeSystem instance = null;
         public static LapTimeSystem Instance { get => instance; set => instance = value; }
         public float CurrentTime { get => currentTime; set => currentTime = value; }
-        public float Min { get => min; }
-        public float Sec { get => sec; }
-        public float Msec { get => msec; }
-        public void AddLapTime(){
-            lapTimes.Add(min.ToString("00") + " : " + sec.ToString("00") + " : " +msec.ToString("00"));
-        }
+       
+        //public void AddLapTime()
+       // {
+        //    lapTimes.Add(min.ToString("00") + " : " + sec.ToString("00") + " : " + msec.ToString("00"));
+      //  }
         public string getAllLapTimes()
         {
             string times = null;
-            foreach(var item in lapTimes)
+            foreach (var item in lapTimes)
             {
                 times = times + " " + item + "\n";
             }
@@ -36,13 +33,8 @@
         }
         public List<string> GetAllLapTimes()
         {
-            var models = new List<string>();
-            foreach (var laptime in lapTimes)
-            {
-                models.Add(laptime);
 
-            }
-            return models;
+            return lapTimes;
         }
 
 
@@ -55,25 +47,17 @@
         }
 
 
-        // Update is called once per frame
-        void Update()
+      
+
+        public string LapTime()
         {
-            currentTime = currentTime + Time.deltaTime;
-            msec = (int)((currentTime - (int)currentTime) * 100);
-            sec = (int)(currentTime % 60);
-            min = (int)(currentTime / 60 % 60);
+
+            currentTime += Time.deltaTime;
+            timeSpan = TimeSpan.FromSeconds(currentTime);
+            return String.Format(@"{0:mm\:ss\:ff}", timeSpan);
             
-            OnCheckPointReached?.Invoke();
-        }
 
 
-        public void SubscribeOnCheckPointReached(Action action)
-        {
-            OnCheckPointReached += action;
-        }
-        public void UnSubscribeOnCheckPointReached(Action action)
-        {
-            OnCheckPointReached -= action;
         }
     }
 }

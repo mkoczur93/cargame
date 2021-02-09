@@ -12,12 +12,10 @@
     {
 
         private int counterFps = 0;
-        private int counterLaps = 1;
-        private string min = string.Empty;
-        private string sec = string.Empty;
-        private string msec = string.Empty;
+        private int counterLaps = 1;        
         [SerializeField]
         private int maxLaps = 0;
+        private string lapTime = string.Empty;
 
         
        
@@ -27,27 +25,23 @@
         protected override void Start()
         {
             LapsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterLap);
-            FpsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterFps);
-            FpsSystem.Instance.SubscribeOnCheckPointReached(IncrementWatch);
             base.Start();
         }
 
         // Update is called once per frame
 
-
-        public void IncrementCounterLap() { CounterLaps++; }
-        public void IncrementCounterFps() { CounterFps = FpsSystem.Instance.Fps; }
-        public void IncrementWatch() 
-        {   Min = LapTimeSystem.Instance.Min.ToString("00");
-            Sec = LapTimeSystem.Instance.Sec.ToString("00");
-            Msec = LapTimeSystem.Instance.Msec.ToString("00"); 
+        private void Update()
+        {
+            CounterFps = FpsSystem.Instance.FpsCounter();
+            LapTime = LapTimeSystem.Instance.LapTime();
         }
+        public void IncrementCounterLap() { CounterLaps++; }
+    
 
         private void OnDestroy()
         {
             LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterLap);
-            LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterFps);
-            LapTimeSystem.Instance.UnSubscribeOnCheckPointReached(IncrementWatch);
+
         }
 
 
@@ -127,69 +121,28 @@
             }
         }
         [Binding]
-        public string Msec
+        public string LapTime
         {
             get
             {
-                return msec;
+                return lapTime;
             }
             set
             {
-                if (msec == value)
+                if (lapTime == value)
                 {
                     return;
                 }
 
 
-                msec = value;
+                lapTime = value;
 
-                OnPropertyChanged(nameof(Msec));
+                OnPropertyChanged(nameof(LapTime));
             }
         }
 
 
 
-        [Binding]
-        public string Sec
-        {
-            get
-            {
-                return sec;
-            }
-            set
-            {
-                if (sec == value)
-                {
-                    return;
-                }
-
-
-                sec = value;
-
-                OnPropertyChanged(nameof(Sec));
-            }
-        }
-
-        [Binding]
-        public string Min
-        {
-            get
-            {
-                return min;
-            }
-            set
-            {
-                if (min == value)
-                {
-                    return;
-                }
-
-
-                min = value;
-
-                OnPropertyChanged(nameof(Min));
-            }
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

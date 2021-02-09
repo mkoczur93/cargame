@@ -44,7 +44,7 @@
             base.Start();            
             SetupCanvasGroup(0, false, false);
             nameScene = SceneManager.GetActiveScene().name;
-            LapTimeSystem.Instance.SubscribeOnCheckPointReached(Statistics);
+            LapsSystem.Instance.SubscribeOnCheckPointReached(Statistics);
 
 
         }

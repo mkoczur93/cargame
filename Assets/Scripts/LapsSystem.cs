@@ -6,6 +6,7 @@
     using UnityEngine;
     using MainProject.UI;
     using System;
+    using ObjectTagData;
 
     public class LapsSystem : MonoBehaviour
     {
@@ -13,10 +14,9 @@
         LapCheckpoint[] baseCheckpoints = null;
         private List<Checkpoint> checkpoints = null;
         private static LapsSystem instance = null;
-        private List<int> failedTriggers = null;
-        //private string Player = null;
-        private string Player = null;
+        private List<int> failedTriggers = null;      
         private Action OnCheckPointReached = null;
+       
 
 
         public static LapsSystem Instance { get => instance; set => instance = value; }
@@ -33,7 +33,7 @@
             checkpoints = new List<Checkpoint>();
             baseCheckpoints = GetComponentsInChildren<LapCheckpoint>();
             failedTriggers = new List<int>();
-            Player = ObjectTagData.ObjectTagData.Player;
+            
             
 
             for (int i = 0; i < baseCheckpoints.Length; i++)
@@ -156,7 +156,7 @@
         void OnTriggerEnter2D(Collider2D col)
         {
            
-            if (col.CompareTag(Player))
+            if (col.CompareTag(ObjectTagData.Player))
             {
                 
                 foreach (var checkpoint in checkpoints)
@@ -183,7 +183,7 @@
 
                 //GameGUIViewModel.Instance.CounterLaps += 1;
                 OnCheckPointReached?.Invoke();
-                LapTimeSystem.Instance.AddLapTime();
+               // LapTimeSystem.Instance.AddLapTime();
                 LapTimeSystem.Instance.CurrentTime = 0;
 
 

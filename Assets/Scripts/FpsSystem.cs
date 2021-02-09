@@ -12,6 +12,7 @@
         int counter = 0;
         private Action OnCheckPointReached = null;
         private static FpsSystem instance = null;
+        
 
         public static FpsSystem Instance { get => instance; set => instance = value; }
         public int Fps { get => fps; }
@@ -22,22 +23,8 @@
 
         }
 
-        void Update()
-        {
-            FpsCounter();
-            
-        }
-
-        public void SubscribeOnCheckPointReached(Action action)
-        {
-            OnCheckPointReached += action;
-        }
-        public void UnSubscribeOnCheckPointReached(Action action)
-        {
-            OnCheckPointReached -= action;
-        }
-
-        public void FpsCounter()
+              
+        public int FpsCounter()
         {
             if (Time.timeScale == 1f)
             {
@@ -53,15 +40,15 @@
                         fps = (int)frame;
                         frame = 0;
                         counter = 0;
-                        OnCheckPointReached?.Invoke();
-                        //counterFps.CounterFps = fps;
-
-
+                        
 
                     }
 
                 }
+
             }
+            return fps;
+            
         }
     }
 }
