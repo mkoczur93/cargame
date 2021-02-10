@@ -12,13 +12,13 @@
     {
     
 
-        void OnTriggerEnter2D(Collider2D col)
+        void OnTriggerExit2D(Collider2D col)
         {
             if (col.CompareTag(ObjectTagData.Player))
             {
                 //Debug.Log(this.GetInstanceID());
-                
-               LapsSystem.Instance.CheckTheCheckpoint(this.GetInstanceID());
+
+                LapsSystem.Instance.RegisterCheckpoint(this);
 
             }
         }

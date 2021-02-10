@@ -1,5 +1,6 @@
 ﻿namespace MainProject.UI
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -9,6 +10,7 @@
         [SerializeField]
         private PanelUI id = 0;
         CanvasGroup Canvas = null;
+        protected Action<PanelUI> onPanelShow = null;
 
         public CanvasGroup canvas
         {
@@ -33,7 +35,7 @@
                 Canvas.alpha = 1;
                 Canvas.interactable = true;
                 Canvas.blocksRaycasts = true;
-                
+                onPanelShow?.Invoke(Id);
 
             }
         }
@@ -60,6 +62,15 @@
                 Canvas.interactable = interactable;
                 Canvas.blocksRaycasts = blocksRaycasts;
             }
+        }
+
+        public void SubscribeOnPanelShow(Action<PanelUI> action)
+        {
+            onPanelShow += action;
+        }
+        public void UnSubscribeOnPanelShow(Action<PanelUI> action)
+        {
+            onPanelShow -= action;
         }
 
 

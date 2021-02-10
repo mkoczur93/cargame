@@ -12,37 +12,33 @@
     public class LapResultsViewModel : ViewModel
     {
         [SerializeField]
-        GameObject lapResult = null;        
-        private int counterLaps = 1;
-        private List<string> lapStatistics = null;
+        GameObject lapResult = null;
 
-        // Start is called before the first frame update
-
-        private void Start()
+        protected override void Start()
         {
-            LapsSystem.Instance.SubscribeOnCheckPointReached(Statistics);
-        }
-        public void Statistics() { SpawnLapTimes(); }
-        
-        
+            base.Start();
+            onPanelShow +=onPanelShow1;
+            Debug.LogWarning("LapResultsViewModel");
 
+        }
+
+
+        public void onPanelShow1(PanelUI id)
+        {
+            Debug.LogWarning(id);
+            if (Id == id)
+            {
+                SpawnLapTimes();
+            }
+
+        }
         public void SpawnLapTimes()
         {
-           
-                var result = LeanPool.Spawn(lapResult,this.transform);
-               // Debug.Log(LapTimeSystem.Instance.LastLapTime());
-             //   LapTimeResult.Instance.Init(LapTimeSystem.Instance.LastLapTimes());
-                
-            
-        }
-
-        public void SpawnLapTimes1()
-        {
-            var lapTimes = LapTimeSystem.Instance.GetAllLapTimes();
-            foreach (var item in lapTimes)
-            {
+            var lapTimes = LapTimeSystem.Instance.GetAllLapTimes();            
+            foreach (var item in lapTimes)            {
                 var result = LeanPool.Spawn(lapResult, this.transform);
-                //LapTimeResult.Instance.Init(item);
+                this.GetComponent<TMPro.TextMeshProUGUI>().text = item;
+
 
             }
         }

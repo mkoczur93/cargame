@@ -43,13 +43,12 @@
         {
             base.Start();            
             SetupCanvasGroup(0, false, false);
-            nameScene = SceneManager.GetActiveScene().name;
-            LapsSystem.Instance.SubscribeOnCheckPointReached(Statistics);
+            nameScene = SceneManager.GetActiveScene().name;            
 
 
         }
 
-        public void Statistics (){ LapStatistics = LapTimeSystem.Instance.getAllLapTimes()  ; }
+      
 
         [Binding]
         public void NewGameBtn()
@@ -68,6 +67,7 @@
             Debug.Log("BackToMainMenu");
         }
 
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)

@@ -22,25 +22,10 @@
          {
             lapTimes.Add(String.Format(@"{0:mm\:ss\:ff}", timeSpan));
           }
-        public string getAllLapTimes()
-        {
-            string times = string.Empty;
-            foreach (var item in lapTimes)
-            {
-                times = times + " " + item + "\n";
-            }
-            return times;
-        }
-
-        public string LastLapTime()
-        {
-            
-            var numbers = lapTimes.Count - 1;            
-            return lapTimes[numbers];
-        }
+      
+     
         public List<string> GetAllLapTimes()
         {
-
             return lapTimes;
         }
 

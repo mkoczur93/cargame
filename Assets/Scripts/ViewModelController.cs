@@ -21,9 +21,10 @@
         public void RegisterViewModel(ViewModel model)
         {
             RegisterListViewModel.Add(model.Id, model);
-           // Debug.Log(model.Id);
-           // Debug.Log(model);
-            //Debug.Log(RegisterListViewModel);
+            Debug.Log(model.Id);
+            Debug.Log(model);
+            Debug.Log(RegisterListViewModel);
+
 
         }
         public static ViewModelController Instance
@@ -41,6 +42,7 @@
 
             if (RegisterListViewModel.TryGetValue(id, out ViewModel value))
             {
+                
                 return value;
 
             }
