@@ -80,8 +80,10 @@
                 }
                 LapTimeSystem.Instance.AddLapTime();
 
+
                 //GameGUIViewModel.Instance.CounterLaps += 1;
                 OnCheckPointReached?.Invoke();
+                
 
 
 

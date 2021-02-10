@@ -20,7 +20,7 @@
 
          public void AddLapTime()
          {
-            lapTimes.Add(String.Format(@"{0:mm\:ss\:ff}", timeSpan));
+            lapTimes.Add((lapTimes.Count +1).ToString() + ". " + String.Format(@"{0:mm\:ss\:ff}", timeSpan));
           }
       
      

@@ -28,18 +28,30 @@
         {
             LapsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterLap);
             base.Start();
+            if(maxLaps > 6)
+            {
+                maxLaps = 6;
+            }
         }
 
         // Update is called once per frame
 
         private void Update()
         {
-            CounterFps = FpsSystem.Instance.FpsCounter();
-            LapTime = LapTimeSystem.Instance.LapTime();
+            
+            if (maxLaps >= counterLaps)
+            {
+                LapTime = LapTimeSystem.Instance.LapTime();
+                CounterFps = FpsSystem.Instance.FpsCounter();
+            }
         }
         public void IncrementCounterLap() { CounterLaps++; }
     
+        public void startAnim()
+        {
 
+
+        }
         private void OnDestroy()
         {
             LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterLap);
@@ -91,10 +103,11 @@
 
                 if (maxLaps < counterLaps)
                 {
-                    Time.timeScale = 0f;
+                    Time.timeScale = 0f;                    
                     ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.EndOfTheGamePanel);
                     id.showPanel();
-                    
+                    ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).showPanel();
+
                     return;
                 }
                 LapTimeSystem.Instance.CurrentTime = 0;

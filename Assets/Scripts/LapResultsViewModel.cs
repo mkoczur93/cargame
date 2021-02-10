@@ -17,15 +17,16 @@
         protected override void Start()
         {
             base.Start();
-            onPanelShow +=onPanelShow1;
-            Debug.LogWarning("LapResultsViewModel");
+            SubscribeOnPanelShow(onPanelShow);
+            
+
 
         }
 
 
-        public void onPanelShow1(PanelUI id)
+        public void onPanelShow(PanelUI id)
         {
-            Debug.LogWarning(id);
+            
             if (Id == id)
             {
                 SpawnLapTimes();
@@ -34,11 +35,11 @@
         }
         public void SpawnLapTimes()
         {
-            var lapTimes = LapTimeSystem.Instance.GetAllLapTimes();            
-            foreach (var item in lapTimes)            {
+            var lapTimes = LapTimeSystem.Instance.GetAllLapTimes();
+            foreach (var item in lapTimes)
+            {
                 var result = LeanPool.Spawn(lapResult, this.transform);
-                this.GetComponent<TMPro.TextMeshProUGUI>().text = item;
-
+                result.GetComponent<TMPro.TextMeshProUGUI>().text = item;
 
             }
         }

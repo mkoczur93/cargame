@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 680379676278102468}
   - component: {fileID: 680379676278102470}
   - component: {fileID: 680379676278102471}
-  - component: {fileID: -5970971836911876757}
   m_Layer: 5
   m_Name: LapTime
   m_TagString: Untagged
@@ -157,15 +156,3 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &-5970971836911876757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 680379676278102469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f868cfada4a0b43bc9ebab49333e88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
