@@ -33,7 +33,11 @@
 
         private void FixedUpdate()
         {
-            PlayerMovement();
+            if (StartRacingAnim.Instance.StartAnim == false)
+            {
+                PlayerMovement();
+            }
+           
 
         }
         private void Update()

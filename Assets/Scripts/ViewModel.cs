@@ -47,10 +47,13 @@
             if (Canvas != null)
             {
                 Canvas.alpha = 0f;
-                Canvas.interactable = false;
+                Canvas.interactable = false; 
                 Canvas.blocksRaycasts = false;
                 
-                
+                ///onPanelShow?.Invoke(Id);
+
+
+
             }
         }
 

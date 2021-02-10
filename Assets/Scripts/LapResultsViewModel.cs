@@ -17,14 +17,15 @@
         protected override void Start()
         {
             base.Start();
-            SubscribeOnPanelShow(onPanelShow);
-            
+            SubscribeOnPanelShow(OnPanelShow);
+            UnSubscribeOnPanelShow(DespawnLapTimes);
+
 
 
         }
 
 
-        public void onPanelShow(PanelUI id)
+        public void OnPanelShow(PanelUI id)
         {
             
             if (Id == id)
@@ -39,8 +40,27 @@
             foreach (var item in lapTimes)
             {
                 var result = LeanPool.Spawn(lapResult, this.transform);
-                result.GetComponent<TMPro.TextMeshProUGUI>().text = item;
+                LapTimeResult.Instance.LapTime = item;
+                
 
+            }
+
+          
+
+
+        }
+
+        public void DespawnLapTimes(PanelUI id)
+        {
+            
+            if (Id == id)
+            {
+                var lapTimes = GetComponentsInChildren<LapTimeResult>();
+                foreach (var item in lapTimes)
+                {
+                    LeanPool.Despawn(item);
+
+                }
             }
         }
 

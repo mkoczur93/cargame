@@ -12,12 +12,14 @@
     {
 
         private int counterFps = 0;
-        private int counterLaps = 1;        
+        private int counterLaps = 1;
         [SerializeField]
         private int maxLaps = 0;
         private string lapTime = string.Empty;
-        private GameObject obj = null;
-        
+        private const int maxLapsLimit = 6;
+
+
+
 
 
 
@@ -28,9 +30,9 @@
         {
             LapsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterLap);
             base.Start();
-            if(maxLaps > 6)
+            if (maxLaps > maxLapsLimit)
             {
-                maxLaps = 6;
+                maxLaps = maxLapsLimit;
             }
         }
 
@@ -38,20 +40,19 @@
 
         private void Update()
         {
-            
+
             if (maxLaps >= counterLaps)
             {
-                LapTime = LapTimeSystem.Instance.LapTime();
+                if (StartRacingAnim.Instance.StartAnim == false)
+                {
+                    LapTime = LapTimeSystem.Instance.LapTime();
+                }
                 CounterFps = FpsSystem.Instance.FpsCounter();
             }
         }
         public void IncrementCounterLap() { CounterLaps++; }
-    
-        public void startAnim()
-        {
 
 
-        }
         private void OnDestroy()
         {
             LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterLap);
@@ -72,7 +73,7 @@
                 {
                     return;
                 }
-               
+
 
 
                 counterFps = value;
@@ -90,20 +91,20 @@
             }
             set
             {
-                
+
                 if (counterLaps == value)
                 {
                     return;
                 }
-               
+
 
 
                 counterLaps = value;
-                
+
 
                 if (maxLaps < counterLaps)
                 {
-                    Time.timeScale = 0f;                    
+                    Time.timeScale = 0f;
                     ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.EndOfTheGamePanel);
                     id.showPanel();
                     ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).showPanel();
@@ -111,8 +112,8 @@
                     return;
                 }
                 LapTimeSystem.Instance.CurrentTime = 0;
-                
-                
+
+
                 OnPropertyChanged(nameof(CounterLaps));
             }
         }
@@ -132,7 +133,7 @@
                 {
                     return;
                 }
-                
+
 
                 maxLaps = value;
 
@@ -173,7 +174,7 @@
         }
 
 
-       
+
 
 
     }

@@ -9,8 +9,7 @@
     {
         private int fps = 0;
         private float frame = 0f;
-        int counter = 0;
-        private Action OnCheckPointReached = null;
+        int counter = 0;        
         private static FpsSystem instance = null;
         
 

@@ -65,6 +65,8 @@
         {
             hidePanel();
             Debug.Log("BackToMainMenu");
+           // ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).hidePanel();            
+            
         }
 
         

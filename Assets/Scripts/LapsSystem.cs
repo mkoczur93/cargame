@@ -47,7 +47,7 @@
             lap_checkpoints.Add(checkpoint);
         }
 
-      
+
 
 
         public void SubscribeOnCheckPointReached(Action action)
@@ -66,24 +66,25 @@
 
             if (col.CompareTag(ObjectTagData.Player))
             {
-                int index = 0;
+
                 if (lap_checkpoints.Count == 0)
                     return;
-                foreach (var checkpoint in lap_checkpoints)
-                {                    
-                    if (checkpoint != baseCheckpoints[index])
+
+                for (int i = 0; i < lap_checkpoints.Count; i++)
+                {
+                    if (lap_checkpoints[i] != baseCheckpoints[i])
                     {
                         return;
                     }
-
-                     index++;
                 }
+
+
                 LapTimeSystem.Instance.AddLapTime();
 
 
                 //GameGUIViewModel.Instance.CounterLaps += 1;
                 OnCheckPointReached?.Invoke();
-                
+
 
 
 
