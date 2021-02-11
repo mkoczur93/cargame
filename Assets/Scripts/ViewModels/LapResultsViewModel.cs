@@ -53,8 +53,9 @@
             var lapTimes = LapTimeSystem.Instance.GetAllLapTimes();            
             foreach (var item in lapTimes)
             {
-                var result = LeanPool.Spawn(lapResult, this.transform);
+                LeanPool.Spawn(lapResult, this.transform);
                 LapTimeResult.Instance.LapTime = item;
+                Debug.Log(LapTimeResult.Instance.LapTime = item);
 
 
             }
