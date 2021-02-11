@@ -17,6 +17,7 @@
         private int maxLaps = 0;
         private string lapTime = string.Empty;
         private const int maxLapsLimit = 6;
+        
 
 
 
@@ -34,23 +35,31 @@
             {
                 maxLaps = maxLapsLimit;
             }
-        }
+            //SubscribeOnPanelHide(OnPanelHide);
+            
 
+        }
+        
         // Update is called once per frame
 
         private void Update()
         {
-
+            
             if (maxLaps >= counterLaps)
             {
+                
                 if (StartRacingAnim.Instance.StartAnim == false)
                 {
                     LapTime = LapTimeSystem.Instance.LapTime();
                 }
+                else
+                {
+                    LapTime = "00:00:00";
+                }
                 CounterFps = FpsSystem.Instance.FpsCounter();
             }
         }
-        public void IncrementCounterLap() { CounterLaps++; }
+        public void IncrementCounterLap() { CounterLaps = LapsSystem.Instance.CounterLaps; }
 
 
         private void OnDestroy()
@@ -104,10 +113,12 @@
 
                 if (maxLaps < counterLaps)
                 {
+                    
                     Time.timeScale = 0f;
                     ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.EndOfTheGamePanel);
                     id.showPanel();
                     ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).showPanel();
+                    Cursor.visible = true;
 
                     return;
                 }

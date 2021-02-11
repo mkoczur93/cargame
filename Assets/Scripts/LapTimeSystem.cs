@@ -11,6 +11,7 @@
 
         private TimeSpan timeSpan = new TimeSpan();
         private float currentTime = 0f;
+        [SerializeField]
         private List<string> lapTimes = null;
         // Start is called before the first frame update
 
@@ -29,7 +30,10 @@
             return lapTimes;
         }
 
-
+        public void ClearAllLapTimes()
+        {
+            lapTimes.Clear();
+        }
 
         private void Awake()
         {

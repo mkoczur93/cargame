@@ -13,11 +13,14 @@
         [SerializeField]
         LapCheckpoint[] baseCheckpoints = null;
         [SerializeField]
-        private List<LapCheckpoint> lap_checkpoints = new List<LapCheckpoint>();
+        private List<LapCheckpoint> lap_checkpoints = new List<LapCheckpoint>();        
+        protected Action OnCheckPointReached = null;
+        [SerializeField]
+        private DefaultMapSettings settings = null;
+        private int counterLaps = 1;
+        public int CounterLaps { get => counterLaps; set => counterLaps = value; }
+
         private static LapsSystem instance = null;
-        private Action OnCheckPointReached = null;
-
-
         public static LapsSystem Instance { get => instance; set => instance = value; }
 
 
@@ -59,7 +62,17 @@
             OnCheckPointReached -= action;
         }
 
+        public void SetInitialLap()
+        {
+            counterLaps = settings.InitialLap;
+            OnCheckPointReached?.Invoke();
+            
+        }
 
+        public void ClearLapCheckpoints()
+        {
+            lap_checkpoints.Clear();
+        }
 
         void OnTriggerEnter2D(Collider2D col)
         {
@@ -81,7 +94,7 @@
 
                 LapTimeSystem.Instance.AddLapTime();
 
-
+                counterLaps++;
                 //GameGUIViewModel.Instance.CounterLaps += 1;
                 OnCheckPointReached?.Invoke();
 

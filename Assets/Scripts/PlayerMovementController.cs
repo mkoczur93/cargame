@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using UnityEngine;
     using Car;
-
+    using RacingMap;
 
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
@@ -20,8 +20,7 @@
         private Rigidbody2D rb = null;
         private Vector2 speed = Vector2.zero;
         private bool isMotion = false;
-        public delegate void currentSpeed();
-
+        public delegate void currentSpeed();        
         private void Start()
         {
             speed = carData.Speed;
@@ -40,9 +39,10 @@
            
 
         }
+      
         private void Update()
         {
-            //Debug.Log(currentSpeed);
+           
             CheckCurrentSpeed();
             
 
@@ -108,7 +108,7 @@
 
         }
 
-
+        
          public void CheckCurrentSpeed()
         {
             if (rb.velocity != Vector2.zero)

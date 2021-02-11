@@ -8,7 +8,7 @@ using UnityWeld.Binding;
 [Binding]
 public class StartRacingAnim : MonoBehaviour, INotifyPropertyChanged
 {
-    
+
     private string counter = string.Empty;
     [SerializeField]
     private int index = 0;
@@ -17,7 +17,8 @@ public class StartRacingAnim : MonoBehaviour, INotifyPropertyChanged
 
     public bool StartAnim
     {
-        get => startAnim;        
+        get => startAnim;
+        set => startAnim = value;
     }
 
     private static StartRacingAnim instance = null;
@@ -33,7 +34,7 @@ public class StartRacingAnim : MonoBehaviour, INotifyPropertyChanged
     [Binding]
     public string Counter { get => counter; set
         {
-          
+
             counter = value;
 
             OnPropertyChanged(nameof(Counter));
@@ -52,40 +53,47 @@ public class StartRacingAnim : MonoBehaviour, INotifyPropertyChanged
 
     void Start()
     {
-        Counter = index.ToString();        
+        Counter = index.ToString();
         StartCoroutine(Wait());
 
 
-        
+
     }
     IEnumerator Wait()
-    {        
-        yield return new WaitForSeconds(1f);
-        var counter = 3;
+    {
         Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(this.transform.DOScale(new Vector3(1, 1, 1), 0));   
+        yield return new WaitForSeconds(1f);
+        var counter = 3;        
         while (counter > 0)
         {
             yield return new WaitForSeconds(1f);
-            mySequence.Append(this.transform.DOScale(new Vector3(0, 0, 0), 1.5f));
+            mySequence.Append(this.transform.DOScale(Vector3.zero, 1.5f));
             yield return new WaitForSeconds(1.5f);
-            mySequence.Append(this.transform.DOScale(new Vector3(1, 1, 1), 0));  
-            counter--;           
+            mySequence.Append(this.transform.DOScale(Vector3.one, 0));
+            counter--;
             setText(counter);
 
         }
-        mySequence.Append(this.transform.DOLocalMoveY(-150f,0));
+        mySequence.Append(this.transform.DOLocalMoveY(-150f, 0));
         startAnim = false;
-        yield return new WaitForSeconds(2f);        
-        Destroy(this.gameObject);
+        yield return new WaitForSeconds(2f);
+        mySequence.Append(this.transform.DOScale(Vector3.zero, 0)).Append(this.transform.DOLocalMoveY(8f, 0));
+        Counter = index.ToString();
+        
     }
 
     public void setText(int value)
     {
-        if(value == 0)
+        if (value == 0)
         {
             Counter = "Start";
             return;
         }
         Counter = value.ToString();
+    }
+    public void StartCoroutineAnim()
+    {
+        StartCoroutine(Wait());
     }
 }

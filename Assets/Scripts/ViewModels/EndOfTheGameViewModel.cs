@@ -14,7 +14,7 @@
     public class EndOfTheGameViewModel : ViewModel, INotifyPropertyChanged
     {
         private string nameScene = string.Empty;
-        private string lapStatistics = string.Empty;
+        private string lapStatistics = string.Empty;        
         
 
         
@@ -43,19 +43,23 @@
         {
             base.Start();            
             SetupCanvasGroup(0, false, false);
-            nameScene = SceneManager.GetActiveScene().name;            
+            nameScene = SceneManager.GetActiveScene().name;
+           
 
 
         }
-
       
+
 
         [Binding]
         public void NewGameBtn()
         {
 
+            ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).hidePanel();
+            hidePanel();            
+            MapController.Instance.SetStartDefaultPosition();            
             EventSystem.current.SetSelectedGameObject(null);
-            SceneManager.LoadScene(nameScene);
+            //SceneManager.LoadScene(nameScene);
             Time.timeScale = 1f;
             Cursor.visible = !Cursor.visible;
 
@@ -65,7 +69,7 @@
         {
             hidePanel();
             Debug.Log("BackToMainMenu");
-           // ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).hidePanel();            
+            ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).hidePanel();            
             
         }
 

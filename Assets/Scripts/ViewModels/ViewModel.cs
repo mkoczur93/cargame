@@ -11,7 +11,7 @@
         private PanelUI id = 0;
         CanvasGroup Canvas = null;
         protected Action<PanelUI> onPanelShow = null;
-
+        protected Action<PanelUI> onPanelHide = null;
         public CanvasGroup canvas
         {
             get => Canvas;
@@ -49,8 +49,7 @@
                 Canvas.alpha = 0f;
                 Canvas.interactable = false; 
                 Canvas.blocksRaycasts = false;
-                
-                ///onPanelShow?.Invoke(Id);
+                onPanelHide?.Invoke(Id);
 
 
 
@@ -74,6 +73,14 @@
         public void UnSubscribeOnPanelShow(Action<PanelUI> action)
         {
             onPanelShow -= action;
+        }
+        public void SubscribeOnPanelHide(Action<PanelUI> action)
+        {
+            onPanelHide += action;
+        }
+        public void UnSubscribeOnPanelHide(Action<PanelUI> action)
+        {
+            onPanelHide -= action;
         }
 
 

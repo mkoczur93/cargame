@@ -5,7 +5,7 @@
     using UnityEngine;
     using Camera;
     using Player;
-
+    using MainProject;
 
     public class CameraController : MonoBehaviour
     {
@@ -20,6 +20,7 @@
 
         void Start()
         {
+            player = MapController.Instance.SelectedCar;
             playerController = player.GetComponent<PlayerMovementController>();
             offset = transform.position - player.transform.position;
         }
@@ -35,7 +36,7 @@
 
         public void MovingCamera()
         {
-
+            
             if (playerController != null && playerController.IsMotion == true)
             {
 
