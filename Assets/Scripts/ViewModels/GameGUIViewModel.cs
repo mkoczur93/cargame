@@ -22,12 +22,15 @@
 
 
 
-
-        // Start is called before the first frame update
-        protected override void Start()
+        private void Awake()
         {
             LapsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterLap);
             MapController.Instance.SubscribeOnStartGame(StartGame);
+        }
+        // Start is called before the first frame update
+        protected override void Start()
+        {
+            
             base.Start();
             if (maxLaps > maxLapsLimit)
             {
@@ -41,6 +44,7 @@
         private void StartGame()
         {
             startGame = !startGame;
+            
         }
         // Update is called once per frame
 

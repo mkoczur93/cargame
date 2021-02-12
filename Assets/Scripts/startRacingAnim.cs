@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using MainProject;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,9 +10,7 @@ using UnityWeld.Binding;
 public class StartRacingAnim : MonoBehaviour
 {
 
-    private int counter = 3;    
-    private Vector3 scale = Vector3.zero;
-    private bool startAnim = true;
+    private int counter = 3;        
     WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
     WaitForSeconds waitOneAndHalfSecond = new WaitForSeconds(1.5f);
     private const float scaleDurationCountingDown = 1.5f;
@@ -22,7 +21,8 @@ public class StartRacingAnim : MonoBehaviour
     [Binding]
     public int Counter
     {
-        get => counter; set
+        get => counter; 
+        set
         {
             if (value == 0)
             {
@@ -34,21 +34,27 @@ public class StartRacingAnim : MonoBehaviour
             OnPropertyChanged(nameof(Counter));
         }
     }
-    public bool StartAnim
+
+
+    [Binding]
+    public bool Toggle
     {
-        get => startAnim;
-        set => startAnim = value;
+        get => toggle;
+        set
+        {
+
+
+            toggle = value;
+
+            OnPropertyChanged(nameof(Toggle));
+        }
     }
 
 
 
-  
-
     void OnEnable()
     {        
         StartCoroutine(Wait());
-
-
 
     }
     IEnumerator Wait()
@@ -65,12 +71,16 @@ public class StartRacingAnim : MonoBehaviour
             counter--;
             mySequence.Append(this.transform.DOScale(Vector3.one, duration));
             Counter = counter;
+            Debug.Log(Counter);
 
         }
 
-        mySequence.Append(this.transform.DOScale(Vector3.zero, duration));
-        startAnim = false;        
+        mySequence.Append(this.transform.DOScale(Vector3.zero, duration));        
         yield return waitOneAndHalfSecond;
+        enabled = false;
+        Toggle = true;
+        MapController.Instance.StartGame();
+        Toggle = false;
         
         
         

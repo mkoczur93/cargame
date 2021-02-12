@@ -21,13 +21,18 @@
         private Rigidbody2D rb = null;
         private Vector2 speed = Vector2.zero;
         private bool isMotion = false;
-        private bool startGame = false;  
+        private bool startGame = false;
+
+        private void Awake()
+        {
+            MapController.Instance.SubscribeOnStartGame(StartGame);
+        }
         private void Start()
         {
             speed = carData.Speed;
             this.rb = GetComponent<Rigidbody2D>();
             rb.drag = carData.BasicDrag;                        
-            MapController.Instance.SubscribeOnStartGame(StartGame);
+            
             
         }
 
@@ -41,9 +46,9 @@
 
         }
         private void  StartGame()
-        {
+        {            
             startGame = !startGame;
-            Debug.Log(startGame);
+            
         }
 
         private void OnDestroy()

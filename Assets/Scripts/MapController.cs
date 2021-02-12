@@ -61,16 +61,18 @@
             LapTimeSystem.Instance.ClearAllLapTimes();
             LapTimeSystem.Instance.CurrentTime = settings.StartTime;            
             LapsSystem.Instance.SetInitialLap();
-            LapsSystem.Instance.ClearLapCheckpoints();
-            Debug.Log(startGame);
-            startGame?.Invoke();
-            
+            LapsSystem.Instance.ClearLapCheckpoints(); 
            
             
         }
+        public void StartGame()
+        {
+            startGame?.Invoke();
+        }
+
         public void SubscribeOnStartGame(Action action)
         {
-            startGame-= action;
+            startGame += action;
         }
         public void UnSubscribeOnStartGame(Action action)
         {
