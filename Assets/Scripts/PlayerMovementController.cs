@@ -5,6 +5,7 @@
     using UnityEngine;
     using Car;
     using RacingMap;
+    using MainProject;
 
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
@@ -20,26 +21,35 @@
         private Rigidbody2D rb = null;
         private Vector2 speed = Vector2.zero;
         private bool isMotion = false;
-        public delegate void currentSpeed();        
+        private bool startGame = false;  
         private void Start()
         {
             speed = carData.Speed;
             this.rb = GetComponent<Rigidbody2D>();
-            rb.drag = carData.BasicDrag;            
-            currentSpeed cs = new currentSpeed(CheckCurrentSpeed);
+            rb.drag = carData.BasicDrag;                        
+            MapController.Instance.SubscribeOnStartGame(StartGame);
             
         }
 
         private void FixedUpdate()
         {
-            if (StartRacingAnim.Instance.StartAnim == false)
+            if (startGame == true)
             {
                 PlayerMovement();
             }
            
 
         }
-      
+        private void  StartGame()
+        {
+            startGame = !startGame;
+            Debug.Log(startGame);
+        }
+
+        private void OnDestroy()
+        {
+            MapController.Instance.UnSubscribeOnStartGame(StartGame);
+        }
         private void Update()
         {
            

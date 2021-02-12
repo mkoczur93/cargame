@@ -6,39 +6,74 @@ using UnityEngine;
 using UnityWeld.Binding;
 
 [Binding]
-public class StartRacingAnim : MonoBehaviour, INotifyPropertyChanged
+public class StartRacingAnim : MonoBehaviour
 {
 
-    private string counter = string.Empty;
-    [SerializeField]
-    private int index = 0;
+    private int counter = 3;    
     private Vector3 scale = Vector3.zero;
     private bool startAnim = true;
+    WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
+    WaitForSeconds waitOneAndHalfSecond = new WaitForSeconds(1.5f);
+    private const float scaleDurationCountingDown = 1.5f;
+    private const float duration = 0;
+    private bool toggle = false;
 
+
+    [Binding]
+    public int Counter
+    {
+        get => counter; set
+        {
+            if (value == 0)
+            {
+                counter = 3;
+            }
+
+            counter = value;
+
+            OnPropertyChanged(nameof(Counter));
+        }
+    }
     public bool StartAnim
     {
         get => startAnim;
         set => startAnim = value;
     }
 
-    private static StartRacingAnim instance = null;
-    public static StartRacingAnim Instance { get => instance; set => instance = value; }
 
 
-    private void Awake()
-    {
-        instance = this;
+  
+
+    void OnEnable()
+    {        
+        StartCoroutine(Wait());
+
+
 
     }
-
-    [Binding]
-    public string Counter { get => counter; set
+    IEnumerator Wait()
+    {
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(this.transform.DOScale(Vector3.one, duration));
+        yield return waitOneSecond;
+        var counter = 3;
+        while (counter > 0)
         {
+            yield return waitOneSecond;
+            mySequence.Append(this.transform.DOScale(Vector3.zero, scaleDurationCountingDown));
+            yield return waitOneAndHalfSecond;            
+            counter--;
+            mySequence.Append(this.transform.DOScale(Vector3.one, duration));
+            Counter = counter;
 
-            counter = value;
-
-            OnPropertyChanged(nameof(Counter));
         }
+
+        mySequence.Append(this.transform.DOScale(Vector3.zero, duration));
+        startAnim = false;        
+        yield return waitOneAndHalfSecond;
+        
+        
+        
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
@@ -50,48 +85,6 @@ public class StartRacingAnim : MonoBehaviour, INotifyPropertyChanged
         }
     }
 
-
-    void Start()
-    {
-        Counter = index.ToString();
-        StartCoroutine(Wait());
-
-
-
-    }
-    IEnumerator Wait()
-    {
-        Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(this.transform.DOScale(new Vector3(1, 1, 1), 0));   
-        yield return new WaitForSeconds(1f);
-        var counter = 3;        
-        while (counter > 0)
-        {
-            yield return new WaitForSeconds(1f);
-            mySequence.Append(this.transform.DOScale(Vector3.zero, 1.5f));
-            yield return new WaitForSeconds(1.5f);
-            mySequence.Append(this.transform.DOScale(Vector3.one, 0));
-            counter--;
-            setText(counter);
-
-        }
-        mySequence.Append(this.transform.DOLocalMoveY(-150f, 0));
-        startAnim = false;
-        yield return new WaitForSeconds(2f);
-        mySequence.Append(this.transform.DOScale(Vector3.zero, 0)).Append(this.transform.DOLocalMoveY(8f, 0));
-        Counter = index.ToString();
-        
-    }
-
-    public void setText(int value)
-    {
-        if (value == 0)
-        {
-            Counter = "Start";
-            return;
-        }
-        Counter = value.ToString();
-    }
     public void StartCoroutineAnim()
     {
         StartCoroutine(Wait());

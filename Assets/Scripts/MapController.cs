@@ -3,6 +3,7 @@
     using Lean.Pool;
     using MainProject.UI;
     using RacingMap;
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -16,7 +17,7 @@
         private GameObject selectedCar = null;
         [SerializeField]
         private GameObject camera = null;
-
+        private Action startGame = null;
         private static MapController instance = null;
         public static MapController Instance { get => instance; set => instance = value; }
         
@@ -28,6 +29,7 @@
         private void Awake()
         {
             instance = this;
+            Debug.Log(instance);
             selectedCar = LeanPool.Spawn(cars[0]);
             if(camera != null)
             camera = LeanPool.Spawn(camera);
@@ -57,14 +59,22 @@
 
             }
             LapTimeSystem.Instance.ClearAllLapTimes();
-            LapTimeSystem.Instance.CurrentTime = settings.StartTime;
-            StartRacingAnim.Instance.StartAnim = true;
+            LapTimeSystem.Instance.CurrentTime = settings.StartTime;            
             LapsSystem.Instance.SetInitialLap();
             LapsSystem.Instance.ClearLapCheckpoints();
-            StartRacingAnim.Instance.StartCoroutineAnim();
+            Debug.Log(startGame);
+            startGame?.Invoke();
+            
            
             
         }
-     
+        public void SubscribeOnStartGame(Action action)
+        {
+            startGame-= action;
+        }
+        public void UnSubscribeOnStartGame(Action action)
+        {
+            startGame -= action;
+        }
     }
 }

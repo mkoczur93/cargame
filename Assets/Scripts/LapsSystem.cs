@@ -14,7 +14,7 @@
         LapCheckpoint[] baseCheckpoints = null;
         [SerializeField]
         private List<LapCheckpoint> lap_checkpoints = new List<LapCheckpoint>();        
-        protected Action OnCheckPointReached = null;
+        private Action OnCheckPointReached = null;
         [SerializeField]
         private DefaultMapSettings settings = null;
         private int counterLaps = 1;

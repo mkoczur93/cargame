@@ -17,10 +17,7 @@
         private int maxLaps = 0;
         private string lapTime = string.Empty;
         private const int maxLapsLimit = 6;
-        
-
-
-
+        private bool startGame = false;
 
 
 
@@ -30,6 +27,7 @@
         protected override void Start()
         {
             LapsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterLap);
+            MapController.Instance.SubscribeOnStartGame(StartGame);
             base.Start();
             if (maxLaps > maxLapsLimit)
             {
@@ -39,7 +37,11 @@
             
 
         }
-        
+       
+        private void StartGame()
+        {
+            startGame = !startGame;
+        }
         // Update is called once per frame
 
         private void Update()
@@ -48,9 +50,9 @@
             if (maxLaps >= counterLaps)
             {
                 
-                if (StartRacingAnim.Instance.StartAnim == false)
+                if (startGame == true)
                 {
-                    LapTime = LapTimeSystem.Instance.LapTime();
+                    LapTime = LapTimeSystem.Instance.SetTime();
                 }
                 else
                 {
@@ -65,6 +67,7 @@
         private void OnDestroy()
         {
             LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterLap);
+            MapController.Instance.UnSubscribeOnStartGame(StartGame);
 
         }
 

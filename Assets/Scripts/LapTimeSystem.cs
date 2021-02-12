@@ -45,7 +45,7 @@
 
       
 
-        public string LapTime()
+        public string SetTime()
         {
 
             currentTime += Time.deltaTime;

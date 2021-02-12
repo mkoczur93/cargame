@@ -8,8 +8,7 @@ using UnityWeld.Binding;
 public class LapTimeResult : MonoBehaviour, INotifyPropertyChanged
 {
 
-    private string lapTime;
-    private bool nameChanged = false;
+    private string lapTime;    
     private static LapTimeResult instance = null;
     public static LapTimeResult Instance { get => instance; set => instance = value; }
 
@@ -26,12 +25,7 @@ public class LapTimeResult : MonoBehaviour, INotifyPropertyChanged
 
         set
         {
-          //  if (nameChanged == true)
-          //  {
-          //      return;
-         //   }
-
-
+        
             lapTime = value;
 
             OnPropertyChanged(nameof(LapTime));

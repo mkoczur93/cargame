@@ -13,7 +13,9 @@
     public class LapResultsViewModel : ViewModel
     {
         [SerializeField]
-        GameObject lapResult = null;
+        private LapTimeResult lapResult = null;
+        private List<LapTimeResult> timeLaps = new List<LapTimeResult>();
+
        
 
         protected override void Start()
@@ -25,9 +27,13 @@
 
 
         }
-
-
-        public void OnPanelShow(PanelUI id)
+        
+        public void OnDestroy()
+        {
+            UnSubscribeOnPanelShow(OnPanelShow);
+            UnSubscribeOnPanelHide(OnPanelHide);
+        }
+        private void OnPanelShow(PanelUI id)
         {
 
             if (Id == id)
@@ -37,7 +43,7 @@
 
         }
 
-        public void OnPanelHide(PanelUI id)
+        private void OnPanelHide(PanelUI id)
         {
 
             if (Id == id)
@@ -50,13 +56,13 @@
         public void SpawnLapTimes()
         {
            
-            var lapTimes = LapTimeSystem.Instance.GetAllLapTimes();            
+            var lapTimes = LapTimeSystem.Instance.GetAllLapTimes();     
+            
             foreach (var item in lapTimes)
             {
-                LeanPool.Spawn(lapResult, this.transform);
-                LapTimeResult.Instance.LapTime = item;
-                Debug.Log(LapTimeResult.Instance.LapTime = item);
-
+                var lap =  LeanPool.Spawn(lapResult, this.transform);
+                lap.LapTime = item;
+                timeLaps.Add(lap);
 
             }
 
@@ -68,13 +74,14 @@
         public void DespawnLapTimes()
         {
 
-            //LeanPool.DespawnAll();
-            var lapTimes = GetComponentsInChildren<LapTimeResult>();
-            foreach (var item in lapTimes)
+            
+            
+            foreach (var item in timeLaps)
             {
-                LeanPool.Despawn(item);
+                LeanPool.Despawn(item);               
 
             }
+            timeLaps.Clear();
 
 
 
