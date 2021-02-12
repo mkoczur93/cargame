@@ -8,6 +8,7 @@
         GameGUIPanel = 4,
         EndOfTheGamePanel = 5,
         LapResultsPanel = 6,
+        StartAnimPanel = 7,
 
 
 

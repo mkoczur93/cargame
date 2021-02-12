@@ -45,7 +45,7 @@
 
       
 
-        public string SetTime()
+        public string SetActualTime()
         {
 
             currentTime += Time.deltaTime;

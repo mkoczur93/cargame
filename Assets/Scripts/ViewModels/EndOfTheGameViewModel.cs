@@ -14,10 +14,12 @@
     public class EndOfTheGameViewModel : ViewModel, INotifyPropertyChanged
     {
         private string nameScene = string.Empty;
-        private string lapStatistics = string.Empty;        
-        
+        private string lapStatistics = string.Empty;
 
-        
+       
+
+
+
         [Binding]
         public string LapStatistics
         {
@@ -57,8 +59,11 @@
 
             ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).hidePanel();
             hidePanel();            
-            MapController.Instance.SetStartDefaultPosition();            
+            
+                      
             EventSystem.current.SetSelectedGameObject(null);
+            MapController.Instance.StartGame();
+            MapController.Instance.SetStartDefaultPosition();
             //SceneManager.LoadScene(nameScene);
             Time.timeScale = 1f;
             Cursor.visible = !Cursor.visible;

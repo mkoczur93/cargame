@@ -16,6 +16,7 @@
         [SerializeField]
         private int maxLaps = 0;
         private string lapTime = string.Empty;
+        private string startLapTime = "00:00:00";
         private const int maxLapsLimit = 6;
         private bool startGame = false;
 
@@ -24,8 +25,12 @@
 
         private void Awake()
         {
-            LapsSystem.Instance.SubscribeOnCheckPointReached(IncrementCounterLap);
+            LapsSystem.Instance.SubscribeOnCheckPointReached(SetCounterLap);
+            LapsSystem.Instance.SubscribeOnStartGame(SetCounterLap);
             MapController.Instance.SubscribeOnStartGame(StartGame);
+            LapTime = startLapTime;
+
+
         }
         // Start is called before the first frame update
         protected override void Start()
@@ -36,7 +41,6 @@
             {
                 maxLaps = maxLapsLimit;
             }
-            //SubscribeOnPanelHide(OnPanelHide);
             
 
         }
@@ -44,10 +48,11 @@
         private void StartGame()
         {
             startGame = !startGame;
-            
+            LapTime = startLapTime;
+
         }
         // Update is called once per frame
-
+       
         private void Update()
         {
             
@@ -56,22 +61,21 @@
                 
                 if (startGame == true)
                 {
-                    LapTime = LapTimeSystem.Instance.SetTime();
+                    LapTime = LapTimeSystem.Instance.SetActualTime();
                 }
-                else
-                {
-                    LapTime = "00:00:00";
-                }
+               
                 CounterFps = FpsSystem.Instance.FpsCounter();
             }
         }
-        public void IncrementCounterLap() { CounterLaps = LapsSystem.Instance.CounterLaps; }
+        public void SetCounterLap() { CounterLaps = LapsSystem.Instance.CounterLaps; }
 
 
         private void OnDestroy()
         {
-            LapsSystem.Instance.UnSubscribeOnCheckPointReached(IncrementCounterLap);
+            LapsSystem.Instance.UnSubscribeOnCheckPointReached(SetCounterLap);
+            LapsSystem.Instance.UnSubscribeOnStartGame(SetCounterLap);
             MapController.Instance.UnSubscribeOnStartGame(StartGame);
+           
 
         }
 

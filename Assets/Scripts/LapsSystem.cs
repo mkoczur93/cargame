@@ -15,6 +15,7 @@
         [SerializeField]
         private List<LapCheckpoint> lap_checkpoints = new List<LapCheckpoint>();        
         private Action OnCheckPointReached = null;
+        private Action startGame = null;
         [SerializeField]
         private DefaultMapSettings settings = null;
         private int counterLaps = 1;
@@ -62,10 +63,24 @@
             OnCheckPointReached -= action;
         }
 
+        public void StartGame()
+        {
+            startGame?.Invoke();
+        }
+
+
+        public void SubscribeOnStartGame(Action action)
+        {
+            startGame += action;
+        }
+        public void UnSubscribeOnStartGame(Action action)
+        {
+            startGame -= action;
+        }
+
         public void SetInitialLap()
         {
-            counterLaps = settings.InitialLap;
-            OnCheckPointReached?.Invoke();
+            counterLaps = settings.InitialLap;            
             
         }
 
@@ -95,7 +110,7 @@
                 LapTimeSystem.Instance.AddLapTime();
 
                 counterLaps++;
-                //GameGUIViewModel.Instance.CounterLaps += 1;
+                
                 OnCheckPointReached?.Invoke();
 
 
