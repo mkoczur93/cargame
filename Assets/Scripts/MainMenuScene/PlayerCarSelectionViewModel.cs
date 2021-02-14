@@ -17,8 +17,7 @@
         protected override void Start()
         {
             base.Start();            
-            //SetupCanvasGroup(0, false, false);
-            Debug.Log(GetComponent<CanvasGroup>().alpha);
+            SetupCanvasGroup(0, false, false);            
             Cursor.visible = true;
 
 

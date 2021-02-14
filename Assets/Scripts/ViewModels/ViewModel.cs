@@ -24,7 +24,9 @@
         protected virtual void Start()
         {
             //Debug.Log(this);
+            
             ViewModelController.Instance.RegisterViewModel(this);
+            
             Canvas = GetComponent<CanvasGroup>();
         }
         public void showPanel()

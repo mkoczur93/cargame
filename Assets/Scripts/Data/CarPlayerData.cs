@@ -8,7 +8,7 @@ using UnityEngine;
     public class CarPlayerData : ScriptableObject
     {
         [SerializeField]
-        private List<Sprite> cars;
+        private List<Sprite> cars = null;
 
 
 

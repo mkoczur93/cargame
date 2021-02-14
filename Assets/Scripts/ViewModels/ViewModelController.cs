@@ -18,6 +18,11 @@
             set => hiddenAllMenuPanel = value;
 
         }
+        void Awake()
+        {
+            instance = this;
+
+        }
         public void RegisterViewModel(ViewModel model)
         {
             RegisterListViewModel.Add(model.Id, model);
@@ -31,11 +36,7 @@
         {
             get => instance;
         }
-        void Awake()
-        {
-            instance = this;
-
-        }
+        
        
         public ViewModel getViewModel(PanelUI id)
         {
