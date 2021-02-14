@@ -23,26 +23,17 @@
 
 
 
-        private void Awake()
-        {
-            LapsSystem.Instance.SubscribeOnCheckPointReached(SetCounterLap);
-            LapsSystem.Instance.SubscribeOnStartGame(SetCounterLap);
-            MapController.Instance.SubscribeOnStartGame(StartGame);
-            MapController.Instance.SubscribeOnPausedGame(PausedGame);
-            LapTime = startLapTime;
-
-
-        }
+      
         // Start is called before the first frame update
         protected override void Start()
         {
             
             base.Start();
-           // if (maxLaps > maxLapsLimit)
-            //{
-            //    maxLaps = maxLapsLimit;
-          //  }
-            
+            LapsSystem.Instance.SubscribeOnStartGame(SetCounterLap);
+            LapsSystem.Instance.SubscribeOnCheckPointReached(SetCounterLap);
+            MapController.Instance.SubscribeOnStartGame(StartGame);
+            MapController.Instance.SubscribeOnPausedGame(PausedGame);
+            LapTime = startLapTime;
 
         }
        
@@ -65,7 +56,7 @@
             
             if (maxLaps >= counterLaps)
             {
-                
+                Debug.Log("ss");
                 if (startGame == true)
                 {
                     LapTime = LapTimeSystem.Instance.SetActualTime();
