@@ -9,6 +9,8 @@
         EndOfTheGamePanel = 5,
         LapResultsPanel = 6,
         StartAnimPanel = 7,
+        MainMenuScenePanel = 8,
+        PlayerCarSelectionPanel = 9,
 
 
 
