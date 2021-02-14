@@ -7,6 +7,7 @@
     using System.ComponentModel;
     using UnityEngine.SceneManagement;
     using UnityEngine.EventSystems;
+    using Car;
 
     [Binding]
     public class PlayerCarSelectionViewModel : ViewModel
@@ -29,23 +30,23 @@
         {
             hidePanel();
             ViewModelController.Instance.getViewModel(PanelUI.MainMenuScenePanel).showPanel();
-
+            EventSystem.current.SetSelectedGameObject(null);
 
 
         }
         [Binding]
         public void ButtonConfirm()
         {
-           
 
+            EventSystem.current.SetSelectedGameObject(null);
 
 
         }
         [Binding]
         public void ButtonPrevious()
         {
-    
-           
+            EventSystem.current.SetSelectedGameObject(null);
+            SelectionSystem.Instance.SelectThePreviousCar();
 
 
         }
@@ -53,8 +54,8 @@
         [Binding]
         public void ButtonNext()
         {
-            
-
+            EventSystem.current.SetSelectedGameObject(null);
+            SelectionSystem.Instance.SelectTheNextCar();
 
         }
 
