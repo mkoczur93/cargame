@@ -8,10 +8,11 @@ using UnityEngine;
 using UnityWeld.Binding;
 
 [Binding]
-public class StartAnimPanel : ViewModel, INotifyPropertyChanged
+public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
 {
 
     private int counter = 3;
+    private const int resetCounter = 3;
     WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
     WaitForSeconds waitOneAndHalfSecond = new WaitForSeconds(1.5f);
     private const float scaleDurationCountingDown = 1.5f;
@@ -19,6 +20,10 @@ public class StartAnimPanel : ViewModel, INotifyPropertyChanged
     private bool toggle = false;
     [SerializeField]
     private Transform m_transform = null;
+    private bool m_coroutine_running = false;
+    private Coroutine m_corutine = null;
+    private Sequence mySequence = null;
+
 
 
     [Binding]
@@ -53,17 +58,43 @@ public class StartAnimPanel : ViewModel, INotifyPropertyChanged
         }
     }
 
-
+   
 
     void OnEnable()
     {
-        StartCoroutine(Wait());
+        CheckStartAnimCoroutine();
+        m_corutine = StartCoroutine(StartAnim());
 
     }
-    IEnumerator Wait()
+
+    public void CheckStartAnimCoroutine()
     {
-        Sequence mySequence = DOTween.Sequence();
+        if (m_coroutine_running == true)
+        {
+            if (m_corutine != null)
+            {
+                StopCoroutine(m_corutine);
+                if (Toggle == true)
+                {
+                    Toggle = false;
+                }
+                Debug.Log("stop coroutine");
+            }
+            m_coroutine_running = false;            
+        }
+
+    }
+    IEnumerator StartAnim()
+    {       
+        if(mySequence != null)
+        {
+            DOTween.KillAll();            
+        }
+
+        mySequence = DOTween.Sequence();
         mySequence.Append(m_transform.transform.DOScale(Vector3.one, duration));
+        Counter = resetCounter;        
+        m_coroutine_running = true;   
         yield return waitOneSecond;
         var index = 3;
         while (index > 0)
@@ -84,7 +115,7 @@ public class StartAnimPanel : ViewModel, INotifyPropertyChanged
         yield return waitOneAndHalfSecond;
         Toggle = false;
         enabled = false;
-        
+        m_coroutine_running = false;
 
 
 
@@ -101,6 +132,6 @@ public class StartAnimPanel : ViewModel, INotifyPropertyChanged
 
     public void StartCoroutineAnim()
     {
-        StartCoroutine(Wait());
+        StartCoroutine(StartAnim());
     }
 }

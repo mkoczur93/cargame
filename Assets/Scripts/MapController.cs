@@ -2,6 +2,7 @@
 {
     using Lean.Pool;
     using MainProject.UI;
+    using Player;
     using RacingMap;
     using System;
     using System.Collections;
@@ -18,9 +19,10 @@
         [SerializeField]
         private GameObject camera = null;
         [SerializeField]
-        private StartAnimPanel startAnimPanel = null;
+        private StartAnimViewModel startAnimPanel = null;
         private Action startGame = null;
-        
+        private Action pausedGame = null;
+
         private static MapController instance = null;
         public static MapController Instance { get => instance; set => instance = value; }
 
@@ -31,10 +33,15 @@
         }
         private void Awake()
         {
-            instance = this;            
-            selectedCar = LeanPool.Spawn(cars[0]);
+            instance = this;
+            if (cars.Count >= 0)
+            {
+                selectedCar = Instantiate(cars[0]);
+            }
             if (camera != null)
-                camera = LeanPool.Spawn(camera);
+            {
+                camera = Instantiate(camera);
+            }
 
 
 
@@ -46,12 +53,18 @@
         }
         public void SetStartDefaultPosition()
         {
-            if (selectedCar.TryGetComponent<Rigidbody2D>(out var player))
+            if (selectedCar != null)
             {
-                player.velocity = Vector2.zero;
-                player.transform.eulerAngles = settings.StartCarRotation;
-                player.transform.position = settings.StartCarPosition;
-                //player.transform.position = Vector3.zero;
+                if (selectedCar.TryGetComponent<PlayerMovementController>(out var playerCar))
+                {
+                    if (playerCar.TryGetComponent<Rigidbody2D>(out var player))
+                    {
+                        player.velocity = Vector2.zero;
+                        player.transform.eulerAngles = settings.StartCarRotation;
+                        player.transform.position = settings.StartCarPosition;
+                        
+                    }
+                }
             }
             if (camera != null)
 
@@ -66,10 +79,10 @@
             LapsSystem.Instance.StartGame();
             LapsSystem.Instance.ClearLapCheckpoints();
             startAnimPanel.enabled = true;
-            
-           
-            
-            
+
+
+
+
 
 
         }
@@ -77,7 +90,13 @@
         {
             startGame?.Invoke();
         }
-      
+
+        public void PausedGame()
+        {
+            pausedGame?.Invoke();
+        }
+
+
 
         public void SubscribeOnStartGame(Action action)
         {
@@ -87,6 +106,15 @@
         {
             startGame -= action;
         }
-     
+        public void SubscribeOnPausedGame(Action action)
+        {
+            pausedGame += action;
+        }
+        public void UnSubscribeOnPausedGame(Action action)
+        {
+            pausedGame -= action;
+        }
+
+
     }
 }

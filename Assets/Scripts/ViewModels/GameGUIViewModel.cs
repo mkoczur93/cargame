@@ -28,6 +28,7 @@
             LapsSystem.Instance.SubscribeOnCheckPointReached(SetCounterLap);
             LapsSystem.Instance.SubscribeOnStartGame(SetCounterLap);
             MapController.Instance.SubscribeOnStartGame(StartGame);
+            MapController.Instance.SubscribeOnPausedGame(PausedGame);
             LapTime = startLapTime;
 
 
@@ -37,22 +38,28 @@
         {
             
             base.Start();
-            if (maxLaps > maxLapsLimit)
-            {
-                maxLaps = maxLapsLimit;
-            }
+           // if (maxLaps > maxLapsLimit)
+            //{
+            //    maxLaps = maxLapsLimit;
+          //  }
             
 
         }
        
         private void StartGame()
         {
-            startGame = !startGame;
+            startGame = true;
+            LapTime = startLapTime;
+
+        }
+        private void PausedGame()
+        {
+            startGame = false;
             LapTime = startLapTime;
 
         }
         // Update is called once per frame
-       
+
         private void Update()
         {
             
@@ -75,7 +82,8 @@
             LapsSystem.Instance.UnSubscribeOnCheckPointReached(SetCounterLap);
             LapsSystem.Instance.UnSubscribeOnStartGame(SetCounterLap);
             MapController.Instance.UnSubscribeOnStartGame(StartGame);
-           
+            MapController.Instance.UnSubscribeOnPausedGame(PausedGame);
+
 
         }
 

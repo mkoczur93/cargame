@@ -26,7 +26,8 @@
         private void Awake()
         {
             MapController.Instance.SubscribeOnStartGame(StartGame);
-            
+            MapController.Instance.SubscribeOnPausedGame(PausedGame);
+
         }
         private void Start()
         {
@@ -47,9 +48,14 @@
 
         }
         private void  StartGame()
-        {            
-            startGame = !startGame;
+        {
+            startGame = true;
             
+        }
+        private void PausedGame()
+        {
+            startGame = false;
+
         }
         private void EndGame()
         {
@@ -59,7 +65,8 @@
         private void OnDestroy()
         {
             MapController.Instance.UnSubscribeOnStartGame(StartGame);
-            
+            MapController.Instance.UnSubscribeOnPausedGame(PausedGame);
+
         }
         private void Update()
         {

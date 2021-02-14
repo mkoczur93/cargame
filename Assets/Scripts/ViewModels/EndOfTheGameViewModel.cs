@@ -58,11 +58,9 @@
         {
 
             ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).hidePanel();
-            hidePanel();            
-            
-                      
+            hidePanel();       
             EventSystem.current.SetSelectedGameObject(null);
-            MapController.Instance.StartGame();
+            MapController.Instance.PausedGame();
             MapController.Instance.SetStartDefaultPosition();
             //SceneManager.LoadScene(nameScene);
             Time.timeScale = 1f;

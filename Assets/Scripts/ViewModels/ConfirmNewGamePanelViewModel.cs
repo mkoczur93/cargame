@@ -31,12 +31,15 @@
         [Binding]
         public void confirmNewGameBtnYes()
         {
-            
+            StartAnimViewModel startAnimPanel = ViewModelController.Instance.getViewModel(PanelUI.StartAnimPanel).GetComponent<StartAnimViewModel>();
+            startAnimPanel.enabled = false;
+            hidePanel();
             EventSystem.current.SetSelectedGameObject(null);
-            SceneManager.LoadScene(nameScene);
-            Time.timeScale = 1f;    
+            MapController.Instance.PausedGame();            
+            MapController.Instance.SetStartDefaultPosition();            
+            Time.timeScale = 1f;
             Cursor.visible = !Cursor.visible;
-            
+
         }
         [Binding]
         public void confirmNewGameBtnNo()

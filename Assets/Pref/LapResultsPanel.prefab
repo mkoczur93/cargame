@@ -109,7 +109,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 210, y: 50}
+  m_CellSize: {x: 420, y: 50}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -126,5 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 6
-  lapResult: {fileID: 680379676278102469, guid: 8136de9176e75d146be7127467d12d17,
+  lapResult: {fileID: 1267571422317142542, guid: 8136de9176e75d146be7127467d12d17,
     type: 3}
