@@ -8,11 +8,11 @@ using UnityEngine;
     public class CarPlayerData : ScriptableObject
     {
         [SerializeField]
-        private List<Sprite> cars = null;
+        private List<PlayerCar> cars = null;
 
 
 
-        public List<Sprite> Cars
+        public List<PlayerCar> Cars
         {
             get => cars;
         }

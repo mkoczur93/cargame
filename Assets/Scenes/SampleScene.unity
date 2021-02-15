@@ -372,6 +372,46 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 592746149117437917}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1888534554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5110690313986623790, guid: 6f3e0db641a5dd0429d1672d48264400,
+    type: 3}
+  m_PrefabInstance: {fileID: 5110690314520726246}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1888534556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888534554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 1
+  m_VerticalFit: 1
+--- !u!1 &2007715343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5110690313575613696, guid: 6f3e0db641a5dd0429d1672d48264400,
+    type: 3}
+  m_PrefabInstance: {fileID: 5110690314520726246}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2007715345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007715343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 0
 --- !u!1001 &592746149117437917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -906,6 +946,31 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5110690312898993120, guid: 6f3e0db641a5dd0429d1672d48264400,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110690312898993121, guid: 6f3e0db641a5dd0429d1672d48264400,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110690313575613697, guid: 6f3e0db641a5dd0429d1672d48264400,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110690313986623791, guid: 6f3e0db641a5dd0429d1672d48264400,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000076293945
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110690313986623791, guid: 6f3e0db641a5dd0429d1672d48264400,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110690313986623791, guid: 6f3e0db641a5dd0429d1672d48264400,
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1540,6 +1605,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameGuiPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 9196174308027552188, guid: 23fc70f63656c5f40afeeec5b481da75,
+        type: 3}
+      propertyPath: maxLaps
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23fc70f63656c5f40afeeec5b481da75, type: 3}

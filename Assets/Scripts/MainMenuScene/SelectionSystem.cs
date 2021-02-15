@@ -1,6 +1,8 @@
 ﻿namespace Car
 {
-
+    using DG.Tweening;
+    using Lean.Pool;
+    using MainProject.UI;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -9,100 +11,120 @@
     public class SelectionSystem : MonoBehaviour
     {
         [SerializeField]
-        private CarPlayerData m_cars = null;
-        private List<Sprite> m_playerCars = null;
+        private CarPlayerData carsData = null;
+        [SerializeField]
+        private PlayerCardViewModel PlayerCard = null;
+        [SerializeField]
+        private GameObject m_panel = null;
+        [SerializeField]
+        private RectTransform ScrollContent = null;
+        [SerializeField]
+        private Transform arrowUp = null;
+        [SerializeField]
+        private Transform arrowDown = null;
         private static SelectionSystem instance = null;
         public static SelectionSystem Instance { get => instance; set => instance = value; }
-        [SerializeField]
-        private Image m_selectedCar = null;
-        [SerializeField]
-        private Image m_previousCar = null;
-        [SerializeField]
-        private Image m_nextCar = null;
-        private int m_Counter = 1;
+        private int m_Counter = 0;
+        private int m_Counter1 = 0;        
+        private List<float> carPosition = new List<float>();
+        private Sequence mySequence = null;
+        
 
         private void Awake()
         {
-            
+
             instance = this;
 
         }
         // Start is called before the first frame update
         void Start()
         {
-            m_playerCars = m_cars.Cars;
-            Debug.Log(m_playerCars.Count);
-            m_previousCar = m_previousCar.GetComponent<Image>();
-            m_previousCar.sprite = m_playerCars[m_Counter-1];
-            m_selectedCar.GetComponent<Image>();
-            m_selectedCar.sprite = m_playerCars[m_Counter];
-            m_nextCar.GetComponent<Image>();
-            m_nextCar.sprite = m_playerCars[m_Counter+1];
+
+           
+            float value = arrowDown.localPosition.x;
+            foreach (var car in carsData.Cars)
+            {
+
+                var card = LeanPool.Spawn(PlayerCard, m_panel.transform);
+                card.CarSprite = car.SpriteCar;
+                carPosition.Add(value);
+                value = value + 164f;
+
+
+            }
+
+
+
+            //Debug.Log(positionCar.Length);
+            mySequence = DOTween.Sequence();
+
+
         }
 
         public void SelectTheNextCar()
         {
-            m_Counter++;
-            if(m_Counter > m_playerCars.Count-1)
-            {
-                m_Counter = 0;
-            }
-            if(m_Counter == 0)
-            {
-                m_previousCar.sprite = m_playerCars[m_playerCars.Count - 1];
-                m_selectedCar.sprite = m_playerCars[m_Counter];
-                m_nextCar.sprite = m_playerCars[m_Counter+1];
-                return;
-                
-            }
-            if (m_Counter == m_playerCars.Count - 1)
-            {
-                m_previousCar.sprite = m_playerCars[m_Counter - 1];
-                m_selectedCar.sprite = m_playerCars[m_Counter];
-                m_nextCar.sprite = m_playerCars[0];
-                return;
-
-
-            }
-
             
+            if (m_Counter < 2)
+            {
+                m_Counter++;
+                mySequence.Append(arrowDown.DOLocalMoveX(carPosition[m_Counter], 1))
+                    .Join(arrowUp.DOLocalMoveX(carPosition[m_Counter], 1));
+                m_Counter1++;
+                Debug.Log(m_Counter);
+                return;
+            }
+            if (ScrollContent.localPosition.x <= -820)
+            {
+                return;
+            }
+            else
+            {
+                Debug.Log(m_Counter);
+                //mySequence.Append(ScrollContent.DOLocalMoveX(ScrollContent.localPosition.x - 168, 1));
 
-                m_previousCar.sprite = m_playerCars[m_Counter-1];
-                m_selectedCar.sprite = m_playerCars[m_Counter];
-                m_nextCar.sprite = m_playerCars[m_Counter + 1];
-            
+                mySequence.Append(ScrollContent.DOLocalMoveX(-carPosition[m_Counter1], 1));
+                if (m_Counter1 < carPosition.Count - 1)
+                {
+                    m_Counter1++;
+                }
+            }
+
         }
 
         public void SelectThePreviousCar()
         {
-            m_Counter--;
-            if (m_Counter < 0)
-            {
-                m_Counter = m_playerCars.Count - 1;
-            }
+
             if (m_Counter == 0)
             {
-                m_previousCar.sprite = m_playerCars[m_playerCars.Count - 1];
-                m_selectedCar.sprite = m_playerCars[m_Counter];
-                m_nextCar.sprite = m_playerCars[m_Counter + 1];
+                if (ScrollContent.localPosition.x >= -10)
+                {
+                    return;
+                }
+                    m_Counter = 0;
+                //mySequence.Append(ScrollContent.DOLocalMoveX(ScrollContent.localPosition.x + 168, 1));
+                mySequence.Append(ScrollContent.DOLocalMoveX(-carPosition[m_Counter1], 1));
+                if (m_Counter1 != 0) {
+                    m_Counter1--;
+                }
+                Debug.Log(m_Counter);
                 return;
 
+
             }
-            if (m_Counter == m_playerCars.Count - 1)
+
+            
+            if (m_Counter < 3)
             {
-                m_previousCar.sprite = m_playerCars[m_Counter - 1];
-                m_selectedCar.sprite = m_playerCars[m_Counter];
-                m_nextCar.sprite = m_playerCars[0];
+
+                m_Counter--;
+                mySequence.Append(arrowDown.DOLocalMoveX(carPosition[m_Counter], 1))
+                    .Join(arrowUp.DOLocalMoveX(carPosition[m_Counter], 1));
+                m_Counter1--;
+                Debug.Log(m_Counter);
                 return;
 
-
             }
-
-
-
-            m_previousCar.sprite = m_playerCars[m_Counter - 1];
-            m_selectedCar.sprite = m_playerCars[m_Counter];
-            m_nextCar.sprite = m_playerCars[m_Counter + 1];
+            
 
         }
         // Update is called once per frame

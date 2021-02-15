@@ -7,17 +7,18 @@
     using System.ComponentModel;
     using UnityEngine.SceneManagement;
     using UnityEngine.EventSystems;
+    using Car;
 
     [Binding]
-    public class MainMenuScenePanelViewModel : ViewModel
+    public class PlayerCarViewModel : ViewModel
     {
 
 
         // Start is called before the first frame update
         protected override void Start()
         {
-            base.Start();            
-            SetupCanvasGroup(1, true, true);
+            base.Start();
+            SetupCanvasGroup(0, false, false);
             Cursor.visible = true;
 
 
@@ -25,31 +26,18 @@
         }
 
         [Binding]
-        public void ButtonPlay()
+        public void ButtonBack()
         {
-    
             hidePanel();
+            ViewModelController.Instance.getViewModel(PanelUI.MainMenuScenePanel).showPanel();
             EventSystem.current.SetSelectedGameObject(null);
-            ViewModelController.Instance.getViewModel(PanelUI.PlayerCarPanel).showPanel();
-
-
-
-        }
-
-        [Binding]
-        public void ButtonExit()
-        {
-            Application.Quit();
-
 
 
         }
-       
-        
 
 
 
-       
+
 
 
     }

@@ -13,55 +13,19 @@
     public class PlayerCarSelectionViewModel : ViewModel
     {
 
-       
+    
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();            
-            SetupCanvasGroup(0, false, false);            
+            SetupCanvasGroup(1, true, true);            
             Cursor.visible = true;
 
 
 
         }
 
-        [Binding]
-        public void ButtonBack()
-        {
-            hidePanel();
-            ViewModelController.Instance.getViewModel(PanelUI.MainMenuScenePanel).showPanel();
-            EventSystem.current.SetSelectedGameObject(null);
-
-
-        }
-        [Binding]
-        public void ButtonConfirm()
-        {
-
-            EventSystem.current.SetSelectedGameObject(null);
-
-
-        }
-        [Binding]
-        public void ButtonPrevious()
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            SelectionSystem.Instance.SelectThePreviousCar();
-
-
-        }
-
-        [Binding]
-        public void ButtonNext()
-        {
-            EventSystem.current.SetSelectedGameObject(null);
-            SelectionSystem.Instance.SelectTheNextCar();
-
-        }
-
-
        
-
 
 
 

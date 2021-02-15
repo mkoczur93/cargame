@@ -21,6 +21,7 @@
             get => id;
         }
 
+        
         protected virtual void Start()
         {
             //Debug.Log(this);
