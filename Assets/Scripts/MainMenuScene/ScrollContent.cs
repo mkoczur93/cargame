@@ -16,6 +16,7 @@
 
         public void OnScroll(PointerEventData eventData)
         {
+            //Do zmiany potem :P 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
                 SelectionSystem.Instance.SelectTheNextCar();

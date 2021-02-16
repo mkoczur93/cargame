@@ -18,13 +18,19 @@
             set => m_SelectedCar = value;
         }
 
-        private void Start()
-        {
-            DontDestroyOnLoad(this);
-        }
+       
         private void Awake()
         {
-            instance = this;
+            if (instance = null)
+            {
+                DontDestroyOnLoad(this);
+                instance = this;
+            }
+
+            else
+            {
+                Destroy(this);
+            }
         }
     }
 }

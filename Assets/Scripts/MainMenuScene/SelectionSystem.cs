@@ -30,11 +30,11 @@
         private CardPosition m_Position = null;
         private List<PlayerCardViewModel> m_PlayerCardSpawn = new List<PlayerCardViewModel>();
         private Sequence m_MySequence = null;
-        private readonly Color m_SelectedColor = Color.white;
+        private const int m_Duration = 1;
         [SerializeField]
-        private ColorBlock m_colorBlock;
+        private ColorBlock m_ColorBlock;
         [SerializeField]
-        private ColorBlock m_colorBlockSelectedCar;
+        private ColorBlock m_ColorBlockSelectedCar;
        
 
 
@@ -63,12 +63,12 @@
                 if (count == 0)
                 {
                     count++;
-                    card.NormalColor = m_colorBlockSelectedCar;
+                    card.NormalColor = m_ColorBlockSelectedCar;
 
                 }
                 else
                 {
-                    card.NormalColor = m_colorBlock;
+                    card.NormalColor = m_ColorBlock;
                 }
                 m_PlayerCardSpawn.Add(card);
                 m_Position = new CardPosition();
@@ -96,10 +96,10 @@
             else
             {
 
-                m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlock;
+                m_PlayerCardSpawn[m_Counter].NormalColor = m_ColorBlock;
                 m_Counter++;                
-                m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_CardPositions[m_Counter].Position, 1));
-                m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlockSelectedCar;
+                m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_CardPositions[m_Counter].Position, m_Duration));
+                m_PlayerCardSpawn[m_Counter].NormalColor = m_ColorBlockSelectedCar;
 
 
             }
@@ -116,10 +116,10 @@
             }
             else
             {
-                m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlock;
+                m_PlayerCardSpawn[m_Counter].NormalColor = m_ColorBlock;
                 m_Counter--;
-                m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_CardPositions[m_Counter].Position, 1));
-                m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlockSelectedCar;
+                m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_CardPositions[m_Counter].Position, m_Duration));
+                m_PlayerCardSpawn[m_Counter].NormalColor = m_ColorBlockSelectedCar;
                 
             }
 
@@ -133,10 +133,10 @@
             {
                 if (item.Id == value)
                 {
-                    m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlock;
+                    m_PlayerCardSpawn[m_Counter].NormalColor = m_ColorBlock;
                     m_Counter = index;
-                    m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_CardPositions[m_Counter].Position, 1));
-                    m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlockSelectedCar;
+                    m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_CardPositions[m_Counter].Position, m_Duration));
+                    m_PlayerCardSpawn[m_Counter].NormalColor = m_ColorBlockSelectedCar;
                     EventSystem.current.SetSelectedGameObject(null);
                     return;
                 }
