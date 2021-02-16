@@ -10,18 +10,14 @@
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
     {
-        // public float maxSpeed;
-        // public float acceleration;
-        //  public float steering;
-        //  public float direction;
-        //   Vector2 speed;
-
+      
         [SerializeField]
         private CarData carData = null;
         private Rigidbody2D rb = null;
         private Vector2 speed = Vector2.zero;
         private bool isMotion = false;
         private bool startGame = false;
+        private const float driftForceFactor = 2f;
 
         private void Awake()
         {
@@ -97,7 +93,7 @@
                 //Debug.Log(rb.drag);               
                 speed = transform.up * (Input.GetAxis("Vertical") * carData.Acceleration);
                 rb.AddForce(speed);
-                float driftForce = Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.left)) * 2.0f;
+                float driftForce = Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.left)) * driftForceFactor;
                 Vector2 relativeForce = Vector2.right * driftForce;
                 rb.AddForce(rb.GetRelativeVector(relativeForce));
             }
@@ -121,7 +117,7 @@
                     //Debug.Log(rb.rotation);
                 }
 
-                float driftForce = Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.left)) * 2.0f;
+                float driftForce = Vector2.Dot(rb.velocity, rb.GetRelativeVector(Vector2.left)) * driftForceFactor;
                 Vector2 relativeForce = Vector2.right * driftForce;
                 rb.AddForce(rb.GetRelativeVector(relativeForce));
             }

@@ -13,8 +13,6 @@
     public class PlayerCarViewModel : ViewModel
     {
 
-
-        // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
@@ -35,7 +33,13 @@
 
         }
 
+        [Binding]
+        public void ButtonSelect()
+        {
+            SelectionSystem.Instance.StartGame();
 
+
+        }
 
 
 

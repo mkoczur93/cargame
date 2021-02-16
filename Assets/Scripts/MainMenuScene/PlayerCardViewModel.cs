@@ -12,16 +12,33 @@
     [Binding]
     public class PlayerCardViewModel : MonoBehaviour, INotifyPropertyChanged
     {
-        private string nameCar;
+        private string m_NameCar = string.Empty;
 
-        private Sprite carSprite;
+        private Sprite m_CarSprite = null;
+
+        private ColorBlock m_NormalColor;
+        
+
+        [Binding]
+        public ColorBlock NormalColor
+        {
+            get => m_NormalColor;
+            set
+            {
+                m_NormalColor = value;
+
+                OnPropertyChanged(nameof(NormalColor));
+
+            }
+
+        }
         [Binding]
         public string NameCar
         {
-            get => nameCar;
+            get => m_NameCar;
             set
             {
-                nameCar = value;
+                m_NameCar = value;
 
                 OnPropertyChanged(nameof(NameCar));
 
@@ -29,17 +46,23 @@
 
         }
         [Binding]
-        public Sprite CarSprite{
-            get => carSprite;
+        public Sprite CarSprite
+        {
+            get => m_CarSprite;
             set
             {
-                carSprite = value;
+                m_CarSprite = value;
 
                 OnPropertyChanged(nameof(CarSprite));
             }
 
-            }
-       
+        }
+        [Binding]
+        public void SetTheSelectedCar()
+        {
+            SelectionSystem.Instance.SetTheSelectedCar(this.GetInstanceID());
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
@@ -50,7 +73,7 @@
             }
         }
 
-        // Update is called once per frame
+        
 
     }
 }

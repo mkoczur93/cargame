@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8797730398852697825}
   - component: {fileID: -2584238487137724779}
   - component: {fileID: -7504358590165696008}
+  - component: {fileID: -5070042554443556722}
+  - component: {fileID: 2877042282796108976}
   m_Layer: 5
   m_Name: PlayerCard
   m_TagString: Untagged
@@ -125,7 +127,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.5283019, g: 0.41616234, b: 0.41616234, a: 1}
+    m_NormalColor: {r: 0.6431373, g: 0.62352943, b: 0.62352943, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -148,3 +150,33 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &-5070042554443556722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746734999376870197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb48ceac3a3a410b856b61b3aecb56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewAdapterTypeName: 
+  viewAdapterOptions: {fileID: 0}
+  viewModelPropertyName: MainProject.UI.PlayerCardViewModel.NormalColor
+  viewPropertyName: UnityEngine.UI.Button.colors
+--- !u!114 &2877042282796108976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746734999376870197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b803c2a506714940a4076addfce840e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewModelMethodName: MainProject.UI.PlayerCardViewModel.SetTheSelectedCar
+  viewEventName: UnityEngine.UI.Button.onClick

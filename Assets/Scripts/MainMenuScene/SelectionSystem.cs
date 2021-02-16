@@ -2,33 +2,42 @@
 {
     using DG.Tweening;
     using Lean.Pool;
+    using GameManager;
+    using MainProject.Card;
     using MainProject.UI;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using UnityEngine.EventSystems;
     using UnityEngine.UI;
+    using UnityEngine.SceneManagement;
 
     public class SelectionSystem : MonoBehaviour
     {
         [SerializeField]
-        private CarPlayerData carsData = null;
+        private CarPlayerData m_CarsData = null;
         [SerializeField]
-        private PlayerCardViewModel PlayerCard = null;
+        private PlayerCardViewModel m_PlayerCard = null;        
         [SerializeField]
-        private GameObject m_panel = null;
-        [SerializeField]
-        private RectTransform ScrollContent = null;
-        [SerializeField]
-        private Transform arrowUp = null;
-        [SerializeField]
-        private Transform arrowDown = null;
+        private RectTransform m_ScrollContent = null;
         private static SelectionSystem instance = null;
         public static SelectionSystem Instance { get => instance; set => instance = value; }
         private int m_Counter = 0;
-        private int m_Counter1 = 0;        
-        private List<float> carPosition = new List<float>();
-        private Sequence mySequence = null;
-        
+        private int m_Max_Counter = 0;
+        private float m_PositionCard = 0f;
+        private float m_CellSize = 0f;
+        private List<CardPosition> m_CardPositions = new List<CardPosition>();
+        private CardPosition m_Position = null;
+        private List<PlayerCardViewModel> m_PlayerCardSpawn = new List<PlayerCardViewModel>();
+        private Sequence m_MySequence = null;
+        private readonly Color m_SelectedColor = Color.white;
+        [SerializeField]
+        private ColorBlock m_colorBlock;
+        [SerializeField]
+        private ColorBlock m_colorBlockSelectedCar;
+       
+
+
 
         private void Awake()
         {
@@ -36,58 +45,65 @@
             instance = this;
 
         }
-        // Start is called before the first frame update
+        
         void Start()
         {
-
            
-            float value = arrowDown.localPosition.x;
-            foreach (var car in carsData.Cars)
+                
+           
+            m_CellSize = m_ScrollContent.GetComponent<GridLayoutGroup>().cellSize.x;
+                
+            
+            var count = 0;
+            foreach (var car in m_CarsData.Cars)
             {
 
-                var card = LeanPool.Spawn(PlayerCard, m_panel.transform);
+                var card = LeanPool.Spawn(m_PlayerCard, m_ScrollContent.transform);
                 card.CarSprite = car.SpriteCar;
-                carPosition.Add(value);
-                value = value + 164f;
+                if (count == 0)
+                {
+                    count++;
+                    card.NormalColor = m_colorBlockSelectedCar;
+
+                }
+                else
+                {
+                    card.NormalColor = m_colorBlock;
+                }
+                m_PlayerCardSpawn.Add(card);
+                m_Position = new CardPosition();
+                m_Position.Id = card.GetInstanceID();
+                m_Position.Position = m_PositionCard;
+                m_CardPositions.Add(m_Position);
+
+                m_PositionCard = m_PositionCard + m_CellSize;
 
 
             }
 
-
-
-            //Debug.Log(positionCar.Length);
-            mySequence = DOTween.Sequence();
+            m_Max_Counter = m_CardPositions.Count - 1;
+            m_MySequence = DOTween.Sequence();
 
 
         }
 
         public void SelectTheNextCar()
         {
-            
-            if (m_Counter < 2)
-            {
-                m_Counter++;
-                mySequence.Append(arrowDown.DOLocalMoveX(carPosition[m_Counter], 1))
-                    .Join(arrowUp.DOLocalMoveX(carPosition[m_Counter], 1));
-                m_Counter1++;
-                Debug.Log(m_Counter);
-                return;
-            }
-            if (ScrollContent.localPosition.x <= -820)
+            if (m_Counter == m_Max_Counter)
             {
                 return;
             }
             else
             {
-                Debug.Log(m_Counter);
-                //mySequence.Append(ScrollContent.DOLocalMoveX(ScrollContent.localPosition.x - 168, 1));
 
-                mySequence.Append(ScrollContent.DOLocalMoveX(-carPosition[m_Counter1], 1));
-                if (m_Counter1 < carPosition.Count - 1)
-                {
-                    m_Counter1++;
-                }
+                m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlock;
+                m_Counter++;                
+                m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_CardPositions[m_Counter].Position, 1));
+                m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlockSelectedCar;
+
+
             }
+            
 
         }
 
@@ -96,41 +112,49 @@
 
             if (m_Counter == 0)
             {
-                if (ScrollContent.localPosition.x >= -10)
+                return;
+            }
+            else
+            {
+                m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlock;
+                m_Counter--;
+                m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_CardPositions[m_Counter].Position, 1));
+                m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlockSelectedCar;
+                
+            }
+
+        }
+        
+
+        public void SetTheSelectedCar(int value)
+        {
+            int index = 0;
+            foreach (var item in m_CardPositions)
+            {
+                if (item.Id == value)
                 {
+                    m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlock;
+                    m_Counter = index;
+                    m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_CardPositions[m_Counter].Position, 1));
+                    m_PlayerCardSpawn[m_Counter].NormalColor = m_colorBlockSelectedCar;
+                    EventSystem.current.SetSelectedGameObject(null);
                     return;
                 }
-                    m_Counter = 0;
-                //mySequence.Append(ScrollContent.DOLocalMoveX(ScrollContent.localPosition.x + 168, 1));
-                mySequence.Append(ScrollContent.DOLocalMoveX(-carPosition[m_Counter1], 1));
-                if (m_Counter1 != 0) {
-                    m_Counter1--;
-                }
-                Debug.Log(m_Counter);
-                return;
-
-
+                index++;
             }
-
-            
-            if (m_Counter < 3)
-            {
-
-                m_Counter--;
-                mySequence.Append(arrowDown.DOLocalMoveX(carPosition[m_Counter], 1))
-                    .Join(arrowUp.DOLocalMoveX(carPosition[m_Counter], 1));
-                m_Counter1--;
-                Debug.Log(m_Counter);
-                return;
-
-            }
-            
 
         }
-        // Update is called once per frame
-        void Update()
+
+        public void StartGame()
         {
-
+            Debug.Log(m_Counter);
+            Debug.Log(m_CarsData.Cars[m_Counter].Car);
+            GameManager.Instance.SelectedCar = m_CarsData.Cars[m_Counter].Car;
+            SceneManager.LoadScene("SampleScene");
+            // Potem zmienie :D
         }
-    }
+
+      
+     
+}
 }

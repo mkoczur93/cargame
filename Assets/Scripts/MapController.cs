@@ -3,6 +3,7 @@
     using Lean.Pool;
     using MainProject.UI;
     using Player;
+    using GameManager;
     using RacingMap;
     using System;
     using System.Collections;
@@ -11,13 +12,12 @@
 
     public class MapController : MonoBehaviour
     {
-        [SerializeField]
-        private List<GameObject> cars = null;
+        
         [SerializeField]
         private DefaultMapSettings settings = null;
-        private GameObject selectedCar = null;
+        private PlayerMovementController selectedCar = null;
         [SerializeField]
-        private GameObject camera = null;
+        private Camera camera = null;
         [SerializeField]
         private StartAnimViewModel startAnimPanel = null;
         private Action startGame = null;
@@ -27,17 +27,16 @@
         public static MapController Instance { get => instance; set => instance = value; }
 
 
-        public GameObject SelectedCar
+        public PlayerMovementController SelectedCar
         {
             get => selectedCar;
         }
         private void Awake()
         {
             instance = this;
-            if (cars.Count >= 0)
-            {
-                selectedCar = Instantiate(cars[0]);
-            }
+            
+            selectedCar = Instantiate(GameManager.Instance.SelectedCar);
+            
             if (camera != null)
             {
                 camera = Instantiate(camera);
@@ -55,16 +54,15 @@
         {
             if (selectedCar != null)
             {
-                if (selectedCar.TryGetComponent<PlayerMovementController>(out var playerCar))
-                {
-                    if (playerCar.TryGetComponent<Rigidbody2D>(out var player))
+               
+                    if (TryGetComponent<Rigidbody2D>(out var player))
                     {
                         player.velocity = Vector2.zero;
                         player.transform.eulerAngles = settings.StartCarRotation;
                         player.transform.position = settings.StartCarPosition;
                         
                     }
-                }
+                
             }
             if (camera != null)
 

@@ -13,7 +13,7 @@
         [SerializeField]
         private CameraData cam = null;
         [SerializeField]
-        private GameObject player = null;
+        private PlayerMovementController player = null;
         private PlayerMovementController playerController = null;
         private const float cameraPositionZ = -10f;
         private Vector3 offset = Vector3.zero;

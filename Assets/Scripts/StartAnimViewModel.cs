@@ -13,15 +13,15 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
 
     private int counter = 3;
     private const int resetCounter = 3;
-    WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
-    WaitForSeconds waitOneAndHalfSecond = new WaitForSeconds(1.5f);
+    private readonly WaitForSeconds waitOneSecond = new WaitForSeconds(1f);
+    private readonly WaitForSeconds waitOneAndHalfSecond = new WaitForSeconds(1.5f);
     private const float scaleDurationCountingDown = 1.5f;
     private const float duration = 0;
     private bool toggle = false;
     [SerializeField]
-    private Transform m_transform = null;
-    private bool m_coroutine_running = false;
-    private Coroutine m_corutine = null;
+    private Transform transform = null;
+    private bool coroutine_running = false;
+    private Coroutine corutine = null;
     private Sequence mySequence = null;
 
 
@@ -63,24 +63,24 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
     void OnEnable()
     {
         CheckStartAnimCoroutine();
-        m_corutine = StartCoroutine(StartAnim());
+        corutine = StartCoroutine(StartAnim());
 
     }
 
     public void CheckStartAnimCoroutine()
     {
-        if (m_coroutine_running == true)
+        if (coroutine_running == true)
         {
-            if (m_corutine != null)
+            if (corutine != null)
             {
-                StopCoroutine(m_corutine);
+                StopCoroutine(corutine);
                 if (Toggle == true)
                 {
                     Toggle = false;
                 }
-                Debug.Log("stop coroutine");
+                
             }
-            m_coroutine_running = false;            
+            coroutine_running = false;            
         }
 
     }
@@ -92,30 +92,30 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
         }
 
         mySequence = DOTween.Sequence();
-        mySequence.Append(m_transform.transform.DOScale(Vector3.one, duration));
+        mySequence.Append(transform.transform.DOScale(Vector3.one, duration));
         Counter = resetCounter;        
-        m_coroutine_running = true;   
+        coroutine_running = true;   
         yield return waitOneSecond;
         var index = 3;
         while (index > 0)
         {
             yield return waitOneSecond;
-            mySequence.Append(m_transform.transform.DOScale(Vector3.zero, scaleDurationCountingDown));
+            mySequence.Append(transform.transform.DOScale(Vector3.zero, scaleDurationCountingDown));
             yield return waitOneAndHalfSecond;
             index--;
             Counter = index;
-            mySequence.Append(m_transform.transform.DOScale(Vector3.one, duration));            
+            mySequence.Append(transform.transform.DOScale(Vector3.one, duration));            
             
 
         }
 
-        mySequence.Append(m_transform.transform.DOScale(Vector3.zero, duration));
+        mySequence.Append(transform.transform.DOScale(Vector3.zero, duration));
         Toggle = true;        
         MapController.Instance.StartGame();
         yield return waitOneAndHalfSecond;
         Toggle = false;
         enabled = false;
-        m_coroutine_running = false;
+        coroutine_running = false;
 
 
 

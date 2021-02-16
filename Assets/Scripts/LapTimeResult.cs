@@ -9,13 +9,13 @@ public class LapTimeResult : MonoBehaviour, INotifyPropertyChanged
 {
 
     private string lapTime;    
-    private static LapTimeResult instance = null;
-    public static LapTimeResult Instance { get => instance; set => instance = value; }
+    //private static LapTimeResult instance = null;
+   // public static LapTimeResult Instance { get => instance; set => instance = value; }
 
 
     private void Awake()
     {
-        instance = this;
+      //  instance = this;
 
     }
     [Binding]

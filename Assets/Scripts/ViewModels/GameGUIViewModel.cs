@@ -56,7 +56,7 @@
             
             if (maxLaps >= counterLaps)
             {
-                Debug.Log("ss");
+                
                 if (startGame == true)
                 {
                     LapTime = LapTimeSystem.Instance.SetActualTime();

@@ -360,6 +360,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d1b238c6ec58549913fb25a4d6f88c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1197560297 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3754422682055300916, guid: 30feef633b2824449be7426dfe4f7944,
+    type: 3}
+  m_PrefabInstance: {fileID: 3754422683264961147}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1600828963 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9196174308027552184, guid: 23fc70f63656c5f40afeeec5b481da75,
@@ -801,6 +807,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 122055839}
     m_Modifications:
+    - target: {fileID: 3754422682146546629, guid: 30feef633b2824449be7426dfe4f7944,
+        type: 3}
+      propertyPath: transform
+      value: 
+      objectReference: {fileID: 1197560297}
     - target: {fileID: 3754422682146546630, guid: 30feef633b2824449be7426dfe4f7944,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -974,6 +985,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110690313986623791, guid: 6f3e0db641a5dd0429d1672d48264400,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5110690314134451268, guid: 6f3e0db641a5dd0429d1672d48264400,
         type: 3}
@@ -1278,6 +1294,18 @@ PrefabInstance:
       propertyPath: startAnimPanel
       value: 
       objectReference: {fileID: 1185868222}
+    - target: {fileID: 7931516695444441695, guid: ee4cfd0883d7db243866c9be3f00083e,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 3326203969926875509, guid: e3772ce494545b74b9c928d5c3f68bcc,
+        type: 3}
+    - target: {fileID: 7931516695444441695, guid: ee4cfd0883d7db243866c9be3f00083e,
+        type: 3}
+      propertyPath: cars.Array.data[0]
+      value: 
+      objectReference: {fileID: 6785784291131205007, guid: 69cfe0e68a881034180e33b7e77766fd,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee4cfd0883d7db243866c9be3f00083e, type: 3}
 --- !u!1001 &8719203319990969053
@@ -1496,6 +1524,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 122055839}
     m_Modifications:
+    - target: {fileID: 9196174307662996399, guid: 23fc70f63656c5f40afeeec5b481da75,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9196174308027552184, guid: 23fc70f63656c5f40afeeec5b481da75,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1610,6 +1643,16 @@ PrefabInstance:
         type: 3}
       propertyPath: maxLaps
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9196174308459225958, guid: 23fc70f63656c5f40afeeec5b481da75,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 9196174308459225958, guid: 23fc70f63656c5f40afeeec5b481da75,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23fc70f63656c5f40afeeec5b481da75, type: 3}
