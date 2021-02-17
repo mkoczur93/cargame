@@ -13,7 +13,7 @@
     public class PlayerCardViewModel : MonoBehaviour, INotifyPropertyChanged
     {
         private string m_NameCar = string.Empty;
-
+        private int m_Id = 0;
         private Sprite m_CarSprite = null;
 
         private ColorBlock m_NormalColor;
@@ -24,8 +24,7 @@
 
         private void Start()
         {
-
-            SelectionSystem.Instance.SubscribeOnChangeCard(ChangeNormalColor);
+            SelectionSystem.Instance.SubscribeOnDataChanged(SetupView);
         }
         [Binding]
         public ColorBlock NormalColor
@@ -66,9 +65,23 @@
 
         }
         [Binding]
-        public void SetTheSelectedCar()
+        public int Id
         {
-            SelectionSystem.Instance.SetTheSelectedCar(this.GetInstanceID());
+            get => m_Id;
+            set
+            {
+                m_Id = value;
+
+                OnPropertyChanged(nameof(Id));
+
+            }
+
+        }
+
+        [Binding]
+        public void SetTheSelectedCarOnClick()
+        {
+            SelectionSystem.Instance.SelectCarOnClick(m_Id);
         }
 
 
@@ -81,12 +94,25 @@
             }
         }
 
-        public void ChangeNormalColor()
+        public void Init(PlayerCar item)
         {
-
-            var id = SelectionSystem.Instance.SetTheSelectedCar1();
-            if(id == this.GetInstanceID())
+            CarSprite = item.SpriteCar;
+            Id = item.Id;
+            if (item == SelectionSystem.Instance.CarsData.Cars[0])
             {
+                NormalColor = m_ColorBlockSelectedCar;
+            }
+            else
+            {
+                NormalColor = m_ColorBlock;
+            }
+        }
+
+        private void SetupView(PlayerCar playerCar)
+        {            
+            if (playerCar.Id == this.Id)
+            {
+
                 NormalColor = m_ColorBlockSelectedCar;
             }
             else
@@ -95,10 +121,9 @@
             }
 
         }
-
         private void OnDestroy()
         {
-            SelectionSystem.Instance.UnSubscribeOnChangeCard(ChangeNormalColor);
+            SelectionSystem.Instance.UnSubscribeOnDataChanged(SetupView);
         }
 
 

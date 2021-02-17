@@ -34,15 +34,15 @@
             
         }
 
-        private void FixedUpdate()
-        {
-            if (startGame == true)
-            {
-                PlayerMovement();
-            }
+       private void FixedUpdate()
+       {
+           if (startGame == true)
+         {
+            PlayerMovement();
+         }
            
 
-        }
+     }
         private void  StartGame()
         {
             startGame = true;
@@ -66,10 +66,7 @@
         }
         private void Update()
         {
-           
             CheckCurrentSpeed();
-            
-
         }
 
         public void PlayerMovement()

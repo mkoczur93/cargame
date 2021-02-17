@@ -194,5 +194,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b803c2a506714940a4076addfce840e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewModelMethodName: MainProject.UI.PlayerCardViewModel.SetTheSelectedCar
+  viewModelMethodName: MainProject.UI.PlayerCardViewModel.SetTheSelectedCarOnClick
   viewEventName: UnityEngine.UI.Button.onClick
