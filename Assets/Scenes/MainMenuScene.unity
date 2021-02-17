@@ -267,15 +267,15 @@ MonoBehaviour:
   m_PlayerCard: {fileID: -2584238487137724779, guid: 0221d3849c644c6438ea10ab253a1640,
     type: 3}
   m_ScrollContent: {fileID: 1923988259}
-  m_colorBlock:
+  m_ColorBlock:
     m_NormalColor: {r: 0.6431373, g: 0.62352943, b: 0.62352943, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_DisabledColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 0.49803922}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
-  m_colorBlockSelectedCar:
+  m_ColorBlockSelectedCar:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}

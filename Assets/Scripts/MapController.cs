@@ -12,7 +12,7 @@
 
     public class MapController : MonoBehaviour
     {
-        
+
         [SerializeField]
         private DefaultMapSettings settings = null;
         private PlayerMovementController selectedCar = null;
@@ -34,9 +34,9 @@
         private void Awake()
         {
             instance = this;
-            
+
             selectedCar = Instantiate(GameManager.Instance.SelectedCar);
-            
+
             if (camera != null)
             {
                 camera = Instantiate(camera);
@@ -52,17 +52,19 @@
         }
         public void SetStartDefaultPosition()
         {
+
             if (selectedCar != null)
             {
-               
-                    if (TryGetComponent<Rigidbody2D>(out var player))
-                    {
-                        player.velocity = Vector2.zero;
-                        player.transform.eulerAngles = settings.StartCarRotation;
-                        player.transform.position = settings.StartCarPosition;
-                        
-                    }
-                
+
+                if (selectedCar.TryGetComponent<Rigidbody2D>(out var player))
+                {
+
+                    player.velocity = Vector2.zero;
+                    player.transform.eulerAngles = settings.StartCarRotation;
+                    player.transform.position = settings.StartCarPosition;
+
+                }
+
             }
             if (camera != null)
 

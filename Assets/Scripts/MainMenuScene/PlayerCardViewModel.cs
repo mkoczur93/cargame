@@ -17,8 +17,16 @@
         private Sprite m_CarSprite = null;
 
         private ColorBlock m_NormalColor;
-        
+        [SerializeField]
+        private ColorBlock m_ColorBlock;
+        [SerializeField]
+        private ColorBlock m_ColorBlockSelectedCar;
 
+        private void Start()
+        {
+
+            SelectionSystem.Instance.SubscribeOnChangeCard(ChangeNormalColor);
+        }
         [Binding]
         public ColorBlock NormalColor
         {
@@ -73,7 +81,26 @@
             }
         }
 
-        
+        public void ChangeNormalColor()
+        {
+
+            var id = SelectionSystem.Instance.SetTheSelectedCar1();
+            if(id == this.GetInstanceID())
+            {
+                NormalColor = m_ColorBlockSelectedCar;
+            }
+            else
+            {
+                NormalColor = m_ColorBlock;
+            }
+
+        }
+
+        private void OnDestroy()
+        {
+            SelectionSystem.Instance.UnSubscribeOnChangeCard(ChangeNormalColor);
+        }
+
 
     }
 }

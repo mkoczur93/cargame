@@ -11,6 +11,7 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using UnityEngine.SceneManagement;
+    using System;
 
     public class SelectionSystem : MonoBehaviour
     {
@@ -35,6 +36,7 @@
         private ColorBlock m_ColorBlock;
         [SerializeField]
         private ColorBlock m_ColorBlockSelectedCar;
+        private Action m_OnChangeCard = null;
        
 
 
@@ -74,6 +76,7 @@
                 m_Position = new CardPosition();
                 m_Position.Id = card.GetInstanceID();
                 m_Position.Position = m_PositionCard;
+                m_Position.Card = card;
                 m_CardPositions.Add(m_Position);
 
                 m_PositionCard = m_PositionCard + m_CellSize;
@@ -86,7 +89,7 @@
 
 
         }
-
+      
         public void SelectTheNextCar()
         {
             if (m_Counter == m_Max_Counter)
@@ -124,8 +127,37 @@
             }
 
         }
-        
 
+        public CardPosition SelectThePreviousCar1()
+        {
+            if (m_Counter == 0)
+            {
+                return m_CardPositions[m_Counter];
+            }
+            else
+            {
+                m_Counter--;
+                m_OnChangeCard?.Invoke();
+                return m_CardPositions[m_Counter];
+            }
+
+
+        }
+        public CardPosition SelectTheNextCar1()
+        {
+            if (m_Counter == m_Max_Counter)
+            {
+                return m_CardPositions[m_Counter];
+            }
+            else
+            {
+                m_Counter++;
+                m_OnChangeCard?.Invoke();
+                return m_CardPositions[m_Counter];
+            }
+
+
+        }
         public void SetTheSelectedCar(int value)
         {
             int index = 0;
@@ -144,17 +176,27 @@
             }
 
         }
+        public int SetTheSelectedCar1()
+        {
+            return m_CardPositions[m_Counter].Id;
 
+        }
         public void StartGame()
         {
-            Debug.Log(m_Counter);
-            Debug.Log(m_CarsData.Cars[m_Counter].Car);
+           
             GameManager.Instance.SelectedCar = m_CarsData.Cars[m_Counter].Car;
             SceneManager.LoadScene("SampleScene");
             // Potem zmienie :D
         }
 
-      
-     
-}
+        public void SubscribeOnChangeCard(Action action)
+        {
+            m_OnChangeCard += action;
+        }
+        public void UnSubscribeOnChangeCard(Action action)
+        {
+            m_OnChangeCard -= action;
+        }
+
+    }
 }

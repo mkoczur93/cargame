@@ -21,16 +21,12 @@
        
         private void Awake()
         {
-            if (instance = null)
-            {
-                DontDestroyOnLoad(this);
-                instance = this;
-            }
+            instance = this;
+            
+            DontDestroyOnLoad(this);
+            
+            
 
-            else
-            {
-                Destroy(this);
-            }
         }
     }
 }
