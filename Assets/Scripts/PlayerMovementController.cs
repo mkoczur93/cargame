@@ -136,6 +136,7 @@
                 isMotion = true;
             else
                 isMotion = false;
+            
         }
 
 

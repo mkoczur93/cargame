@@ -16,9 +16,7 @@
         [SerializeField]
         private Vector3 startCameraRotation = Vector3.zero;
         [SerializeField]
-        private int initialLap = 0;
-        [SerializeField]
-        private int maxLaps = 0;
+        private int initialLap = 0;        
         [SerializeField]
         private float startTime = 0f;
 
@@ -27,8 +25,7 @@
         public Vector3 StartCameraPosition { get => startCameraPosition; }
         public Vector3 StartCameraRotation { get => startCameraRotation; }
         public int InitialLap { get => initialLap; }
-        public int MaxLaps  {get => maxLaps;}
         public float StartTime { get => startTime; }
-        
+
     }
 }

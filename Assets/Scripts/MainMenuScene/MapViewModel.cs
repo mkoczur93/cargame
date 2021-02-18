@@ -10,7 +10,7 @@
     using Car;
 
     [Binding]
-    public class PlayerCarViewModel : ViewModel
+    public class MapViewModel : ViewModel
     {
 
         protected override void Start()
@@ -27,13 +27,13 @@
         public void ButtonBack()
         {
             hidePanel();
-            ViewModelController.Instance.getViewModel(PanelUI.MainMenuScenePanel).showPanel();
+            ViewModelController.Instance.getViewModel(PanelUI.PlayerCarPanel).showPanel();
             EventSystem.current.SetSelectedGameObject(null);
 
 
         }
 
-    
+      
 
 
 

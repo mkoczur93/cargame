@@ -15,10 +15,10 @@
         [SerializeField]
         private List<LapCheckpoint> lap_checkpoints = new List<LapCheckpoint>();        
         private Action OnCheckPointReached = null;
-        private Action startGame = null;
-        [SerializeField]
+        private Action startGame = null;        
         private DefaultMapSettings settings = null;
         private int counterLaps = 1;
+        private const int startLap = 1;
         public int CounterLaps { get => counterLaps; set => counterLaps = value; }
 
         private static LapsSystem instance = null;
@@ -33,7 +33,7 @@
 
         void Start()
         {
-
+            settings = GameManager.GameManager.Instance.SelectedDefaultMapSettings;
             baseCheckpoints = GetComponentsInChildren<LapCheckpoint>();
 
 
@@ -80,7 +80,7 @@
 
         public void SetInitialLap()
         {
-            counterLaps = settings.InitialLap;            
+            counterLaps = startLap;            
             
         }
 
@@ -94,7 +94,7 @@
 
             if (col.CompareTag(ObjectTagData.Player))
             {
-
+                
                 if (lap_checkpoints.Count == 0)
                     return;
 

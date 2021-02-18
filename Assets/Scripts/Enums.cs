@@ -12,7 +12,9 @@
         MainMenuScenePanel = 8,       
         PlayerCarSelectionPanel = 9,
         PlayerCarPanel = 10,
-        
+        MapSelectionPanel = 11,
+        MapPanel = 12,
+
 
 
 

@@ -14,9 +14,8 @@
 
         void OnTriggerExit2D(Collider2D col)
         {
-            if (col.CompareTag(ObjectTagData.Player))
-            {
-                //Debug.Log(this.GetInstanceID());
+            if (col.CompareTag(ObjectTagData.Player))            {
+                
 
                 LapsSystem.Instance.RegisterCheckpoint(this);
 

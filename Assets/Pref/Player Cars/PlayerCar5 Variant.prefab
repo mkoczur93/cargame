@@ -16,7 +16,7 @@ PrefabInstance:
     - target: {fileID: 936927505409029754, guid: 7d9d42acaa70a0949864cb93cfdf52ff,
         type: 3}
       propertyPath: m_Name
-      value: PlayerCar5
+      value: PlayerCar5 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 936927505409029758, guid: 7d9d42acaa70a0949864cb93cfdf52ff,
         type: 3}
@@ -72,6 +72,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 936927505409029759, guid: 7d9d42acaa70a0949864cb93cfdf52ff,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.125285
+      objectReference: {fileID: 0}
+    - target: {fileID: 936927505409029759, guid: 7d9d42acaa70a0949864cb93cfdf52ff,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.7524363
+      objectReference: {fileID: 0}
+    - target: {fileID: 936927505409029759, guid: 7d9d42acaa70a0949864cb93cfdf52ff,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.01519674
+      objectReference: {fileID: 0}
+    - target: {fileID: 936927505409029759, guid: 7d9d42acaa70a0949864cb93cfdf52ff,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.003798008
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d9d42acaa70a0949864cb93cfdf52ff, type: 3}

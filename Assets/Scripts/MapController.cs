@@ -13,7 +13,7 @@
     public class MapController : MonoBehaviour
     {
 
-        [SerializeField]
+        
         private DefaultMapSettings settings = null;
         private PlayerMovementController selectedCar = null;
         [SerializeField]
@@ -36,6 +36,7 @@
             instance = this;
 
             selectedCar = Instantiate(GameManager.Instance.SelectedCar);
+            settings = GameManager.Instance.SelectedDefaultMapSettings;
 
             if (camera != null)
             {
@@ -47,7 +48,9 @@
         }
         // Start is called before the first frame update
         void Start()
+
         {
+            settings = GameManager.Instance.SelectedDefaultMapSettings;
             SetStartDefaultPosition();
         }
         public void SetStartDefaultPosition()

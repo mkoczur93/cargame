@@ -16,7 +16,7 @@ PrefabInstance:
     - target: {fileID: 2338370094203497914, guid: b43897de0f0a5b14487fdd51fe06da2f,
         type: 3}
       propertyPath: m_Name
-      value: PlayerCar8
+      value: PlayerCar8 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2338370094203497918, guid: b43897de0f0a5b14487fdd51fe06da2f,
         type: 3}
@@ -72,6 +72,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338370094203497919, guid: b43897de0f0a5b14487fdd51fe06da2f,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.01519674
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338370094203497919, guid: b43897de0f0a5b14487fdd51fe06da2f,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.7524363
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338370094203497919, guid: b43897de0f0a5b14487fdd51fe06da2f,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.125285
+      objectReference: {fileID: 0}
+    - target: {fileID: 2338370094203497919, guid: b43897de0f0a5b14487fdd51fe06da2f,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.003798008
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b43897de0f0a5b14487fdd51fe06da2f, type: 3}

@@ -16,7 +16,27 @@ PrefabInstance:
     - target: {fileID: 9122128054472387195, guid: 7d3060d570ec3ae499931cc26bfd1728,
         type: 3}
       propertyPath: m_Name
-      value: PlayerCar3
+      value: PlayerCar3 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122128054472387198, guid: 7d3060d570ec3ae499931cc26bfd1728,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0.01519674
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122128054472387198, guid: 7d3060d570ec3ae499931cc26bfd1728,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.003798008
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122128054472387198, guid: 7d3060d570ec3ae499931cc26bfd1728,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.7524363
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122128054472387198, guid: 7d3060d570ec3ae499931cc26bfd1728,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.125285
       objectReference: {fileID: 0}
     - target: {fileID: 9122128054472387199, guid: 7d3060d570ec3ae499931cc26bfd1728,
         type: 3}

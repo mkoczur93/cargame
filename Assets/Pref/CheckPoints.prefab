@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1724733889453705612}
   - component: {fileID: 1724733889453705602}
   - component: {fileID: 1724733889453705603}
-  - component: {fileID: 1724733889453705601}
   m_Layer: 0
   m_Name: CheckPoint1
   m_TagString: Untagged
@@ -71,25 +70,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.13118792, y: 7.476}
   m_EdgeRadius: 0
---- !u!251 &1724733889453705601
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724733889453705613}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: -90
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!1 &1724733889913177117
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +260,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseCheckpoints: []
   lap_checkpoints: []
-  settings: {fileID: 11400000, guid: c737e395a3952504d9ebad9d3255f0a3, type: 2}
+  settings:
+    startCarPosition: {x: 0, y: 0, z: 0}
+    startCarRotation: {x: 0, y: 0, z: 0}
+    startCameraPosition: {x: 0, y: 0, z: 0}
+    startCameraRotation: {x: 0, y: 0, z: 0}
+    initialLap: 0
+    startTime: 0
 --- !u!61 &1724733890604811511
 BoxCollider2D:
   m_ObjectHideFlags: 0

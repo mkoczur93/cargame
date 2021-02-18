@@ -1,6 +1,7 @@
 ﻿namespace GameManager
 {
     using Player;
+    using RacingMap;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -9,6 +10,8 @@
     {
         [SerializeField]
         private PlayerMovementController m_SelectedCar = null;
+        [SerializeField]
+        private DefaultMapSettings m_SelectedDefaultMapSettings = null;
         private static GameManager instance = null;
         public static GameManager Instance { get => instance; set => instance = value; }
 
@@ -18,7 +21,11 @@
             set => m_SelectedCar = value;
         }
 
-       
+        public DefaultMapSettings SelectedDefaultMapSettings
+        {
+            get => m_SelectedDefaultMapSettings;
+            set => m_SelectedDefaultMapSettings = value;
+        }
         private void Awake()
         {
             instance = this;
