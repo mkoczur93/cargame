@@ -14,6 +14,8 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using UnityWeld.Binding;
+    using Zenject;
+
     [Binding]
     public class MapSelectionViewModel : ViewModel, IScrollHandler
     {
@@ -27,6 +29,8 @@
         private Sequence m_MySequence = null;
         private List<CardMapPosition> m_Cards = new List<CardMapPosition>();
         private const float m_Duration = 1f;
+        [Inject]
+        SelectionSystem m_Selection;
 
         protected override void Start()
         {
@@ -35,15 +39,15 @@
             Cursor.visible = true;
             m_MySequence = DOTween.Sequence();
             Spawn();
-            SelectionSystem.Instance.SubscribeOnMapDataChanged(SetPosition);
+            m_Selection.SubscribeOnMapDataChanged(SetPosition);
 
 
         }
         private void Spawn()
         {
             m_CellSize = m_ScrollContent.GetComponent<GridLayoutGroup>().cellSize.x;
-            var maps = SelectionSystem.Instance.MapsData;
-            
+            var maps = m_Selection.MapsData;
+            Debug.Log(maps);
             foreach (var item in maps.Maps)
 
             {                
@@ -68,7 +72,7 @@
         {
 
             EventSystem.current.SetSelectedGameObject(null);
-            SelectionSystem.Instance.StartGame();
+            m_Selection.StartGame();
 
 
         }
@@ -76,7 +80,7 @@
         public void ButtonPrevious()
         {
             EventSystem.current.SetSelectedGameObject(null);
-            var card = SelectionSystem.Instance.SelectThePreviousMap();            
+            var card = m_Selection.SelectThePreviousMap();            
             
 
         }
@@ -85,7 +89,7 @@
         public void ButtonNext()
         {
             EventSystem.current.SetSelectedGameObject(null);            
-            var card = SelectionSystem.Instance.SelectTheNextMap();            
+            var card = m_Selection.SelectTheNextMap();            
            
         }
         public void OnScroll(PointerEventData eventData)
@@ -93,12 +97,12 @@
             //Do zmiany potem :P 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                SelectionSystem.Instance.SelectTheNextMap();
+                m_Selection.SelectTheNextMap();
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                SelectionSystem.Instance.SelectThePreviousMap();
+                m_Selection.SelectThePreviousMap();
             }
 
 
@@ -116,7 +120,7 @@
 
         private void OnDestroy()
         {
-            SelectionSystem.Instance.UnSubscribeOnMapDataChanged(SetPosition);
+            m_Selection.UnSubscribeOnMapDataChanged(SetPosition);
         }
 
     }

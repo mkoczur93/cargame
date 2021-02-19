@@ -13,22 +13,31 @@
     using UnityEngine.SceneManagement;
     using System;
     using RacingMap;
+    using Zenject;
+    using static MainMenuScriptableObjectInstaller;
 
-    public class SelectionSystem : MonoBehaviour
+    public class SelectionSystem
     {
-        [SerializeField]
+        
         private CarPlayerData m_CarsData = null;
-        [SerializeField]
-        private MapListData m_MapsData = null;
-        private static SelectionSystem instance = null;
-        public static SelectionSystem Instance { get => instance; set => instance = value; }
+        private MapListData m_MapsData = null;                
+        //private static SelectionSystem instance = null;
+        //  public static SelectionSystem Instance { get => instance; set => instance = value; }
         private int m_Counter = 0;
         private int m_MaxCounter = 0;
         private int m_MapCounter = 0;
         private int m_MapMaxCounter = 0;
         private Action<PlayerCar> m_onDataChanged = null;
         private Action<Map> m_onMapDataChanged = null;
+        public SelectionSystem(GameObjectSettings m_Data)
+        {
+            m_MapsData = m_Data.MapsData;
+            Debug.LogWarning(m_MapsData.Maps.Count);
+            m_CarsData = m_Data.CarsData;
+            m_MaxCounter = m_CarsData.Cars.Count - 1;
+            m_MapMaxCounter = m_MapsData.Maps.Count - 1;
 
+        }
         public CarPlayerData CarsData
         {
             get => m_CarsData;
@@ -38,18 +47,19 @@
             get => m_MapsData;
         }
 
-        private void Awake()
-        {
+       // private void Awake()
+      //  {
 
-            instance = this;
+         //  instance = this;
 
-        }
+       // }
 
-        private void Start()
-        {
-            m_MaxCounter = m_CarsData.Cars.Count - 1;
-            m_MapMaxCounter = m_MapsData.Maps.Count - 1;
-        }
+       // private void Start()
+     //   {
+       //     m_MaxCounter = m_CarsData.Cars.Count - 1;
+       //     m_MapMaxCounter = m_MapsData.Maps.Count - 1;
+//
+       // }
 
         public PlayerCar SelectTheNextCar()
         {

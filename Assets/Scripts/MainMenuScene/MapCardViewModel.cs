@@ -9,6 +9,7 @@
     using UnityEngine;
     using UnityEngine.UI;
     using UnityWeld.Binding;
+    using Zenject;
 
     [Binding]
     public class MapCardViewModel : MonoBehaviour, INotifyPropertyChanged
@@ -22,10 +23,12 @@
         private ColorBlock m_ColorBlock;
         [SerializeField]
         private ColorBlock m_ColorBlockSelectedCar;
+        [Inject]
+        SelectionSystem selection;
 
         private void Start()
         {
-            SelectionSystem.Instance.SubscribeOnMapDataChanged(SetupView);
+            selection.SubscribeOnMapDataChanged(SetupView);
         }
         [Binding]
         public ColorBlock NormalColor
@@ -70,7 +73,7 @@
         [Binding]
         public void SetTheSelectedMapOnClick()
         {
-            SelectionSystem.Instance.SelectMapOnClick(m_Id);
+            selection.SelectMapOnClick(m_Id);
         }
 
 
@@ -88,7 +91,7 @@
             
             MapSprite = item.SpriteMap;
             Id = item.Id;           
-            if (item == SelectionSystem.Instance.MapsData.Maps[0])
+            if (item == selection.MapsData.Maps[0])
             {
                 NormalColor = m_ColorBlockSelectedCar;
             }
@@ -113,7 +116,7 @@
         }
         private void OnDestroy()
         {
-            SelectionSystem.Instance.UnSubscribeOnMapDataChanged(SetupView);
+            selection.UnSubscribeOnMapDataChanged(SetupView);
         }
 
 

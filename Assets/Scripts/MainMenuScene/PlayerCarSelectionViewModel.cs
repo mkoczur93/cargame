@@ -13,6 +13,8 @@
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
     using UnityWeld.Binding;
+    using Zenject;
+
     [Binding]
     public class PlayerCarSelectionViewModel : ViewModel, IScrollHandler
     {
@@ -26,6 +28,8 @@
         private Sequence m_MySequence = null;
         private List<CardPosition> m_Cards = new List<CardPosition>();
         private const float m_Duration = 1f;
+        [Inject]
+        SelectionSystem m_Selection;
 
         protected override void Start()
         {
@@ -34,14 +38,14 @@
             Cursor.visible = true;
             m_MySequence = DOTween.Sequence();
             Spawn();
-            SelectionSystem.Instance.SubscribeOnDataChanged(SetPosition);
+            m_Selection.SubscribeOnDataChanged(SetPosition);
 
 
         }
         private void Spawn()
         {
             m_CellSize = m_ScrollContent.GetComponent<GridLayoutGroup>().cellSize.x;
-            var cars = SelectionSystem.Instance.CarsData;
+            var cars = m_Selection.CarsData;
             
             foreach (var item in cars.Cars)
 
@@ -77,7 +81,7 @@
         public void ButtonPrevious()
         {
             EventSystem.current.SetSelectedGameObject(null);
-            var card = SelectionSystem.Instance.SelectThePreviousCar();            
+            var card = m_Selection.SelectThePreviousCar();            
             //m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_Cards[card.Id].Position, m_Duration));
             
 
@@ -90,7 +94,7 @@
         public void ButtonNext()
         {
             EventSystem.current.SetSelectedGameObject(null);            
-            var card = SelectionSystem.Instance.SelectTheNextCar();            
+            var card = m_Selection.SelectTheNextCar();            
             //m_MySequence.Append(m_ScrollContent.DOLocalMoveX(-m_Cards[card.Id].Position, m_Duration));
 
         }
@@ -99,12 +103,12 @@
             //Do zmiany potem :P 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                SelectionSystem.Instance.SelectTheNextCar();
+                m_Selection.SelectTheNextCar();
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                SelectionSystem.Instance.SelectThePreviousCar();
+                m_Selection.SelectThePreviousCar();
             }
 
 
@@ -122,7 +126,7 @@
 
         private void OnDestroy()
         {
-            SelectionSystem.Instance.UnSubscribeOnDataChanged(SetPosition);
+            m_Selection.UnSubscribeOnDataChanged(SetPosition);
         }
 
     }

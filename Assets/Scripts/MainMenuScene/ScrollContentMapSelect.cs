@@ -7,11 +7,13 @@
     using UnityEngine;
     using UnityEngine.EventSystems;
     using UnityEngine.UI;
+    using Zenject;
 
     public class ScrollContentMapSelect : MonoBehaviour, IScrollHandler
     {
 
-
+        [Inject]
+        SelectionSystem m_Selection;
 
 
         public void OnScroll(PointerEventData eventData)
@@ -19,12 +21,12 @@
             //Do zmiany potem :P 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                SelectionSystem.Instance.SelectTheNextMap();
+                m_Selection.SelectTheNextMap();
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                SelectionSystem.Instance.SelectThePreviousMap();
+                m_Selection.SelectThePreviousMap();
             }
 
 

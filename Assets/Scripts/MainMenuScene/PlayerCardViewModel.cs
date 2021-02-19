@@ -8,6 +8,7 @@
     using UnityEngine;
     using UnityEngine.UI;
     using UnityWeld.Binding;
+    using Zenject;
 
     [Binding]
     public class PlayerCardViewModel : MonoBehaviour, INotifyPropertyChanged
@@ -21,11 +22,17 @@
         private ColorBlock m_ColorBlock;
         [SerializeField]
         private ColorBlock m_ColorBlockSelectedCar;
-
+        [Inject]
+        SelectionSystem selection;
+       // [Inject]
+        //private void SubscribeOnDataChanged(SelectionSystem selection)
+       // {
+       //     selection.SubscribeOnDataChanged(SetupView);
+       // }
         private void Start()
         {
-            SelectionSystem.Instance.SubscribeOnDataChanged(SetupView);
-        }
+           selection.SubscribeOnDataChanged(SetupView);
+       }
         [Binding]
         public ColorBlock NormalColor
         {
@@ -81,7 +88,7 @@
         [Binding]
         public void SetTheSelectedCarOnClick()
         {
-            SelectionSystem.Instance.SelectCarOnClick(m_Id);
+            selection.SelectCarOnClick(m_Id);
         }
 
 
@@ -98,7 +105,7 @@
         {
             CarSprite = item.SpriteCar;
             Id = item.Id;
-            if (item == SelectionSystem.Instance.CarsData.Cars[0])
+            if (item == selection.CarsData.Cars[0])
             {
                 NormalColor = m_ColorBlockSelectedCar;
             }
@@ -123,7 +130,7 @@
         }
         private void OnDestroy()
         {
-            SelectionSystem.Instance.UnSubscribeOnDataChanged(SetupView);
+            selection.UnSubscribeOnDataChanged(SetupView);
         }
 
 
