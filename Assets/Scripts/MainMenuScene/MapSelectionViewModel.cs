@@ -46,8 +46,7 @@
         private void Spawn()
         {
             m_CellSize = m_ScrollContent.GetComponent<GridLayoutGroup>().cellSize.x;
-            var maps = m_Selection.MapsData;
-            Debug.Log(maps);
+            var maps = m_Selection.MapsData;            
             foreach (var item in maps.Maps)
 
             {                

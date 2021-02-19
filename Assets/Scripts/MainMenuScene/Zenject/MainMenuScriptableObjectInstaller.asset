@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f86847b07e7a241a3ff8fdd62775eb, type: 3}
   m_Name: MainMenuScriptableObjectInstaller
   m_EditorClassIdentifier: 
-  gameObject:
-    m_CarsData: {fileID: 0}
-    m_MapsData: {fileID: 0}
+  m_Data:
+    m_CarsData: {fileID: 11400000, guid: 8b858acabb3b4f34781e4675c5c1c2bf, type: 2}
+    m_MapsData: {fileID: 11400000, guid: 2fc6384e888899d4f9b6297a19ee0ec0, type: 2}

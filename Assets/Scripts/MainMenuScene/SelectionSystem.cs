@@ -28,14 +28,19 @@
         private int m_MapCounter = 0;
         private int m_MapMaxCounter = 0;
         private Action<PlayerCar> m_onDataChanged = null;
-        private Action<Map> m_onMapDataChanged = null;
-        public SelectionSystem(GameObjectSettings m_Data)
+        private Action<Map> m_onMapDataChanged = null;        
+        
+
+
+        public SelectionSystem(GameObjectSettings Data)
         {
-            m_MapsData = m_Data.MapsData;
-            Debug.LogWarning(m_MapsData.Maps.Count);
-            m_CarsData = m_Data.CarsData;
+            
+            m_MapsData = Data.MapsData;
+            Debug.LogWarning(MapsData.Maps.Count);
+            m_CarsData = Data.CarsData;
             m_MaxCounter = m_CarsData.Cars.Count - 1;
             m_MapMaxCounter = m_MapsData.Maps.Count - 1;
+            Debug.Log(m_CarsData.Cars.Count);
 
         }
         public CarPlayerData CarsData
@@ -47,6 +52,7 @@
             get => m_MapsData;
         }
 
+        
        // private void Awake()
       //  {
 
