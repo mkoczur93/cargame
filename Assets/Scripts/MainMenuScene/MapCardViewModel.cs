@@ -91,7 +91,7 @@
             
             MapSprite = item.SpriteMap;
             Id = item.Id;           
-            if (item == selection.MapsData.Maps[0])
+            if (item == selection.MapsData[0])
             {
                 NormalColor = m_ColorBlockSelectedCar;
             }

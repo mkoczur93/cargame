@@ -47,7 +47,7 @@
             m_CellSize = m_ScrollContent.GetComponent<GridLayoutGroup>().cellSize.x;
             var cars = m_Selection.CarsData;
             
-            foreach (var item in cars.Cars)
+            foreach (var item in cars)
 
             {                
                 var card = LeanPool.Spawn(m_PlayerCard, m_ScrollContent.transform);
@@ -123,7 +123,7 @@
 
 
         }
-
+        
         private void OnDestroy()
         {
             m_Selection.UnSubscribeOnDataChanged(SetPosition);

@@ -32,8 +32,10 @@
         [Inject]
         SelectionSystem m_Selection;
 
+        
         protected override void Start()
         {
+
             base.Start();
             SetupCanvasGroup(0, false, false);
             Cursor.visible = true;
@@ -43,11 +45,13 @@
 
 
         }
+        
         private void Spawn()
         {
             m_CellSize = m_ScrollContent.GetComponent<GridLayoutGroup>().cellSize.x;
-            var maps = m_Selection.MapsData;            
-            foreach (var item in maps.Maps)
+            var maps = m_Selection.MapsData;
+            Debug.Log(maps);
+            foreach (var item in maps)
 
             {                
                 var card = LeanPool.Spawn(m_MapCard, m_ScrollContent.transform);

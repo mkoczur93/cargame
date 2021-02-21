@@ -105,7 +105,7 @@
         {
             CarSprite = item.SpriteCar;
             Id = item.Id;
-            if (item == selection.CarsData.Cars[0])
+            if (item == selection.CarsData[0])
             {
                 NormalColor = m_ColorBlockSelectedCar;
             }

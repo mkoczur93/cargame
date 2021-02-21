@@ -12,6 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f86847b07e7a241a3ff8fdd62775eb, type: 3}
   m_Name: MainMenuScriptableObjectInstaller
   m_EditorClassIdentifier: 
-  m_Data:
-    m_CarsData: {fileID: 11400000, guid: 8b858acabb3b4f34781e4675c5c1c2bf, type: 2}
-    m_MapsData: {fileID: 11400000, guid: 2fc6384e888899d4f9b6297a19ee0ec0, type: 2}
+  m_carPlayerSettings:
+    cars:
+    - id: 0
+      nameCar: Player1
+      spriteCar: {fileID: 21300000, guid: 9022f4747f0c1824f96338aa0250f40c, type: 3}
+      car: {fileID: 6115262359375934976, guid: 53ea5bd47e9ebfc4488e33d8479735bb, type: 3}
+    - id: 1
+      nameCar: Player2
+      spriteCar: {fileID: 21300000, guid: c2bd2b83d2c3fc04e84d6144d0ed249f, type: 3}
+      car: {fileID: 9122128054472387194, guid: 7d3060d570ec3ae499931cc26bfd1728, type: 3}
+    - id: 2
+      nameCar: Player3
+      spriteCar: {fileID: 21300000, guid: 4d7277d4e3099d14687f89076388261b, type: 3}
+      car: {fileID: 812588335815348016, guid: e7cb7cc6d0bbe38488a56b7ffff55dc1, type: 3}
+    - id: 3
+      nameCar: Player4
+      spriteCar: {fileID: 21300000, guid: 2f27fa98af6744346bf4105e1707a2c1, type: 3}
+      car: {fileID: 936927505409029755, guid: 7d9d42acaa70a0949864cb93cfdf52ff, type: 3}
+    - id: 4
+      nameCar: Player5
+      spriteCar: {fileID: 21300000, guid: a92c76142e394c548aba0005717a672f, type: 3}
+      car: {fileID: 3271071584614795960, guid: 701364e52324f294ca2ca09d7e4ba981, type: 3}
+    - id: 5
+      nameCar: Player6
+      spriteCar: {fileID: 21300000, guid: 7dde6004e98375043a2aa3b9620f7849, type: 3}
+      car: {fileID: 2338370094203497915, guid: b43897de0f0a5b14487fdd51fe06da2f, type: 3}
+    - id: 6
+      nameCar: Player7
+      spriteCar: {fileID: 21300000, guid: e8e4ba36562a78844bb5c7abcdb45dd1, type: 3}
+      car: {fileID: 6785784291131205007, guid: 69cfe0e68a881034180e33b7e77766fd, type: 3}
+    - id: 7
+      nameCar: Player8
+      spriteCar: {fileID: 21300000, guid: f00cbb912392c0c4fba74a7d0d42d2c3, type: 3}
+      car: {fileID: 8709937033557967790, guid: 25647b9dc8b7f99489638bc43f11f2e8, type: 3}
+  m_MapSettings:
+    maps:
+    - id: 0
+      nameMap: FirstMap
+      spriteMap: {fileID: 21300000, guid: 36ff9e292e0b976428de93e16b93524f, type: 3}
+      mapSetings: {fileID: 0}
+    - id: 1
+      nameMap: SecondMap
+      spriteMap: {fileID: 21300000, guid: 285590ef5346eb04faf9e04520d15602, type: 3}
+      mapSetings: {fileID: 0}

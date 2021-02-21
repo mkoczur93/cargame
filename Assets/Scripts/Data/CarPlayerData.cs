@@ -1,21 +1,24 @@
 ﻿namespace Car
 {
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-    [CreateAssetMenu(fileName = "Data", menuName = "Data/CarPlayerData", order = 1)]
-    public class CarPlayerData : ScriptableObject
+    using System.Collections.Generic;
+    using UnityEngine;
+    using System;
+    public class CarPlayerData
     {
-        [SerializeField]
-        private List<PlayerCar> cars = null;
-
-
-
-        public List<PlayerCar> Cars
+        private readonly Settings m_settings;
+        public CarPlayerData(Settings settings)
         {
-            get => cars;
+            m_settings = settings;
         }
-
+        [Serializable]
+        public class Settings
+        {
+            [SerializeField]
+            private List<PlayerCar> cars = null;
+            public List<PlayerCar> Cars
+            {
+                get => cars;
+            }
+        }
     }
 }

@@ -1,21 +1,31 @@
 ﻿namespace RacingMap
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
 
-    [CreateAssetMenu(fileName = "Data", menuName = "Data/MapListData", order = 1)]
-    public class MapListData : ScriptableObject
+    public class MapListData
     {
-        [SerializeField]
-        private List<Map> maps = null;
-
-
-
-        public List<Map> Maps
+        private readonly Settings m_settings;
+        public MapListData(Settings settings)
         {
-            get => maps;
+            m_settings = settings;
         }
+        [Serializable]
+        public class Settings
+        {
+            [SerializeField]
+            private List<Map> maps = null;
+            public List<Map> Maps
+            {
+                get => maps;
+            }
+
+        }
+
+
+     
 
     }
 }
