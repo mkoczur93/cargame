@@ -1,8 +1,7 @@
 ﻿namespace Car
 {
     using DG.Tweening;
-    using Lean.Pool;
-    using GameManager;
+    using Lean.Pool;    
     using MainProject.Card;
     using MainProject.UI;
     using System.Collections;
@@ -14,60 +13,36 @@
     using System;
     using RacingMap;
     using Zenject;
-    
 
-    public interface ISelectionSystem
-    {
-        PlayerCar SelectTheNextCar();
-        PlayerCar SelectThePreviousCar();
-        PlayerCar SelectCarOnClick(int id);
-        Map SelectTheNextMap();
-        Map SelectThePreviousMap();
-        Map SelectMapOnClick(int id);
-        void StartGame();
-        void SubscribeOnDataChanged(Action<PlayerCar> action);
-        void UnSubscribeOnDataChanged(Action<PlayerCar> action);
-        void SubscribeOnMapDataChanged(Action<Map> action);
-        void UnSubscribeOnMapDataChanged(Action<Map> action);
-    }
+
     public class SelectionSystem : ISelectionSystem, IInitializable
     {
 
         private List<PlayerCar> m_CarsData = null;
         private List<Map> m_MapsData = null;
-        //private static SelectionSystem instance = null;
-        //  public static SelectionSystem Instance { get => instance; set => instance = value; }
         private int m_Counter = 0;
         private int m_MaxCounter = 0;
         private int m_MapCounter = 0;
         private int m_MapMaxCounter = 0;
         private Action<PlayerCar> m_onDataChanged = null;
-        private Action<Map> m_onMapDataChanged = null;
-        //[Inject]
-        // CarPlayerData.Settings m_CarPlayerSetting;
+        private Action<Map> m_onMapDataChanged = null;        
         [Inject]
-        MapListData.Settings m_MapSetting;
-        readonly CarPlayerData.Settings m_CarPlayerSetting;
+        private readonly MapListData.Settings m_MapSetting;
+        [Inject]
+        private readonly CarPlayerData.Settings m_CarPlayerSetting;
+        [Inject]
+        private IGameManager m_GameManager;
 
 
-        public SelectionSystem(CarPlayerData.Settings carPlayerSetting)
-        {
-            m_CarPlayerSetting = carPlayerSetting;
-            Debug.Log("start");
 
-            m_MapsData = m_MapSetting.Maps;
-            m_CarsData = m_CarPlayerSetting.Cars;
-
-
-            m_MaxCounter = m_CarPlayerSetting.Cars.Count - 1;
-            m_MapMaxCounter = m_MapSetting.Maps.Count - 1;
-
-
-        }
 
         public void Initialize()
         {
-            Debug.Log(m_CarPlayerSetting);
+
+            m_MapsData = m_MapSetting.Maps;
+            m_CarsData = m_CarPlayerSetting.Cars;
+            m_MaxCounter = m_CarPlayerSetting.Cars.Count - 1;
+            m_MapMaxCounter = m_MapSetting.Maps.Count - 1;
         }
         public List<PlayerCar> CarsData
         {
@@ -77,21 +52,6 @@
         {
             get => m_MapsData;
         }
-
-
-        // private void Awake()
-        //  {
-
-        //  instance = this;
-
-        // }
-
-        // private void Start()
-        //   {
-        //     m_MaxCounter = m_CarsData.Cars.Count - 1;
-        //     m_MapMaxCounter = m_MapsData.Maps.Count - 1;
-        //
-        // }
 
         public PlayerCar SelectTheNextCar()
         {
@@ -148,13 +108,11 @@
         }
         public void StartGame()
         {
-
-            GameManager.Instance.SelectedCar = m_CarsData[m_Counter].Car;
-            //  GameManager.Instance.SelectedDefaultMapSettings = m_MapsData.Maps[m_MapCounter].MapSetings;
-            // string load = m_MapsData.Maps[m_MapCounter].NameMap;
+            m_GameManager.SelectedCar = m_CarsData[m_Counter].Car;            
+            m_GameManager.SelectedDefaultMapSettings = m_MapsData[m_MapCounter].MapSetings;
+            SceneManager.LoadScene(m_MapsData[m_MapCounter].NameMap);            
             DOTween.KillAll();
-            //SceneManager.LoadScene(load);
-            // Potem zmienie :D
+            
         }
 
 

@@ -7,6 +7,7 @@
     using System.Collections.Generic;
     using System.ComponentModel;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
     using UnityEngine.UI;
     using UnityWeld.Binding;
     using Zenject;
@@ -24,11 +25,11 @@
         [SerializeField]
         private ColorBlock m_ColorBlockSelectedCar;
         [Inject]
-        SelectionSystem selection;
+        ISelectionSystem m_Selection;
 
         private void Start()
         {
-            selection.SubscribeOnMapDataChanged(SetupView);
+            m_Selection.SubscribeOnMapDataChanged(SetupView);
         }
         [Binding]
         public ColorBlock NormalColor
@@ -73,9 +74,9 @@
         [Binding]
         public void SetTheSelectedMapOnClick()
         {
-            selection.SelectMapOnClick(m_Id);
+            m_Selection.SelectMapOnClick(m_Id);
+            
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
@@ -91,7 +92,7 @@
             
             MapSprite = item.SpriteMap;
             Id = item.Id;           
-            if (item == selection.MapsData[0])
+            if (item == m_Selection.MapsData[0])
             {
                 NormalColor = m_ColorBlockSelectedCar;
             }
@@ -116,7 +117,7 @@
         }
         private void OnDestroy()
         {
-            selection.UnSubscribeOnMapDataChanged(SetupView);
+            m_Selection.UnSubscribeOnMapDataChanged(SetupView);
         }
 
 

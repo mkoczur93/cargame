@@ -18,20 +18,15 @@
         private Sprite m_CarSprite = null;
 
         private ColorBlock m_NormalColor;
-        [SerializeField]
+        [SerializeField]    
         private ColorBlock m_ColorBlock;
         [SerializeField]
         private ColorBlock m_ColorBlockSelectedCar;
         [Inject]
-        SelectionSystem selection;
-       // [Inject]
-        //private void SubscribeOnDataChanged(SelectionSystem selection)
-       // {
-       //     selection.SubscribeOnDataChanged(SetupView);
-       // }
+        ISelectionSystem m_Selection;
         private void Start()
         {
-           selection.SubscribeOnDataChanged(SetupView);
+           m_Selection.SubscribeOnDataChanged(SetupView);
        }
         [Binding]
         public ColorBlock NormalColor
@@ -88,7 +83,7 @@
         [Binding]
         public void SetTheSelectedCarOnClick()
         {
-            selection.SelectCarOnClick(m_Id);
+            m_Selection.SelectCarOnClick(m_Id);
         }
 
 
@@ -103,9 +98,10 @@
 
         public void Init(PlayerCar item)
         {
+            
             CarSprite = item.SpriteCar;
             Id = item.Id;
-            if (item == selection.CarsData[0])
+            if (item == m_Selection.CarsData[0])
             {
                 NormalColor = m_ColorBlockSelectedCar;
             }
@@ -130,7 +126,7 @@
         }
         private void OnDestroy()
         {
-            selection.UnSubscribeOnDataChanged(SetupView);
+            m_Selection.UnSubscribeOnDataChanged(SetupView);
         }
 
 

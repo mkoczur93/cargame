@@ -9,6 +9,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using Zenject;
 
     public class MapController : MonoBehaviour
     {
@@ -22,6 +23,8 @@
         private StartAnimViewModel startAnimPanel = null;
         private Action startGame = null;
         private Action pausedGame = null;
+        [Inject]
+        IGameManager m_GameManager;
 
         private static MapController instance = null;
         public static MapController Instance { get => instance; set => instance = value; }
@@ -35,8 +38,8 @@
         {
             instance = this;
 
-            selectedCar = Instantiate(GameManager.Instance.SelectedCar);
-            settings = GameManager.Instance.SelectedDefaultMapSettings;
+            selectedCar = Instantiate(m_GameManager.SelectedCar);
+            settings = m_GameManager.SelectedDefaultMapSettings;
 
             if (camera != null)
             {
@@ -50,7 +53,7 @@
         void Start()
 
         {
-            settings = GameManager.Instance.SelectedDefaultMapSettings;
+            settings = m_GameManager.SelectedDefaultMapSettings;
             SetStartDefaultPosition();
         }
         public void SetStartDefaultPosition()

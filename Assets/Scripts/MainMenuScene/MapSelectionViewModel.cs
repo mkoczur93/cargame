@@ -30,9 +30,9 @@
         private List<CardMapPosition> m_Cards = new List<CardMapPosition>();
         private const float m_Duration = 1f;
         [Inject]
-        SelectionSystem m_Selection;
+        ISelectionSystem m_Selection;
 
-        
+
         protected override void Start()
         {
 
@@ -50,7 +50,7 @@
         {
             m_CellSize = m_ScrollContent.GetComponent<GridLayoutGroup>().cellSize.x;
             var maps = m_Selection.MapsData;
-            Debug.Log(maps);
+            
             foreach (var item in maps)
 
             {                

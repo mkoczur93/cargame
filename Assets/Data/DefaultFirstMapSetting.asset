@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: DefaultSecondMapSettings
+  m_Name: DefaultFirstMapSetting
   m_EditorClassIdentifier: Assembly-CSharp:RacingMap:DefaultMapSettings
-  startCarPosition: {x: -13.47, y: 19.56, z: 0}
-  startCarRotation: {x: 0, y: 0, z: 0}
-  startCameraPosition: {x: -15, y: 19.5, z: -10}
+  startCarPosition: {x: -0.559, y: 8.5, z: 0}
+  startCarRotation: {x: 0, y: 0, z: 90}
+  startCameraPosition: {x: -2.21, y: 8.45, z: -10}
   startCameraRotation: {x: 0, y: 0, z: 0}
   initialLap: 1
   startTime: 0

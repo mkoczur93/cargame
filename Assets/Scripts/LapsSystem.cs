@@ -7,6 +7,7 @@
     using MainProject.UI;
     using System;
     using ObjectTagData;
+    using Zenject;
 
     public class LapsSystem : MonoBehaviour
     {
@@ -23,6 +24,8 @@
 
         private static LapsSystem instance = null;
         public static LapsSystem Instance { get => instance; set => instance = value; }
+        [Inject]
+        IGameManager m_GameManager;
 
 
         private void Awake()
@@ -33,7 +36,7 @@
 
         void Start()
         {
-            settings = GameManager.GameManager.Instance.SelectedDefaultMapSettings;
+            settings = m_GameManager.SelectedDefaultMapSettings;
             baseCheckpoints = GetComponentsInChildren<LapCheckpoint>();
 
 

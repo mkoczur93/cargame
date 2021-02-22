@@ -29,7 +29,7 @@
         private List<CardPosition> m_Cards = new List<CardPosition>();
         private const float m_Duration = 1f;
         [Inject]
-        SelectionSystem m_Selection;
+        ISelectionSystem m_Selection;
 
         protected override void Start()
         {

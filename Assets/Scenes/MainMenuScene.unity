@@ -235,36 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f17309d0a0b5c4d9afcaba9161a737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &74654566
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 74654568}
-  m_Layer: 0
-  m_Name: Scripts
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &74654568
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74654566}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 83.62523, y: 218.53102, z: -465.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &92492194
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,10 +786,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 219549827}
-  - component: {fileID: 219549831}
   - component: {fileID: 219549830}
   - component: {fileID: 219549829}
   - component: {fileID: 219549828}
+  - component: {fileID: 219549831}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -905,7 +875,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 219549826}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d679ca5acdbf79a47bd0047b1aff924b, type: 3}
+  m_Script: {fileID: 11500000, guid: e3671a6ed598c0e4480bdacfa1b257ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &267243325
@@ -1270,7 +1240,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 1007845006}
   _installerPrefabs: []
-  _autoRun: 0
+  _autoRun: 1
   OnPreInstall:
     m_PersistentCalls:
       m_Calls: []
@@ -2973,7 +2943,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1007845006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2999,7 +2969,7 @@ Transform:
   m_Children:
   - {fileID: 420294702}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1049736993
 GameObject:
@@ -3358,51 +3328,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewModelMethodName: MainProject.UI.PlayerCarSelectionViewModel.ButtonConfirm
   viewEventName: UnityEngine.UI.Button.onClick
---- !u!1 &1226352616
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1226352618}
-  - component: {fileID: 1226352617}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1226352617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226352616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52a573b52aa5c15478e69fd5ce61d869, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SelectedCar: {fileID: 0}
-  m_SelectedDefaultMapSettings: {fileID: 0}
---- !u!4 &1226352618
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226352616}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97.49457, y: 59.3135, z: -108.09375}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1246039089
 GameObject:
   m_ObjectHideFlags: 0
@@ -4686,10 +4611,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1923988259}
-  - component: {fileID: 1923988258}
   - component: {fileID: 1923988260}
   - component: {fileID: 1923988261}
   - component: {fileID: 1923988262}
+  - component: {fileID: 1923988258}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -4706,7 +4631,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1923988257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d679ca5acdbf79a47bd0047b1aff924b, type: 3}
+  m_Script: {fileID: 11500000, guid: e3671a6ed598c0e4480bdacfa1b257ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &1923988259
@@ -5210,6 +5135,11 @@ PrefabInstance:
       propertyPath: _monoInstallers.Array.data[0]
       value: 
       objectReference: {fileID: 1007845006}
+    - target: {fileID: 304757278711655344, guid: ca006faffdb499b4bbd246df94a75b5f,
+        type: 3}
+      propertyPath: _autoRun
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 304757278711655345, guid: ca006faffdb499b4bbd246df94a75b5f,
         type: 3}
       propertyPath: m_LocalPosition.x
