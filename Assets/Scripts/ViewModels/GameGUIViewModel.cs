@@ -21,24 +21,28 @@
         private const int maxLapsLimit = 6;
         private bool startGame = false;
         [Inject]
-        IMapController m_MapController;
+        private readonly IMapController m_MapController;
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
 
 
 
 
         // Start is called before the first frame update
-        protected override void Start()
+        protected override void Awake()
         {
             
-            base.Start();
+            base.Awake();
+            LapTime = startLapTime;
+
+        }
+        private void Start()
+        {
             LapsSystem.Instance.SubscribeOnStartGame(SetCounterLap);
             LapsSystem.Instance.SubscribeOnCheckPointReached(SetCounterLap);
             m_MapController.SubscribeOnStartGame(StartGame);
             m_MapController.SubscribeOnPausedGame(PausedGame);
-            LapTime = startLapTime;
-
         }
-       
         private void StartGame()
         {
             startGame = true;
@@ -127,9 +131,9 @@
                 {
                     
                     Time.timeScale = 0f;
-                    ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.EndOfTheGamePanel);
+                    ViewModel id = m_ViewModelController.getViewModel(PanelUI.EndOfTheGamePanel);
                     id.showPanel();
-                    ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).showPanel();
+                    m_ViewModelController.getViewModel(PanelUI.LapResultsPanel).showPanel();
                     Cursor.visible = true;
 
                     return;

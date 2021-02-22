@@ -18,7 +18,9 @@
         private string lapStatistics = string.Empty;
 
         [Inject]
-        IMapController m_MapController;
+        private readonly IMapController m_MapController;
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
 
 
 
@@ -43,9 +45,9 @@
                 OnPropertyChanged(nameof(LapStatistics));
             }
         }
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();            
+            base.Awake();            
             SetupCanvasGroup(0, false, false);
             nameScene = SceneManager.GetActiveScene().name;
            
@@ -59,7 +61,7 @@
         public void NewGameBtn()
         {
 
-            ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).hidePanel();
+            m_ViewModelController.getViewModel(PanelUI.LapResultsPanel).hidePanel();
             hidePanel();       
             EventSystem.current.SetSelectedGameObject(null);
             m_MapController.PausedGame();
@@ -74,7 +76,7 @@
         {
             hidePanel();
             Debug.Log("BackToMainMenu");
-            ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).hidePanel();            
+            m_ViewModelController.getViewModel(PanelUI.LapResultsPanel).hidePanel();            
             
         }
 

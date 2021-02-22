@@ -55,4 +55,4 @@ MonoBehaviour:
     - id: 1
       nameMap: SecondMap
       spriteMap: {fileID: 21300000, guid: 285590ef5346eb04faf9e04520d15602, type: 3}
-      mapSetings: {fileID: 11400000, guid: 4dcf28f36568beb4db95e30172258557, type: 2}
+      mapSetings: {fileID: 11400000, guid: 9a45cd1be297b5a4690a457fe2c608e2, type: 2}

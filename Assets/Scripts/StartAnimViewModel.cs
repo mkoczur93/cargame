@@ -25,7 +25,9 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
     private Coroutine corutine = null;
     private Sequence mySequence = null;
     [Inject]
-    IMapController m_MapController;
+    private readonly IMapController m_MapController;
+    [Inject]
+    private readonly IViewModelController m_ViewModelController;
 
 
     [Binding]
@@ -69,6 +71,7 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
 
     }
 
+ 
     public void CheckStartAnimCoroutine()
     {
         if (coroutine_running == true)
@@ -136,4 +139,6 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
     {
         StartCoroutine(StartAnim());
     }
+
+   
 }

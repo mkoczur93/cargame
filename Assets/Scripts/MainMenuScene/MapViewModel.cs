@@ -8,14 +8,16 @@
     using UnityEngine.SceneManagement;
     using UnityEngine.EventSystems;
     using Car;
+    using Zenject;
 
     [Binding]
     public class MapViewModel : ViewModel
     {
-
-        protected override void Start()
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             SetupCanvasGroup(0, false, false);
             Cursor.visible = true;
 
@@ -27,7 +29,7 @@
         public void ButtonBack()
         {
             hidePanel();
-            ViewModelController.Instance.getViewModel(PanelUI.PlayerCarPanel).showPanel();
+            m_ViewModelController.getViewModel(PanelUI.PlayerCarPanel).showPanel();
             EventSystem.current.SetSelectedGameObject(null);
 
 

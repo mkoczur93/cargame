@@ -6,11 +6,13 @@
     using System.ComponentModel;
     using UnityEngine.SceneManagement;
     using System.Linq;
+    using Zenject;
 
     public class InputManager : MonoBehaviour
     {
 
-
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
         void Update()
         {
             GamePaused();
@@ -21,7 +23,7 @@
             {
 
                 
-                var isMainMenuOpened = ViewModelController.Instance.IsModelOpened(PanelUI.MainPanel);
+                var isMainMenuOpened = m_ViewModelController.IsModelOpened(PanelUI.MainPanel);
                 
                 if (isMainMenuOpened == false && Time.timeScale == 0)
                 {
@@ -39,7 +41,7 @@
             if (currentTime == 0)
             {
                 Time.timeScale = 1f;
-                ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
+                ViewModel id = m_ViewModelController.getViewModel(PanelUI.MainPanel);
                 id.hidePanel();
                 
 
@@ -47,7 +49,7 @@
             else
             {
                 Time.timeScale = 0f;
-                ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
+                ViewModel id = m_ViewModelController.getViewModel(PanelUI.MainPanel);
                 id.showPanel();
             }
 

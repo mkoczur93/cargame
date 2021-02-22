@@ -17,12 +17,14 @@
        // private CanvasGroup mainMenu = null;        
         private string nameScene = string.Empty;
         [Inject]
-        IMapController m_MapController;
+        private readonly IMapController m_MapController;
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
 
         // Start is called before the first frame update
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             //mainMenu = GetComponent<CanvasGroup>();
             SetupCanvasGroup(0, false, false);
             nameScene = SceneManager.GetActiveScene().name;
@@ -34,7 +36,7 @@
         [Binding]
         public void confirmNewGameBtnYes()
         {
-            StartAnimViewModel startAnimPanel = ViewModelController.Instance.getViewModel(PanelUI.StartAnimPanel).GetComponent<StartAnimViewModel>();
+            StartAnimViewModel startAnimPanel = m_ViewModelController.getViewModel(PanelUI.StartAnimPanel).GetComponent<StartAnimViewModel>();
             startAnimPanel.enabled = false;
             hidePanel();
             EventSystem.current.SetSelectedGameObject(null);
@@ -48,7 +50,7 @@
         public void confirmNewGameBtnNo()
         {
             hidePanel();
-            ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
+            ViewModel id = m_ViewModelController.getViewModel(PanelUI.MainPanel);
             id.showPanel();            
             EventSystem.current.SetSelectedGameObject(null);
         }

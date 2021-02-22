@@ -25,7 +25,8 @@
         private PlayerMovementController m_SelectedCar;
         [Inject]
         private readonly IGameManager m_GameManager;
-
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
 
         public DefaultMapSettings Settings
         {
@@ -36,11 +37,10 @@
             get => m_SelectedCar;
         }
         public void Initialize()
-        {
-            m_SelectedCar = m_GameManager.SelectedCar;
-            startAnimPanel = ViewModelController.Instance.getViewModel(PanelUI.StartAnimPanel);
-            //Debug.Log(startAnimPanel);
-            m_Settings = m_GameManager.SelectedDefaultMapSettings;
+        {   
+            m_SelectedCar = m_GameManager.SelectedCar;            
+            startAnimPanel = m_ViewModelController.getViewModel(PanelUI.StartAnimPanel);            
+            m_Settings = m_GameManager.SelectedDefaultMapSettings;            
             var car = Container.InstantiatePrefabForComponent<PlayerMovementController>(m_GameManager.SelectedCar);
             m_SelectedCar = car;
             SetStartDefaultPosition();
@@ -52,10 +52,10 @@
         public void SetStartDefaultPosition()
         {
 
-            if (m_GameManager.SelectedCar != null)
+            if (m_SelectedCar != null)
             {
 
-                if (m_GameManager.SelectedCar.TryGetComponent<Rigidbody2D>(out var player))
+                if (m_SelectedCar.TryGetComponent<Rigidbody2D>(out var player))
                 {
 
                     player.velocity = Vector2.zero;

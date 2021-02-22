@@ -46,7 +46,7 @@
 
         public void MovingCamera()
         {
-            Debug.Log(playerController);
+            
              if (playerController != null && playerController.IsMotion == true)
             {
 

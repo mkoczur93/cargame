@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
+    using Zenject;
 
     public class ViewModel : MonoBehaviour
     {
@@ -12,6 +13,8 @@
         CanvasGroup Canvas = null;
         protected Action<PanelUI> onPanelShow = null;
         protected Action<PanelUI> onPanelHide = null;
+        [Inject]
+        IViewModelController m_ViewModelController;
         public CanvasGroup canvas
         {
             get => Canvas;
@@ -22,11 +25,11 @@
         }
 
         
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             //Debug.Log(this);
-            
-            ViewModelController.Instance.RegisterViewModel(this);
+
+            m_ViewModelController.RegisterViewModel(this);
             
             Canvas = GetComponent<CanvasGroup>();
         }

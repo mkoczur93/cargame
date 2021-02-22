@@ -30,17 +30,23 @@
         private const float m_Duration = 1f;
         [Inject]
         ISelectionSystem m_Selection;
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
 
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             SetupCanvasGroup(0, false, false);
             Cursor.visible = true;
-            m_MySequence = DOTween.Sequence();
+            m_MySequence = DOTween.Sequence();            
+            
+
+
+        }
+        public void Start()
+        {
             Spawn();
             m_Selection.SubscribeOnDataChanged(SetPosition);
-
-
         }
         private void Spawn()
         {
@@ -71,7 +77,7 @@
         {
 
             hidePanel();
-            ViewModelController.Instance.getViewModel(PanelUI.MapPanel).showPanel();
+            m_ViewModelController.getViewModel(PanelUI.MapPanel).showPanel();
             EventSystem.current.SetSelectedGameObject(null);
 
 
@@ -118,7 +124,7 @@
         public void ButtonBack()
         {
             hidePanel();
-            ViewModelController.Instance.getViewModel(PanelUI.MainMenuScenePanel).showPanel();
+            m_ViewModelController.getViewModel(PanelUI.MainMenuScenePanel).showPanel();
             EventSystem.current.SetSelectedGameObject(null);
 
 

@@ -6,10 +6,9 @@
     using System.Collections.Generic;
     using UnityEngine;
 
-    public class ViewModelController : MonoBehaviour
+    public class ViewModelController : IViewModelController
     {
-        private Dictionary<PanelUI, ViewModel> RegisterListViewModel = new Dictionary<PanelUI, ViewModel>();
-        private static ViewModelController instance = null;
+        private Dictionary<PanelUI, ViewModel> RegisterListViewModel = new Dictionary<PanelUI, ViewModel>();        
         private static bool hiddenAllMenuPanel = true;
 
         public bool HiddenAllMenuPanel
@@ -18,11 +17,7 @@
             set => hiddenAllMenuPanel = value;
 
         }
-        void Awake()
-        {
-            instance = this;
-
-        }
+ 
         public void RegisterViewModel(ViewModel model)
         {
             RegisterListViewModel.Add(model.Id, model);
@@ -32,10 +27,7 @@
 
 
         }
-        public static ViewModelController Instance
-        {
-            get => instance;
-        }
+  
         
        
         public ViewModel getViewModel(PanelUI id)

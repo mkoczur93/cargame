@@ -18,9 +18,9 @@
 
        
 
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             SubscribeOnPanelShow(OnPanelShow);
             SubscribeOnPanelHide(OnPanelHide);
 

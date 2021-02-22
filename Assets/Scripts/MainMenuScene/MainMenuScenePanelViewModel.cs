@@ -7,16 +7,18 @@
     using System.ComponentModel;
     using UnityEngine.SceneManagement;
     using UnityEngine.EventSystems;
+    using Zenject;
 
     [Binding]
     public class MainMenuScenePanelViewModel : ViewModel
     {
-
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
 
         // Start is called before the first frame update
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();            
+            base.Awake();            
             SetupCanvasGroup(1, true, true);
             Cursor.visible = true;
 
@@ -30,7 +32,7 @@
     
             hidePanel();
             EventSystem.current.SetSelectedGameObject(null);
-            ViewModelController.Instance.getViewModel(PanelUI.PlayerCarPanel).showPanel();
+            m_ViewModelController.getViewModel(PanelUI.PlayerCarPanel).showPanel();
 
 
 

@@ -30,26 +30,33 @@
         private List<CardMapPosition> m_Cards = new List<CardMapPosition>();
         private const float m_Duration = 1f;
         [Inject]
-        ISelectionSystem m_Selection;
+        private readonly ISelectionSystem m_Selection;
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
 
 
-        protected override void Start()
+        protected override void Awake()
         {
 
-            base.Start();
+            base.Awake();            
             SetupCanvasGroup(0, false, false);
             Cursor.visible = true;
             m_MySequence = DOTween.Sequence();
-            Spawn();
-            m_Selection.SubscribeOnMapDataChanged(SetPosition);
+            
+            
 
 
         }
-        
+        public void Start()
+        {
+            Spawn();
+            m_Selection.SubscribeOnMapDataChanged(SetPosition);
+        }
         private void Spawn()
         {
             m_CellSize = m_ScrollContent.GetComponent<GridLayoutGroup>().cellSize.x;
             var maps = m_Selection.MapsData;
+            
             
             foreach (var item in maps)
 
@@ -115,7 +122,7 @@
         public void ButtonBack()
         {
             hidePanel();
-            ViewModelController.Instance.getViewModel(PanelUI.PlayerCarPanel).showPanel();
+            m_ViewModelController.getViewModel(PanelUI.PlayerCarPanel).showPanel();
             EventSystem.current.SetSelectedGameObject(null);
 
 

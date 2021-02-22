@@ -7,19 +7,21 @@
     using System.ComponentModel;
     using UnityEngine.SceneManagement;
     using UnityEngine.EventSystems;
+    using Zenject;
 
     [Binding]
     public class ConfirmQuitGamePanelViewModel : ViewModel
     {
 
-        
-       // private CanvasGroup mainMenu = null;        
-        
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
+           
+
 
         // Start is called before the first frame update
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             //mainMenu = GetComponent<CanvasGroup>();
             SetupCanvasGroup(0, false, false);
             
@@ -40,7 +42,7 @@
         public void confirmQuitGameBtnNo()
         {
             hidePanel();
-            ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);
+            ViewModel id = m_ViewModelController.getViewModel(PanelUI.MainPanel);
             id.showPanel();            
             EventSystem.current.SetSelectedGameObject(null);
         }

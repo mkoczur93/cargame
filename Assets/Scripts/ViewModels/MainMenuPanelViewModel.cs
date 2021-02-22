@@ -7,6 +7,7 @@
     using System.ComponentModel;
     using UnityEngine.SceneManagement;
     using UnityEngine.EventSystems;
+    using Zenject;
 
     [Binding]
     public class MainMenuPanelViewModel : ViewModel
@@ -15,11 +16,13 @@
         
         private CanvasGroup mainMenu = null;        
         private string nameScene = string.Empty;
+        [Inject]
+        private readonly IViewModelController m_ViewModelController;
 
         // Start is called before the first frame update
-        protected override void Start()
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
             mainMenu = GetComponent<CanvasGroup>();
             SetupCanvasGroup(0, false, false);
             nameScene = SceneManager.GetActiveScene().name;
@@ -31,7 +34,7 @@
         public void buttonResume()
         {
 
-            ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.MainPanel);            
+            ViewModel id = m_ViewModelController.getViewModel(PanelUI.MainPanel);            
             id.hidePanel();
 
         
@@ -47,7 +50,7 @@
         public void newGameButton()
         {
             hidePanel();
-            ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.ConfirmNewGamePanel);
+            ViewModel id = m_ViewModelController.getViewModel(PanelUI.ConfirmNewGamePanel);
             id.showPanel();
             EventSystem.current.SetSelectedGameObject(null);
 
@@ -59,7 +62,7 @@
         public void quitGameButton()
         {
             hidePanel();
-            ViewModel id = ViewModelController.Instance.getViewModel(PanelUI.ConfirmQuitGamePanel);
+            ViewModel id = m_ViewModelController.getViewModel(PanelUI.ConfirmQuitGamePanel);
             id.showPanel();
             EventSystem.current.SetSelectedGameObject(null);
 
