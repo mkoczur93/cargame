@@ -109,7 +109,7 @@
         public void StartGame()
         {
             m_GameManager.SelectedCar = m_CarsData[m_Counter].Car;            
-            m_GameManager.SelectedDefaultMapSettings = m_MapsData[m_MapCounter].MapSetings;
+            m_GameManager.SelectedDefaultMapSettings = m_MapsData[m_MapCounter].MapSetings;            
             SceneManager.LoadScene(m_MapsData[m_MapCounter].NameMap);            
             DOTween.KillAll();
             

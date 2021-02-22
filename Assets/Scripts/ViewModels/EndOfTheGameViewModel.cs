@@ -9,6 +9,7 @@
     using UnityEngine.SceneManagement;
     using UnityEngine.EventSystems;
     using System.Collections.Generic;
+    using Zenject;
 
     [Binding]
     public class EndOfTheGameViewModel : ViewModel, INotifyPropertyChanged
@@ -16,7 +17,8 @@
         private string nameScene = string.Empty;
         private string lapStatistics = string.Empty;
 
-       
+        [Inject]
+        IMapController m_MapController;
 
 
 
@@ -60,8 +62,8 @@
             ViewModelController.Instance.getViewModel(PanelUI.LapResultsPanel).hidePanel();
             hidePanel();       
             EventSystem.current.SetSelectedGameObject(null);
-            MapController.Instance.PausedGame();
-            MapController.Instance.SetStartDefaultPosition();
+            m_MapController.PausedGame();
+            m_MapController.SetStartDefaultPosition();
             //SceneManager.LoadScene(nameScene);
             Time.timeScale = 1f;
             Cursor.visible = !Cursor.visible;

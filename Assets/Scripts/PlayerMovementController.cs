@@ -6,6 +6,7 @@
     using Car;
     using RacingMap;
     using MainProject;
+    using Zenject;
 
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : MonoBehaviour
@@ -18,11 +19,13 @@
         private bool isMotion = false;
         private bool startGame = false;
         private const float driftForceFactor = 2f;
+        [Inject]
+        IMapController m_MapController;
 
         private void Awake()
         {
-            MapController.Instance.SubscribeOnStartGame(StartGame);
-            MapController.Instance.SubscribeOnPausedGame(PausedGame);
+            m_MapController.SubscribeOnStartGame(StartGame);
+            m_MapController.SubscribeOnPausedGame(PausedGame);
 
         }
         private void Start()
@@ -60,8 +63,8 @@
         }
         private void OnDestroy()
         {
-            MapController.Instance.UnSubscribeOnStartGame(StartGame);
-            MapController.Instance.UnSubscribeOnPausedGame(PausedGame);
+            m_MapController.UnSubscribeOnStartGame(StartGame);
+            m_MapController.UnSubscribeOnPausedGame(PausedGame);
 
         }
         private void Update()

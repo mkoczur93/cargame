@@ -6,6 +6,8 @@
     using Camera;
     using Player;
     using MainProject;
+    using Zenject;
+    using RacingMap;
 
     public class CameraController : MonoBehaviour
     {
@@ -17,10 +19,18 @@
         private PlayerMovementController playerController = null;
         private const float cameraPositionZ = -10f;
         private Vector3 offset = Vector3.zero;
+        private DefaultMapSettings m_Settings = null;
+        [Inject]
+        IGameManager m_GameManager;
+        [Inject]
+        IMapController m_MapController;
 
         void Start()
         {
-            player = MapController.Instance.SelectedCar;
+            m_Settings = m_GameManager.SelectedDefaultMapSettings;
+            this.transform.position = m_Settings.StartCameraPosition;
+            this.transform.eulerAngles = m_Settings.StartCameraRotation;            
+            player = m_MapController.SelectedCar;            
             playerController = player.GetComponent<PlayerMovementController>();
             offset = transform.position - player.transform.position;
         }
@@ -30,14 +40,14 @@
         {
 
             MovingCamera();
-
+            
 
         }
 
         public void MovingCamera()
         {
-            
-            if (playerController != null && playerController.IsMotion == true)
+            Debug.Log(playerController);
+             if (playerController != null && playerController.IsMotion == true)
             {
 
                 float interpolation = cam.Speed * Time.deltaTime;

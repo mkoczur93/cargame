@@ -6,6 +6,7 @@
     using System;
     using MainProject.UI;
     using RacingMap;
+    using Zenject;
 
     [Binding]
     public class GameGUIViewModel : ViewModel, INotifyPropertyChanged
@@ -19,11 +20,12 @@
         private string startLapTime = "00:00:00";
         private const int maxLapsLimit = 6;
         private bool startGame = false;
+        [Inject]
+        IMapController m_MapController;
 
 
 
 
-      
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -31,8 +33,8 @@
             base.Start();
             LapsSystem.Instance.SubscribeOnStartGame(SetCounterLap);
             LapsSystem.Instance.SubscribeOnCheckPointReached(SetCounterLap);
-            MapController.Instance.SubscribeOnStartGame(StartGame);
-            MapController.Instance.SubscribeOnPausedGame(PausedGame);
+            m_MapController.SubscribeOnStartGame(StartGame);
+            m_MapController.SubscribeOnPausedGame(PausedGame);
             LapTime = startLapTime;
 
         }
@@ -72,8 +74,8 @@
         {
             LapsSystem.Instance.UnSubscribeOnCheckPointReached(SetCounterLap);
             LapsSystem.Instance.UnSubscribeOnStartGame(SetCounterLap);
-            MapController.Instance.UnSubscribeOnStartGame(StartGame);
-            MapController.Instance.UnSubscribeOnPausedGame(PausedGame);
+            m_MapController.UnSubscribeOnStartGame(StartGame);
+            m_MapController.UnSubscribeOnPausedGame(PausedGame);
 
 
         }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityWeld.Binding;
+using Zenject;
 
 [Binding]
 public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
@@ -23,7 +24,8 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
     private bool coroutine_running = false;
     private Coroutine corutine = null;
     private Sequence mySequence = null;
-
+    [Inject]
+    IMapController m_MapController;
 
 
     [Binding]
@@ -110,8 +112,8 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
         }
 
         mySequence.Append(transform.transform.DOScale(Vector3.zero, duration));
-        Toggle = true;        
-        MapController.Instance.StartGame();
+        Toggle = true;
+        m_MapController.StartGame();
         yield return waitOneAndHalfSecond;
         Toggle = false;
         enabled = false;
