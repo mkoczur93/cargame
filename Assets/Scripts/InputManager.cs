@@ -12,7 +12,7 @@
     {
 
         [Inject]
-        private readonly IViewModelController m_ViewModelController;
+        private readonly IViewModelController m_ViewModelController = null;
         void Update()
         {
             GamePaused();
@@ -30,12 +30,12 @@
                     return;
                 }
                 
-                    setPause();
+                    SetPause();
                 
             }
 
         }
-        private void setPause()
+        private void SetPause()
         {
             var currentTime = Time.timeScale;
             if (currentTime == 0)

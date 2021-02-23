@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 4
-  maxLaps: 3
+  m_MaxLaps: 3
 --- !u!225 &9196174308027552191
 CanvasGroup:
   m_ObjectHideFlags: 0

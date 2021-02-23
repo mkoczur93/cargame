@@ -26,9 +26,7 @@
             {
                 if (col.TryGetComponent<Rigidbody2D>(out var player))
 
-                {
-                    //Debug.Log(player);
-                    //Debug.Log(Player);                
+                {             
                     player.drag = slowingDown;
                 }
 
@@ -41,8 +39,6 @@
             {
                 if (col.TryGetComponent<Rigidbody2D>(out var player))
                 {
-                    //Debug.Log(player);
-                    //Debug.Log(Player);
                     player.drag = carData.BasicDrag;
                 }
 

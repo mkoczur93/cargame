@@ -5,40 +5,36 @@
     using UnityEngine;
     using System;
 
-    public class FpsSystem : MonoBehaviour
+    public class FpsSystem : IFpsSystem
     {
-        private int fps = 0;
-        private float frame = 0f;
-        int counter = 0;        
-        private static FpsSystem instance = null;
+        private int m_Fps = 0;
+        private float m_Frame = 0f;
+        private int m_Counter = 0;        
+      
         
 
-        public static FpsSystem Instance { get => instance; set => instance = value; }
-        public int Fps { get => fps; }
+       
+        public int Fps { get => m_Fps; }
 
-        private void Awake()
-        {
-            instance = this;
-
-        }
+       
 
               
         public int FpsCounter()
         {
             if (Time.timeScale == 1f)
             {
-                frame = frame + 1f / Time.deltaTime;
+                m_Frame = m_Frame + 1f / Time.deltaTime;
 
-                if (frame > 0)
+                if (m_Frame > 0)
                 {
-                    counter++;
-                    if (counter > 10)
+                    m_Counter++;
+                    if (m_Counter > 10)
                     {
-                        frame = frame / counter;
+                        m_Frame = m_Frame / m_Counter;
 
-                        fps = (int)frame;
-                        frame = 0;
-                        counter = 0;
+                        m_Fps = (int)m_Frame;
+                        m_Frame = 0;
+                        m_Counter = 0;
                         
 
                     }
@@ -46,7 +42,7 @@
                 }
 
             }
-            return fps;
+            return m_Fps;
             
         }
     }

@@ -15,8 +15,8 @@
         [SerializeField]
         private Sprite spriteMap = null;
         [SerializeField]
-        private DefaultMapSettings mapSetings = null;
-
+        DefaultMapSettings mapSettings = null;
+        
         public int Id
         {
             get => id;
@@ -24,14 +24,16 @@
         public string NameMap
         {
             get => nameMap;
+           
         }
         public Sprite SpriteMap
         {
             get => spriteMap;
         }
-        public DefaultMapSettings MapSetings
+        public DefaultMapSettings MapSettings
         {
-            get => mapSetings;
+            get => mapSettings;
+            
         }
 
     }

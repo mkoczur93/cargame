@@ -16,17 +16,20 @@
     public class MapController : IMapController, IInitializable
     {
         [Inject]
-        private readonly  DiContainer Container;
-        
+        private readonly  DiContainer Container = null;        
         private DefaultMapSettings m_Settings = null;        
         private ViewModel startAnimPanel = null;
         private Action startGame = null;
         private Action pausedGame = null;
         private PlayerMovementController m_SelectedCar;
         [Inject]
-        private readonly IGameManager m_GameManager;
+        private readonly IGameManager m_GameManager = null;
         [Inject]
-        private readonly IViewModelController m_ViewModelController;
+        private readonly IViewModelController m_ViewModelController = null;
+        [Inject]
+        private readonly ILapsSystem m_LapsSystem = null;
+        [Inject]
+        private readonly ILapTimeSystem m_LapTimeSystem = null;
 
         public DefaultMapSettings Settings
         {
@@ -66,11 +69,11 @@
 
             }
     
-            LapTimeSystem.Instance.ClearAllLapTimes();
-            LapTimeSystem.Instance.CurrentTime = m_Settings.StartTime;
-            LapsSystem.Instance.SetInitialLap();
-            LapsSystem.Instance.StartGame();
-            LapsSystem.Instance.ClearLapCheckpoints();
+            m_LapTimeSystem.ClearAllLapTimes();
+            m_LapTimeSystem.SetCurrentTime(m_Settings.StartTime);
+            m_LapsSystem.SetInitialLap();
+            m_LapsSystem.StartGame();
+            m_LapsSystem.ClearLapCheckpoints();
             startAnimPanel.enabled = true;
 
 

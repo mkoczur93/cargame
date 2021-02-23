@@ -13,7 +13,7 @@
     {
 
         [Inject]
-        ISelectionSystem m_Selection;
+        ISelectionSystem m_Selection = null;
 
 
         public void OnScroll(PointerEventData eventData)

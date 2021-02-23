@@ -13,13 +13,14 @@
     using System;
     using RacingMap;
     using Zenject;
-
+    using Player;
 
     public class SelectionSystem : ISelectionSystem, IInitializable
     {
 
         private List<PlayerCar> m_CarsData = null;
         private List<Map> m_MapsData = null;
+        private List<SpritePlayerCar> m_SpritePlayerCars = null;
         private int m_Counter = 0;
         private int m_MaxCounter = 0;
         private int m_MapCounter = 0;
@@ -27,19 +28,23 @@
         private Action<PlayerCar> m_onDataChanged = null;
         private Action<Map> m_onMapDataChanged = null;        
         [Inject]
-        private readonly MapListData.Settings m_MapSetting;
+        private readonly MapListData.Settings m_MapSetting = null;
         [Inject]
-        private readonly CarPlayerData.Settings m_CarPlayerSetting;
+        private readonly CarPlayerData.Settings m_CarPlayerSetting = null;
         [Inject]
-        private IGameManager m_GameManager;
+        private readonly SpritePlayerCarData.Settings m_SpriteCars = null;
+        [Inject]
+        private readonly PlayerMovementController m_PlayerCar = null;
+        [Inject]
+        private IGameManager m_GameManager = null;
 
 
 
 
         public void Initialize()
         {
-
-            m_MapsData = m_MapSetting.Maps;
+            m_SpritePlayerCars = m_SpriteCars.SpriteCars;
+            m_MapsData = m_MapSetting.Maps;            
             m_CarsData = m_CarPlayerSetting.Cars;
             m_MaxCounter = m_CarPlayerSetting.Cars.Count - 1;
             m_MapMaxCounter = m_MapSetting.Maps.Count - 1;
@@ -51,6 +56,10 @@
         public List<Map> MapsData
         {
             get => m_MapsData;
+        }
+        public List<SpritePlayerCar> SpritePlayerCarsData
+        {
+            get => m_SpritePlayerCars;
         }
 
         public PlayerCar SelectTheNextCar()
@@ -108,8 +117,8 @@
         }
         public void StartGame()
         {
-            m_GameManager.SelectedCar = m_CarsData[m_Counter].Car;            
-            m_GameManager.SelectedDefaultMapSettings = m_MapsData[m_MapCounter].MapSetings;            
+            m_GameManager.SetSelectedCar(m_PlayerCar, m_SpriteCars.SpriteCars[m_Counter].SpriteCar);          
+            m_GameManager.SelectedDefaultMapSettings = m_MapsData[m_MapCounter].MapSettings;            
             SceneManager.LoadScene(m_MapsData[m_MapCounter].NameMap);            
             DOTween.KillAll();
             

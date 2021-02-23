@@ -12,18 +12,24 @@
     public class GameGUIViewModel : ViewModel, INotifyPropertyChanged
     {
 
-        private int counterFps = 0;
-        private int counterLaps = 1;
+        private int m_CounterFps = 0;
+        private int m_CounterLaps = 1;
         [SerializeField]
-        private int maxLaps = 0;
-        private string lapTime = string.Empty;
-        private string startLapTime = "00:00:00";
-        private const int maxLapsLimit = 6;
-        private bool startGame = false;
+        private int m_MaxLaps = 0;
+        private string m_LapTime = string.Empty;
+        private string m_StartLapTime = "00:00:00";
+        private const int m_MaxLapsLimit = 6;
+        private bool m_StartGame = false;
         [Inject]
-        private readonly IMapController m_MapController;
+        private readonly IMapController m_MapController = null;
         [Inject]
-        private readonly IViewModelController m_ViewModelController;
+        private readonly IViewModelController m_ViewModelController = null;
+        [Inject]
+        private readonly ILapsSystem m_LapsSystem = null;
+        [Inject]
+        private readonly ILapTimeSystem m_LapTimeSystem = null;
+        [Inject]
+        private readonly IFpsSystem m_FpsSystem = null;
 
 
 
@@ -33,26 +39,26 @@
         {
             
             base.Awake();
-            LapTime = startLapTime;
+            LapTime = m_StartLapTime;
 
         }
         private void Start()
         {
-            LapsSystem.Instance.SubscribeOnStartGame(SetCounterLap);
-            LapsSystem.Instance.SubscribeOnCheckPointReached(SetCounterLap);
+            m_LapsSystem.SubscribeOnStartGame(SetCounterLap);
+            m_LapsSystem.SubscribeOnCheckPointReached(SetCounterLap);
             m_MapController.SubscribeOnStartGame(StartGame);
             m_MapController.SubscribeOnPausedGame(PausedGame);
         }
         private void StartGame()
         {
-            startGame = true;
-            LapTime = startLapTime;
+            m_StartGame = true;
+            LapTime = m_StartLapTime;
 
         }
         private void PausedGame()
         {
-            startGame = false;
-            LapTime = startLapTime;
+            m_StartGame = false;
+            LapTime = m_StartLapTime;
 
         }
         // Update is called once per frame
@@ -60,24 +66,24 @@
         private void Update()
         {
             
-            if (maxLaps >= counterLaps)
+            if (m_MaxLaps >= m_CounterLaps)
             {
                 
-                if (startGame == true)
+                if (m_StartGame == true)
                 {
-                    LapTime = LapTimeSystem.Instance.SetActualTime();
+                    LapTime = m_LapTimeSystem.SetActualTime();
                 }
                
-                CounterFps = FpsSystem.Instance.FpsCounter();
+                CounterFps = m_FpsSystem.FpsCounter();
             }
         }
-        public void SetCounterLap() { CounterLaps = LapsSystem.Instance.CounterLaps; }
+        public void SetCounterLap() { CounterLaps = m_LapsSystem.CounterLaps; }
 
 
         private void OnDestroy()
         {
-            LapsSystem.Instance.UnSubscribeOnCheckPointReached(SetCounterLap);
-            LapsSystem.Instance.UnSubscribeOnStartGame(SetCounterLap);
+            m_LapsSystem.UnSubscribeOnCheckPointReached(SetCounterLap);
+            m_LapsSystem.UnSubscribeOnStartGame(SetCounterLap);
             m_MapController.UnSubscribeOnStartGame(StartGame);
             m_MapController.UnSubscribeOnPausedGame(PausedGame);
 
@@ -90,18 +96,18 @@
         {
             get
             {
-                return counterFps;
+                return m_CounterFps;
             }
             set
             {
-                if (counterFps == value)
+                if (m_CounterFps == value)
                 {
                     return;
                 }
 
 
 
-                counterFps = value;
+                m_CounterFps = value;
 
                 OnPropertyChanged(nameof(CounterFps));
             }
@@ -112,22 +118,22 @@
         {
             get
             {
-                return counterLaps;
+                return m_CounterLaps;
             }
             set
             {
 
-                if (counterLaps == value)
+                if (m_CounterLaps == value)
                 {
                     return;
                 }
 
 
 
-                counterLaps = value;
+                m_CounterLaps = value;
 
 
-                if (maxLaps < counterLaps)
+                if (m_MaxLaps < m_CounterLaps)
                 {
                     
                     Time.timeScale = 0f;
@@ -138,7 +144,7 @@
 
                     return;
                 }
-                LapTimeSystem.Instance.CurrentTime = 0;
+                m_LapTimeSystem.SetCurrentTime(0);
 
 
                 OnPropertyChanged(nameof(CounterLaps));
@@ -152,17 +158,17 @@
         {
             get
             {
-                return maxLaps;
+                return m_MaxLaps;
             }
             set
             {
-                if (maxLaps == value)
+                if (m_MaxLaps == value)
                 {
                     return;
                 }
 
 
-                maxLaps = value;
+                m_MaxLaps = value;
 
                 OnPropertyChanged(nameof(MaxLaps));
             }
@@ -172,17 +178,17 @@
         {
             get
             {
-                return lapTime;
+                return m_LapTime;
             }
             set
             {
-                if (lapTime == value)
+                if (m_LapTime == value)
                 {
                     return;
                 }
 
 
-                lapTime = value;
+                m_LapTime = value;
 
                 OnPropertyChanged(nameof(LapTime));
             }

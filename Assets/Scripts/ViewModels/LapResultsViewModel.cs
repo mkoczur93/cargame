@@ -8,6 +8,7 @@
     using System.ComponentModel;
     using UnityEngine;
     using UnityWeld.Binding;
+    using Zenject;
 
     [Binding]
     public class LapResultsViewModel : ViewModel
@@ -15,8 +16,10 @@
         [SerializeField]
         private LapTimeResult lapResult = null;
         private List<LapTimeResult> timeLaps = new List<LapTimeResult>();
+        [Inject]
+        ILapTimeSystem m_LapTimeSystem = null;
 
-       
+
 
         protected override void Awake()
         {
@@ -56,7 +59,7 @@
         public void SpawnLapTimes()
         {
            
-            var lapTimes = LapTimeSystem.Instance.GetAllLapTimes();     
+            var lapTimes = m_LapTimeSystem.GetAllLapTimes();     
             
             foreach (var item in lapTimes)
             {

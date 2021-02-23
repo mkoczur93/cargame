@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7914063369962481696}
-  - component: {fileID: 7914063369962481711}
-  - component: {fileID: 7914063369962481710}
   m_Layer: 5
   m_Name: GameScriptsSystem
   m_TagString: Untagged
@@ -37,28 +35,3 @@ RectTransform:
   m_AnchoredPosition: {x: 400.00003, y: 225.13968}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7914063369962481711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7914063369962481697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a894d87415271694b98bfa8d36716ce9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7914063369962481710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7914063369962481697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e6c6038a58e78148b5d89e53ff80311, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lapTimes: []

@@ -14,7 +14,7 @@
     public class PlayerCarViewModel : ViewModel
     {
         [Inject]
-        private readonly IViewModelController m_ViewModelController;
+        private readonly IViewModelController m_ViewModelController = null;
         protected override void Awake()
         {
             base.Awake();

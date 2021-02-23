@@ -17,7 +17,7 @@
         private CanvasGroup mainMenu = null;        
         private string nameScene = string.Empty;
         [Inject]
-        private readonly IViewModelController m_ViewModelController;
+        private readonly IViewModelController m_ViewModelController = null;
 
         // Start is called before the first frame update
         protected override void Awake()

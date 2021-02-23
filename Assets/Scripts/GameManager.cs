@@ -13,10 +13,10 @@
         [SerializeField]
         private DefaultMapSettings m_SelectedDefaultMapSettings = null;
 
+       
         public PlayerMovementController SelectedCar
         {
-            get => m_SelectedCar;
-            set => m_SelectedCar = value;
+            get => m_SelectedCar;            
         }
 
         public DefaultMapSettings SelectedDefaultMapSettings
@@ -24,7 +24,11 @@
             get => m_SelectedDefaultMapSettings;
             set => m_SelectedDefaultMapSettings = value;
         }
+        public void SetSelectedCar(PlayerMovementController SelectedCar, Sprite SpriteCar)
+        {
+            m_SelectedCar = SelectedCar;
+            m_SelectedCar.GetComponent<SpriteRenderer>().sprite = SpriteCar;
+        }
 
-     
     }
 }

@@ -13,7 +13,7 @@
     {
 
         [Inject]
-        ISelectionSystem m_Selection;
+        private readonly ISelectionSystem m_Selection = null;
 
 
 

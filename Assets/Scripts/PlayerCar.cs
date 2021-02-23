@@ -11,28 +11,25 @@
         [SerializeField]
         private int id = 0;
         [SerializeField]
-        private string nameCar = string.Empty;
-        [SerializeField]
-        private Sprite spriteCar = null;
-        [SerializeField]
-        private PlayerMovementController car = null;
+        private string nameCar = string.Empty;     
 
         public int Id
         {
             get => id;
+            set
+            {
+                id = value;
+            }
         }
         public string NameCar
         {
             get => nameCar;
+            set
+            {
+                nameCar = value;
+            }
         }
-        public Sprite SpriteCar
-        {
-            get => spriteCar;
-        }
-        public PlayerMovementController Car
-        {
-            get => car;
-        }
+  
 
     }
 }

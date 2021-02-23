@@ -20,7 +20,7 @@
         private bool startGame = false;
         private const float driftForceFactor = 2f;
         [Inject]
-        IMapController m_MapController;
+        private readonly IMapController m_MapController = null;
 
         private void Awake()
         {

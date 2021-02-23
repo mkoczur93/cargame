@@ -20,14 +20,13 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
     private const float duration = 0;
     private bool toggle = false;
     [SerializeField]
-    private Transform transform = null;
+    private Transform m_Transform = null;
     private bool coroutine_running = false;
     private Coroutine corutine = null;
     private Sequence mySequence = null;
     [Inject]
-    private readonly IMapController m_MapController;
-    [Inject]
-    private readonly IViewModelController m_ViewModelController;
+    private readonly IMapController m_MapController = null;
+    
 
 
     [Binding]
@@ -97,7 +96,7 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
         }
 
         mySequence = DOTween.Sequence();
-        mySequence.Append(transform.transform.DOScale(Vector3.one, duration));
+        mySequence.Append(m_Transform.transform.DOScale(Vector3.one, duration));
         Counter = resetCounter;        
         coroutine_running = true;   
         yield return waitOneSecond;
@@ -105,16 +104,16 @@ public class StartAnimViewModel : ViewModel, INotifyPropertyChanged
         while (index > 0)
         {
             yield return waitOneSecond;
-            mySequence.Append(transform.transform.DOScale(Vector3.zero, scaleDurationCountingDown));
+            mySequence.Append(m_Transform.transform.DOScale(Vector3.zero, scaleDurationCountingDown));
             yield return waitOneAndHalfSecond;
             index--;
             Counter = index;
-            mySequence.Append(transform.transform.DOScale(Vector3.one, duration));            
+            mySequence.Append(m_Transform.transform.DOScale(Vector3.one, duration));            
             
 
         }
 
-        mySequence.Append(transform.transform.DOScale(Vector3.zero, duration));
+        mySequence.Append(m_Transform.transform.DOScale(Vector3.zero, duration));
         Toggle = true;
         m_MapController.StartGame();
         yield return waitOneAndHalfSecond;

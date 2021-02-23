@@ -7,6 +7,7 @@ public interface ISelectionSystem
 {
     List<PlayerCar> CarsData { get; }
     List<Map> MapsData { get; }
+    List<SpritePlayerCar> SpritePlayerCarsData { get; }
     PlayerCar SelectTheNextCar();
     PlayerCar SelectThePreviousCar();
     PlayerCar SelectCarOnClick(int id);

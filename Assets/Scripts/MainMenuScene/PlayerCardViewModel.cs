@@ -18,12 +18,12 @@
         private Sprite m_CarSprite = null;
 
         private ColorBlock m_NormalColor;
-        [SerializeField]    
-        private ColorBlock m_ColorBlock;
         [SerializeField]
-        private ColorBlock m_ColorBlockSelectedCar;
+        private ColorBlock m_ColorBlock = ColorBlock.defaultColorBlock;
+        [SerializeField]
+        private ColorBlock m_ColorBlockSelectedCar = ColorBlock.defaultColorBlock;
         [Inject]
-        ISelectionSystem m_Selection;
+        private readonly ISelectionSystem m_Selection = null;
         private void Start()
         {
            m_Selection.SubscribeOnDataChanged(SetupView);
@@ -96,12 +96,12 @@
             }
         }
 
-        public void Init(PlayerCar item)
+        public void Init(SpritePlayerCar item)
         {
             
             CarSprite = item.SpriteCar;
-            Id = item.Id;
-            if (item == m_Selection.CarsData[0])
+            Id = item.IdSprite;
+            if (item == m_Selection.SpritePlayerCarsData[0])
             {
                 NormalColor = m_ColorBlockSelectedCar;
             }

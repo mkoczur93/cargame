@@ -18,9 +18,9 @@
         private string lapStatistics = string.Empty;
 
         [Inject]
-        private readonly IMapController m_MapController;
+        private readonly IMapController m_MapController = null;
         [Inject]
-        private readonly IViewModelController m_ViewModelController;
+        private readonly IViewModelController m_ViewModelController = null;
 
 
 

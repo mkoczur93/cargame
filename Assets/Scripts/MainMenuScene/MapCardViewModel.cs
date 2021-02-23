@@ -21,11 +21,11 @@
 
         private ColorBlock m_NormalColor;
         [SerializeField]
-        private ColorBlock m_ColorBlock;
+        private ColorBlock m_ColorBlock = ColorBlock.defaultColorBlock;
         [SerializeField]
-        private ColorBlock m_ColorBlockSelectedCar;
+        private ColorBlock m_ColorBlockSelectedCar = ColorBlock.defaultColorBlock;
         [Inject]
-        ISelectionSystem m_Selection;
+        ISelectionSystem m_Selection = null;
 
         private void Start()
         {

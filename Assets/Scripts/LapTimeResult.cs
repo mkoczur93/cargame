@@ -8,25 +8,18 @@ using UnityWeld.Binding;
 public class LapTimeResult : MonoBehaviour, INotifyPropertyChanged
 {
 
-    private string lapTime;    
-    //private static LapTimeResult instance = null;
-   // public static LapTimeResult Instance { get => instance; set => instance = value; }
+    private string m_LapTime;    
+   
 
-
-    private void Awake()
-    {
-      //  instance = this;
-
-    }
     [Binding]
     public string LapTime    
     {
-        get => lapTime;
+        get => m_LapTime;
 
         set
         {
         
-            lapTime = value;
+            m_LapTime = value;
 
             OnPropertyChanged(nameof(LapTime));
         }
@@ -40,6 +33,6 @@ public class LapTimeResult : MonoBehaviour, INotifyPropertyChanged
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
-    // Start is called before the first frame update
+ 
   
 }

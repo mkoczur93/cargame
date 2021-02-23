@@ -10,24 +10,24 @@
     public class Checkpoint
     {
 
-        private int idTrigger = 0;        
-        private bool triggerPassed = false;
+        private int m_IdTrigger = 0;        
+        private bool m_TriggerPassed = false;
 
         public int IdTrigger
         {
-            get => idTrigger;
-            set => idTrigger = value;
+            get => m_IdTrigger;
+            set => m_IdTrigger = value;
         }
         public bool TriggerPassed
         {
-            get => triggerPassed;
-            set => triggerPassed = value;
+            get => m_TriggerPassed;
+            set => m_TriggerPassed = value;
         }
         
         public Checkpoint(int id, bool passed)
         {
-            idTrigger = id;
-            triggerPassed = passed;
+            m_IdTrigger = id;
+            m_TriggerPassed = passed;
         }
 
 

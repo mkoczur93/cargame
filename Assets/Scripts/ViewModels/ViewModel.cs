@@ -14,7 +14,7 @@
         protected Action<PanelUI> onPanelShow = null;
         protected Action<PanelUI> onPanelHide = null;
         [Inject]
-        IViewModelController m_ViewModelController;
+        IViewModelController m_ViewModelController = null;
         public CanvasGroup canvas
         {
             get => Canvas;

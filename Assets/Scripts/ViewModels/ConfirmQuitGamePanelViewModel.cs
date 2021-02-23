@@ -14,7 +14,7 @@
     {
 
         [Inject]
-        private readonly IViewModelController m_ViewModelController;
+        private readonly IViewModelController m_ViewModelController = null;
            
 
 

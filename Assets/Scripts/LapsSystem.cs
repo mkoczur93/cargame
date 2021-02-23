@@ -9,49 +9,47 @@
     using ObjectTagData;
     using Zenject;
 
-    public class LapsSystem : MonoBehaviour
+    public class LapsSystem : ILapsSystem,IInitializable
     {
-        [SerializeField]
-        LapCheckpoint[] baseCheckpoints = null;
-        [SerializeField]
-        private List<LapCheckpoint> lap_checkpoints = new List<LapCheckpoint>();        
+        
+        LapCheckpoint[] m_BaseCheckpoints = null;        
+        private List<LapCheckpoint> m_Lap_checkpoints = new List<LapCheckpoint>();
         private Action OnCheckPointReached = null;
-        private Action startGame = null;        
-        private DefaultMapSettings settings = null;
-        private int counterLaps = 1;
-        private const int startLap = 1;
-        public int CounterLaps { get => counterLaps; set => counterLaps = value; }
-
-        private static LapsSystem instance = null;
-        public static LapsSystem Instance { get => instance; set => instance = value; }
+        private Action startGame = null;
+        private DefaultMapSettings m_Settings = null;
+        private int m_CounterLaps = 1;
+        private const int m_StartLap = 1;
+        public LapCheckpoint[] BaseCheckpoints
+        {
+            get => m_BaseCheckpoints;            
+        }
+        public int CounterLaps { get => m_CounterLaps; set => m_CounterLaps = value; }
         [Inject]
-        IGameManager m_GameManager;
+        private readonly IGameManager m_GameManager = null;
+        [Inject]
+        private readonly ILapTimeSystem m_LapTimeSystem = null;
 
 
-        private void Awake()
+
+        public void Initialize()
         {
-            instance = this;
-
+            m_Settings = m_GameManager.SelectedDefaultMapSettings;
         }
 
-        void Start()
+        public void SetBaseCheckpoint(LapCheckpoint[] lapCheckpoints)
         {
-            settings = m_GameManager.SelectedDefaultMapSettings;
-            baseCheckpoints = GetComponentsInChildren<LapCheckpoint>();
-
-
-
+            m_BaseCheckpoints = lapCheckpoints;
         }
-
-
-
         public void RegisterCheckpoint(LapCheckpoint checkpoint)
         {
-            if (lap_checkpoints.Contains(checkpoint))
+            
+            if (m_Lap_checkpoints.Contains(checkpoint))
             {
-                lap_checkpoints.Remove(checkpoint);
+                
+                m_Lap_checkpoints.Remove(checkpoint);
             }
-            lap_checkpoints.Add(checkpoint);
+            
+            m_Lap_checkpoints.Add(checkpoint);
         }
 
 
@@ -83,46 +81,36 @@
 
         public void SetInitialLap()
         {
-            counterLaps = startLap;            
-            
+            m_CounterLaps = m_StartLap;
+
         }
 
         public void ClearLapCheckpoints()
         {
-            lap_checkpoints.Clear();
+            m_Lap_checkpoints.Clear();
         }
 
-        void OnTriggerEnter2D(Collider2D col)
+        public void CheckLap()
         {
+            if (m_Lap_checkpoints.Count == 0)
+                return;
 
-            if (col.CompareTag(ObjectTagData.Player))
+            for (int i = 0; i < m_Lap_checkpoints.Count; i++)
             {
-                
-                if (lap_checkpoints.Count == 0)
-                    return;
-
-                for (int i = 0; i < lap_checkpoints.Count; i++)
+                if (m_Lap_checkpoints[i] != m_BaseCheckpoints[i])
                 {
-                    if (lap_checkpoints[i] != baseCheckpoints[i])
-                    {
-                        return;
-                    }
+                    return;
                 }
-
-
-                LapTimeSystem.Instance.AddLapTime();
-
-                counterLaps++;
-                
-                OnCheckPointReached?.Invoke();
-
-
-
-
-
-
-
             }
+
+
+            m_LapTimeSystem.AddLapTime();
+
+            m_CounterLaps++;
+
+            OnCheckPointReached?.Invoke();
         }
+
+      
     }
 }

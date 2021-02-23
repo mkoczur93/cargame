@@ -1,12 +1,15 @@
 ﻿namespace Car
 {
+    using System;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
-    using System;
-    public class CarPlayerData
+
+    public class SpritePlayerCarData
     {
+
         private readonly Settings m_settings;
-        public CarPlayerData(Settings settings)
+        public SpritePlayerCarData(Settings settings)
         {
             m_settings = settings;
         }
@@ -14,15 +17,12 @@
         public class Settings
         {
             [SerializeField]
-            private List<PlayerCar> cars = null;
-            public List<PlayerCar> Cars
+            private List<SpritePlayerCar> m_SpriteCars = null;
+            public List<SpritePlayerCar> SpriteCars
             {
-                get => cars;
-                set
-                {
-                    cars = value;
-                }
+                get => m_SpriteCars;
             }
+
         }
     }
 }

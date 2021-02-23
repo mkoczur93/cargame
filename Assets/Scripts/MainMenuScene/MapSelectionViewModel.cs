@@ -30,9 +30,9 @@
         private List<CardMapPosition> m_Cards = new List<CardMapPosition>();
         private const float m_Duration = 1f;
         [Inject]
-        private readonly ISelectionSystem m_Selection;
+        private readonly ISelectionSystem m_Selection = null;
         [Inject]
-        private readonly IViewModelController m_ViewModelController;
+        private readonly IViewModelController m_ViewModelController = null;
 
 
         protected override void Awake()

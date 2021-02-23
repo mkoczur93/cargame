@@ -29,9 +29,9 @@
         private List<CardPosition> m_Cards = new List<CardPosition>();
         private const float m_Duration = 1f;
         [Inject]
-        ISelectionSystem m_Selection;
+        ISelectionSystem m_Selection = null;
         [Inject]
-        private readonly IViewModelController m_ViewModelController;
+        private readonly IViewModelController m_ViewModelController = null;
 
         protected override void Awake()
         {
@@ -51,7 +51,7 @@
         private void Spawn()
         {
             m_CellSize = m_ScrollContent.GetComponent<GridLayoutGroup>().cellSize.x;
-            var cars = m_Selection.CarsData;
+            var cars = m_Selection.SpritePlayerCarsData;
             
             foreach (var item in cars)
 
