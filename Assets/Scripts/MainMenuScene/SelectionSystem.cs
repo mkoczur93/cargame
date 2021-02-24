@@ -26,7 +26,7 @@
         private int m_MapCounter = 0;
         private int m_MapMaxCounter = 0;
         private Action<PlayerCar> m_onDataChanged = null;
-        private Action<Map> m_onMapDataChanged = null;        
+        private Action<Map> m_onMapDataChanged = null;              
         [Inject]
         private readonly MapListData.Settings m_MapSetting = null;
         [Inject]

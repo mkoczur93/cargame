@@ -13,12 +13,10 @@
     {
 
         private int m_CounterFps = 0;
-        private int m_CounterLaps = 1;
-        [SerializeField]
+        private int m_CounterLaps = 1;       
         private int m_MaxLaps = 0;
         private string m_LapTime = string.Empty;
-        private string m_StartLapTime = "00:00:00";
-        private const int m_MaxLapsLimit = 6;
+        private string m_StartLapTime = "00:00:00";        
         private bool m_StartGame = false;
         [Inject]
         private readonly IMapController m_MapController = null;
@@ -30,6 +28,8 @@
         private readonly ILapTimeSystem m_LapTimeSystem = null;
         [Inject]
         private readonly IFpsSystem m_FpsSystem = null;
+        [Inject]
+        private readonly IGameManager m_GameManager = null;
 
 
 
@@ -39,7 +39,8 @@
         {
             
             base.Awake();
-            LapTime = m_StartLapTime;
+            LapTime = m_StartLapTime;            
+            MaxLaps = m_GameManager.Laps;
 
         }
         private void Start()

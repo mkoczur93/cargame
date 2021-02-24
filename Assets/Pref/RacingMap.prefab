@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2101352105478341028}
   - component: {fileID: 2101352105478341030}
-  - component: {fileID: 2101352105478341031}
   m_Layer: 9
   m_Name: Trigger
   m_TagString: Untagged
@@ -45,68 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carData: {fileID: 11400000, guid: 7b627d5b47022c34ba4d200c7ec17c66, type: 2}
---- !u!60 &2101352105478341031
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101352105478341051}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -1.3636354, y: 0.9097385}
-      - {x: -1.3838298, y: -0.9124566}
-      - {x: -0.9597096, y: -0.9078261}
-      - {x: -0.8863623, y: -0.9159377}
-      - {x: 0.6788855, y: -0.86863434}
-      - {x: 0.50749356, y: -0.64183444}
-      - {x: 0.39148062, y: -0.78332484}
-      - {x: 0.19895607, y: -0.8361899}
-      - {x: -0.35875636, y: -0.8228704}
-      - {x: -0.97870773, y: -0.8218854}
-      - {x: -1.0094815, y: -0.81027883}
-      - {x: -1.1256839, y: -0.77310556}
-      - {x: -1.2254928, y: -0.6666982}
-      - {x: -1.3135668, y: -0.55305946}
-      - {x: -1.3070979, y: 0.40345672}
-      - {x: -1.2794726, y: 0.61547595}
-      - {x: -1.0078886, y: 0.8524734}
-      - {x: 0.772232, y: 0.87330306}
-      - {x: 0.90738165, y: 0.8156787}
-      - {x: 1.0239884, y: 0.7409479}
-      - {x: 1.0877143, y: 0.6908308}
-      - {x: 1.1336694, y: 0.5501143}
-      - {x: 1.1615908, y: 0.4583236}
-      - {x: 1.172332, y: 0.17267965}
-      - {x: 1.1603943, y: 0.05643169}
-      - {x: 1.098283, y: -0.10694612}
-      - {x: 1.0174383, y: -0.17552075}
-      - {x: 0.8986357, y: -0.25664914}
-      - {x: 0.6854447, y: -0.30107346}
-      - {x: 0.6313222, y: -0.37776893}
-      - {x: 0.61910915, y: -0.5231181}
-      - {x: 0.52926, y: -0.71038926}
-      - {x: 0.31143594, y: -0.7881631}
-      - {x: -0.4512995, y: -0.9213788}
-      - {x: 0.0809497, y: -0.9421577}
-      - {x: 1.3657535, y: -0.9015503}
-      - {x: 1.3673377, y: 0.9038738}
 --- !u!1 &4604933066525592193
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +61,7 @@ GameObject:
   - component: {fileID: 2101352105388179887}
   - component: {fileID: 2101352105388179880}
   m_Layer: 9
-  m_Name: RacingMap 1
+  m_Name: RacingMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -82,7 +82,9 @@
         {
 
             EventSystem.current.SetSelectedGameObject(null);
-            m_Selection.StartGame();
+            hidePanel();
+            m_ViewModelController.getViewModel(PanelUI.LapsPanel).showPanel();
+            
 
 
         }

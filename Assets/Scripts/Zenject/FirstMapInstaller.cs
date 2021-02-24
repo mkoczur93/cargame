@@ -12,6 +12,7 @@ public class FirstMapInstaller : MonoInstaller
         Container.Bind(typeof(IInitializable), typeof(ILapsSystem)).To<LapsSystem>().AsSingle();
         Container.Bind(typeof(IInitializable), typeof(ILapTimeSystem)).To<LapTimeSystem>().AsSingle();
         Container.Bind(typeof(IFpsSystem)).To<FpsSystem>().AsSingle();
+        Container.Bind(typeof(IInitializable), typeof(IBrakeTrack)).To<BrakeTrack>().AsSingle();
 
 
     }

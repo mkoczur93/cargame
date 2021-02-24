@@ -14,6 +14,8 @@
         PlayerCarPanel = 10,
         MapSelectionPanel = 11,
         MapPanel = 12,
+        LapsPanel = 13,
+        LapsSelectionPanel = 14,
 
 
 

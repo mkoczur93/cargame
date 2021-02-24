@@ -72,3 +72,5 @@ MonoBehaviour:
         startCameraRotation: {x: 0, y: 0, z: 0}
         initialLap: 1
         startTime: 0
+  m_BrakeTrack: {fileID: 6359489664190882506, guid: fd42be3d9a6accf4a90764773cabcaeb,
+    type: 3}

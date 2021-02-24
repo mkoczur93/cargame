@@ -21,6 +21,9 @@
         private const float driftForceFactor = 2f;
         [Inject]
         private readonly IMapController m_MapController = null;
+        [Inject]
+        private readonly IBrakeTrack m_ObjectPooled = null;
+        private TrailRenderer m_PooledObject = null;
 
         private void Awake()
         {
@@ -36,7 +39,9 @@
             
             
         }
+       
 
+       
        private void FixedUpdate()
        {
            if (startGame == true)
@@ -70,21 +75,33 @@
         private void Update()
         {
             CheckCurrentSpeed();
-        }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                m_PooledObject = m_ObjectPooled.GetPooledObject();
+                m_PooledObject.transform.SetParent(this.transform);                
+                m_PooledObject.transform.localPosition = Vector3.zero;
+                m_PooledObject.enabled = true;
 
-        public void PlayerMovement()
-        {
+            }
             if (Input.GetKey(KeyCode.Space))
             {
                 rb.drag = carData.BrakingSpeed;
+
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 if (rb.drag != carData.BasicDrag)
                 {
                     rb.drag = carData.BasicDrag;
+                    m_PooledObject.transform.SetParent(null);
+
                 }
             }
+        }
+
+        public void PlayerMovement()
+        {
+           
 
 
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
