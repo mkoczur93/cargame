@@ -13,7 +13,7 @@ public class BrakeTrack : IBrakeTrack, IInitializable
     private float m_TimeBrakeTrack = 0;
     private Transform m_Parent = null;
     private List<TrailRenderer> m_PooledObjects;
-    private List<TrailRenderer> m_PooledObjectsSpawned;
+    private List<TrailRenderer> m_PooledObjectsSpawned;    
     private const int m_AmountToPool = 20;
     [Inject]
     private AsyncProcessor m_AsyncProcessor = null;
@@ -51,13 +51,13 @@ public class BrakeTrack : IBrakeTrack, IInitializable
         if (m_SpawnObjectPool == null)
         {
             m_SpawnObjectPool = new GameObject("SpawnObjectPool");
+            m_PooledObjects = new List<TrailRenderer>();
+            m_PooledObjectsSpawned = new List<TrailRenderer>();
         }
-        m_Parent = m_SpawnObjectPool.transform;
-        m_PooledObjectsSpawned = new List<TrailRenderer>();
-        m_PooledObjects = new List<TrailRenderer>();
+        m_Parent = m_SpawnObjectPool.transform;               
         TrailRenderer tmp;
         m_TimeBrakeTrack = m_BrakeTrack.time;
-        for (int i = 0; i < m_AmountToPool; i++)
+        for (int i = m_PooledObjects.Count; i < m_AmountToPool; i++)
         {
             tmp = Container.InstantiatePrefabForComponent<TrailRenderer>(m_BrakeTrack);
             tmp.transform.SetParent(m_Parent);
@@ -68,6 +68,9 @@ public class BrakeTrack : IBrakeTrack, IInitializable
     }
     public void NewGameInit()
     {
+         
+        m_AsyncProcessor.StopAllCoroutines();
+      
         if (m_PooledObjectsSpawned != null)
         {
             if (m_PooledObjectsSpawned.Count == 0)
@@ -76,14 +79,12 @@ public class BrakeTrack : IBrakeTrack, IInitializable
             }
             else 
             {
+                
                 foreach (var item in m_PooledObjectsSpawned)
                 {
                     m_AsyncProcessor.DestroyObject(item.gameObject);                    
-                }              
-                m_PooledObjectsSpawned = null;
-                m_PooledObjects = null;
-                m_AsyncProcessor.DestroyObject(m_SpawnObjectPool);
-                m_SpawnObjectPool = null;
+                }
+                m_PooledObjectsSpawned.Clear();
                 Init();
             }
         }
@@ -96,6 +97,7 @@ public class BrakeTrack : IBrakeTrack, IInitializable
     public void StartCorutinePutItBackInPooledObjects(TrailRenderer PooledObject)
     {
         m_AsyncProcessor.StartCoroutine(PutItBackInPooledObjects(PooledObject));
+        
     }
     IEnumerator PutItBackInPooledObjects(TrailRenderer item)
     {

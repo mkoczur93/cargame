@@ -76,7 +76,10 @@
         private void Update()
         {
             CheckCurrentSpeed();
-            CheckBraking();
+            if (startGame == true)
+            {
+                CheckBraking();
+            }
         }
 
         public void PlayerMovement()
