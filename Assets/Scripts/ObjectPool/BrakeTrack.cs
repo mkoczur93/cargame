@@ -17,8 +17,10 @@ public class BrakeTrack : IBrakeTrack, IInitializable
     private const int m_AmountToPool = 20;
     [Inject]
     private AsyncProcessor m_AsyncProcessor = null;
-    
-   
+    private GameObject m_SpawnObjectPool = null;
+
+
+
 
     public TrailRenderer GetPooledObject()
     {
@@ -27,23 +29,30 @@ public class BrakeTrack : IBrakeTrack, IInitializable
             var ReturnObject = m_PooledObjects[0];
             ReturnObject.transform.localPosition = Vector3.zero;
             m_PooledObjects.RemoveAt(0);
-            m_PooledObjectsSpawned.Add(ReturnObject);            
+            m_PooledObjectsSpawned.Add(ReturnObject);
             return ReturnObject;
         }
         var PooledObject = Container.InstantiatePrefabForComponent<TrailRenderer>(m_BrakeTrack); ;
         PooledObject.transform.localPosition = Vector3.zero;
         m_PooledObjectsSpawned.Add(PooledObject);
-        
+
 
         return PooledObject;
     }
-    
+
 
     public void Initialize()
     {
-        
-        var item = new GameObject("SpawnObjectPool");
-        m_Parent = item.transform;
+        // Init();
+
+    }
+    public void Init()
+    {
+        if (m_SpawnObjectPool == null)
+        {
+            m_SpawnObjectPool = new GameObject("SpawnObjectPool");
+        }
+        m_Parent = m_SpawnObjectPool.transform;
         m_PooledObjectsSpawned = new List<TrailRenderer>();
         m_PooledObjects = new List<TrailRenderer>();
         TrailRenderer tmp;
@@ -57,30 +66,65 @@ public class BrakeTrack : IBrakeTrack, IInitializable
         }
 
     }
+    public void NewGameInit()
+    {
+        if (m_PooledObjectsSpawned != null)
+        {
+            if (m_PooledObjectsSpawned.Count == 0)
+            {
+                return;
+            }
+            else 
+            {
+                foreach (var item in m_PooledObjectsSpawned)
+                {
+                    m_AsyncProcessor.DestroyObject(item.gameObject);                    
+                }              
+                m_PooledObjectsSpawned = null;
+                m_PooledObjects = null;
+                m_AsyncProcessor.DestroyObject(m_SpawnObjectPool);
+                m_SpawnObjectPool = null;
+                Init();
+            }
+        }
+        else
+        {
+            Init();
+        }
 
+    }
     public void StartCorutinePutItBackInPooledObjects(TrailRenderer PooledObject)
     {
         m_AsyncProcessor.StartCoroutine(PutItBackInPooledObjects(PooledObject));
     }
     IEnumerator PutItBackInPooledObjects(TrailRenderer item)
     {
-        
+
         yield return new WaitForSeconds(m_TimeBrakeTrack);
-        Debug.Log(item);
-        Debug.Log(m_PooledObjectsSpawned.Count);
-        for(int i=0;i<m_PooledObjectsSpawned.Count;i++)
+        for (int i = 0; i < m_PooledObjectsSpawned.Count; i++)
         {
-            if(item.GetInstanceID() == m_PooledObjectsSpawned[i].GetInstanceID())
+            if (item.GetInstanceID() == m_PooledObjectsSpawned[i].GetInstanceID())
             {
                 m_PooledObjectsSpawned.RemoveAt(i);
+                item.enabled = false;
                 item.transform.SetParent(m_Parent);
-                m_PooledObjects.Add(item);
-                Debug.Log("removed");
+
+
+                if (m_PooledObjects.Count < m_AmountToPool)
+                {
+                    m_PooledObjects.Add(item);
+
+                }
+                else
+                {
+                    m_AsyncProcessor.DestroyObject(item.gameObject);
+                }
+
                 yield return null;
             }
 
         }
-       
+
 
 
 

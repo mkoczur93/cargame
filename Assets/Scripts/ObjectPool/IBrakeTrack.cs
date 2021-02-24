@@ -8,6 +8,8 @@ public interface IBrakeTrack
     
     TrailRenderer GetPooledObject();    
     void StartCorutinePutItBackInPooledObjects(TrailRenderer PooledObject);
+    void Init();
+    void NewGameInit();
 
 
 

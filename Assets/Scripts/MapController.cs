@@ -30,6 +30,8 @@
         private readonly ILapsSystem m_LapsSystem = null;
         [Inject]
         private readonly ILapTimeSystem m_LapTimeSystem = null;
+        [Inject]
+        private readonly IBrakeTrack m_BrakeTrack = null;
 
         public DefaultMapSettings Settings
         {
@@ -74,6 +76,7 @@
             m_LapsSystem.SetInitialLap();
             m_LapsSystem.StartGame();
             m_LapsSystem.ClearLapCheckpoints();
+            m_BrakeTrack.NewGameInit();
             startAnimPanel.enabled = true;
 
 

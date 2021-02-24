@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class AsyncProcessor : MonoBehaviour
 {
- 
+    public void DestroyObject(GameObject obj)
+    {
+        Destroy(obj);
+    }
 }
