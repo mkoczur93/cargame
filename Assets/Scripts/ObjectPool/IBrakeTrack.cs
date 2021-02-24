@@ -6,7 +6,8 @@ public interface IBrakeTrack
 {
 
     
-    TrailRenderer GetPooledObject();
+    TrailRenderer GetPooledObject();    
+    void StartCorutinePutItBackInPooledObjects(TrailRenderer PooledObject);
 
 
 

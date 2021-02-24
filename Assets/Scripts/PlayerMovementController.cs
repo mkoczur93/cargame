@@ -22,8 +22,9 @@
         [Inject]
         private readonly IMapController m_MapController = null;
         [Inject]
-        private readonly IBrakeTrack m_ObjectPooled = null;
+        private readonly IBrakeTrack m_BrakeTrack = null;
         private TrailRenderer m_PooledObject = null;
+      
 
         private void Awake()
         {
@@ -75,28 +76,7 @@
         private void Update()
         {
             CheckCurrentSpeed();
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                m_PooledObject = m_ObjectPooled.GetPooledObject();
-                m_PooledObject.transform.SetParent(this.transform);                
-                m_PooledObject.transform.localPosition = Vector3.zero;
-                m_PooledObject.enabled = true;
-
-            }
-            if (Input.GetKey(KeyCode.Space))
-            {
-                rb.drag = carData.BrakingSpeed;
-
-            }
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                if (rb.drag != carData.BasicDrag)
-                {
-                    rb.drag = carData.BasicDrag;
-                    m_PooledObject.transform.SetParent(null);
-
-                }
-            }
+            CheckBraking();
         }
 
         public void PlayerMovement()
@@ -149,7 +129,32 @@
 
         }
 
-        
+        public void CheckBraking()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                m_PooledObject = m_BrakeTrack.GetPooledObject();
+                m_PooledObject.transform.SetParent(this.transform);
+                m_PooledObject.transform.localPosition = Vector3.zero;
+                m_PooledObject.enabled = true;
+
+            }
+            if (Input.GetKey(KeyCode.Space))
+            {
+                rb.drag = carData.BrakingSpeed;
+
+            }
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                if (rb.drag != carData.BasicDrag)
+                {
+                    rb.drag = carData.BasicDrag;
+                    m_PooledObject.transform.SetParent(null);
+                    m_BrakeTrack.StartCorutinePutItBackInPooledObjects(m_PooledObject);
+
+                }
+            }
+        }
          public void CheckCurrentSpeed()
         {
             if (rb.velocity != Vector2.zero)
