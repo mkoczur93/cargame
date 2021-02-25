@@ -12,14 +12,14 @@ public class BrakeTrack : IBrakeTrack, IInitializable
     private TrailRenderer m_BrakeTrack = null;
     private float m_TimeBrakeTrack = 0;
     private Transform m_Parent = null;
-    private List<TrailRenderer> m_PooledObjects;
-    private List<TrailRenderer> m_PooledObjectsSpawned;    
+    private List<TrailRenderer> m_PooledObjects = new List<TrailRenderer>();
+    private List<TrailRenderer> m_PooledObjectsSpawned = new List<TrailRenderer>();  
     private const int m_AmountToPool = 20;
     [Inject]
     private AsyncProcessor m_AsyncProcessor = null;
     private GameObject m_SpawnObjectPool = null;
 
-
+  
 
 
     public TrailRenderer GetPooledObject()
@@ -43,7 +43,7 @@ public class BrakeTrack : IBrakeTrack, IInitializable
 
     public void Initialize()
     {
-        // Init();
+        Init();
 
     }
     public void Init()
@@ -51,12 +51,11 @@ public class BrakeTrack : IBrakeTrack, IInitializable
         if (m_SpawnObjectPool == null)
         {
             m_SpawnObjectPool = new GameObject("SpawnObjectPool");
-            m_PooledObjects = new List<TrailRenderer>();
-            m_PooledObjectsSpawned = new List<TrailRenderer>();
+            m_Parent = m_SpawnObjectPool.transform;
         }
-        m_Parent = m_SpawnObjectPool.transform;               
+                    
         TrailRenderer tmp;
-        m_TimeBrakeTrack = m_BrakeTrack.time;
+        m_TimeBrakeTrack = m_BrakeTrack.time;    
         for (int i = m_PooledObjects.Count; i < m_AmountToPool; i++)
         {
             tmp = Container.InstantiatePrefabForComponent<TrailRenderer>(m_BrakeTrack);
@@ -88,10 +87,7 @@ public class BrakeTrack : IBrakeTrack, IInitializable
                 Init();
             }
         }
-        else
-        {
-            Init();
-        }
+       
 
     }
     public void StartCorutinePutItBackInPooledObjects(TrailRenderer PooledObject)
