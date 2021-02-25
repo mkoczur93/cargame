@@ -14,7 +14,8 @@ public class ProjectInstaller : MonoInstaller<ProjectInstaller>
         Container.Bind(typeof(IViewModelController)).To<ViewModelController>().AsSingle();
         Container.Bind(typeof(IInitializable)).To<LoadJSON>().AsSingle();
         
-        
+
+
 
 
     }
