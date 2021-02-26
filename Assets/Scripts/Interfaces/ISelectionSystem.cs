@@ -14,6 +14,10 @@ public interface ISelectionSystem
     Map SelectTheNextMap();
     Map SelectThePreviousMap();
     Map SelectMapOnClick(int id);
+    int IncreaseCounterLap();
+    int DecreaseCounterLap();
+    void SubscribeOnCoutnerLapsDataChanged(Action<int> action);
+    void UnSubscribeOnCoutnerLapsDataChanged(Action<int> action);
     void StartGame();
     void SubscribeOnDataChanged(Action<PlayerCar> action);
     void UnSubscribeOnDataChanged(Action<PlayerCar> action);

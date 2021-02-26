@@ -15,6 +15,8 @@
         private const float m_slowingDown = 0.8f;
         private const float m_streamWater = 1.5f;
         private const float m_slowingDownEnterRiver = 1.25f;
+
+        //Do zmiany
         void OnTriggerEnter2D(Collider2D col)
         {
             if (col.CompareTag(ObjectTagData.Player))

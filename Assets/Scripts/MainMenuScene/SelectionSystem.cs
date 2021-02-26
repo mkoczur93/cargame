@@ -25,8 +25,12 @@
         private int m_MaxCounter = 0;
         private int m_MapCounter = 0;
         private int m_MapMaxCounter = 0;
+        private int m_CounterLaps = 0;
+        private const int m_InitialLap = 1;
+        private const int m_MaxLapsCounter = 30;
         private Action<PlayerCar> m_onDataChanged = null;
-        private Action<Map> m_onMapDataChanged = null;              
+        private Action<Map> m_onMapDataChanged = null;
+        private Action<int> m_onCounterLapsDataChanged = null;
         [Inject]
         private readonly MapListData.Settings m_MapSetting = null;
         [Inject]
@@ -115,10 +119,31 @@
             m_onMapDataChanged?.Invoke(m_MapsData[m_MapCounter]);
             return m_MapsData[m_MapCounter];
         }
+
+        public int IncreaseCounterLap()
+        {
+            if (m_CounterLaps < m_MaxLapsCounter)
+            {
+                m_CounterLaps++;
+
+            }
+            m_onCounterLapsDataChanged?.Invoke(m_CounterLaps);
+            return m_CounterLaps;
+        }
+        public int DecreaseCounterLap()
+        {
+            if (m_CounterLaps > m_InitialLap)
+            {
+                m_CounterLaps--;
+            }
+            m_onCounterLapsDataChanged?.Invoke(m_CounterLaps);
+            return m_CounterLaps;
+        }
         public void StartGame()
         {
             m_GameManager.SetSelectedCar(m_PlayerCar, m_SpriteCars.SpriteCars[m_Counter].SpriteCar);          
-            m_GameManager.SelectedDefaultMapSettings = m_MapsData[m_MapCounter].MapSettings;            
+            m_GameManager.SelectedDefaultMapSettings = m_MapsData[m_MapCounter].MapSettings;
+            m_GameManager.SetLaps(m_CounterLaps);
             SceneManager.LoadScene(m_MapsData[m_MapCounter].NameMap);            
             DOTween.KillAll();
             
@@ -142,6 +167,14 @@
         public void UnSubscribeOnMapDataChanged(Action<Map> action)
         {
             m_onMapDataChanged -= action;
+        }
+        public void SubscribeOnCoutnerLapsDataChanged(Action<int> action)
+        {
+            m_onCounterLapsDataChanged += action;
+        }
+        public void UnSubscribeOnCoutnerLapsDataChanged(Action<int> action)
+        {
+            m_onCounterLapsDataChanged -= action;
         }
 
 

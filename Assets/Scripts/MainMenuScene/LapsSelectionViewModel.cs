@@ -21,9 +21,7 @@
     public class LapsSelectionViewModel : ViewModel, INotifyPropertyChanged
     {
 
-        private int m_LapsCounter = 1;
-        private const int m_InitialLap = 1;
-        private const int m_MaxLapsCounter = 30;
+        private int m_LapsCounter = 1;    
         [Inject]
         private readonly IViewModelController m_ViewModelController = null;
         [Inject]
@@ -33,7 +31,16 @@
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private void Start()
+        {
+            m_Selection.SubscribeOnCoutnerLapsDataChanged(SetupView);
+        }
 
+        public void SetupView(int CounterLaps)
+        {
+            LapsCounter = CounterLaps;
+
+        }
         [Binding]
         public int LapsCounter
         {
@@ -62,8 +69,7 @@
         public void ButtonConfirm()
         {
 
-            EventSystem.current.SetSelectedGameObject(null);
-            m_GameManager.SetLaps(LapsCounter);            
+            EventSystem.current.SetSelectedGameObject(null);                       
             m_Selection.StartGame();
 
 
@@ -72,10 +78,7 @@
         public void ButtonPrevious()
         {
             EventSystem.current.SetSelectedGameObject(null);
-            if (LapsCounter > m_InitialLap)
-            {
-                LapsCounter--;
-            }
+            m_Selection.DecreaseCounterLap();
 
         }
 
@@ -83,11 +86,8 @@
         public void ButtonNext()
         {
             EventSystem.current.SetSelectedGameObject(null);
-            if (LapsCounter < m_MaxLapsCounter)
-            {
-                LapsCounter++;
-
-            }
+            m_Selection.IncreaseCounterLap();
+            
         }
         [Binding]
         public void ButtonBack()
@@ -106,6 +106,10 @@
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+        private void OnDestroy()
+        {
+            m_Selection.UnSubscribeOnCoutnerLapsDataChanged(SetupView);
         }
     }
 }
